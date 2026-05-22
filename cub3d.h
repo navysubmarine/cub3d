@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:38 by marthoma          #+#    #+#             */
-/*   Updated: 2026/05/22 16:02:04 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/05/22 16:26:58 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 
 typedef struct s_img
 {
+	int			i;
+	/*this variable is just for compilation purposes*/
 }				t_img;
 
 typedef struct s_player
@@ -45,7 +47,8 @@ typedef struct s_game
 	void		*mlx;
 	void		*win;
 	t_img		img;
-	t_map		*map;
+	t_map		map;
+	t_player	player;
 }				t_game;
 
 /*CHECK MAP*/

@@ -6,9 +6,10 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:47:36 by marthoma          #+#    #+#             */
-/*   Updated: 2026/05/22 14:48:05 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/05/22 16:19:49 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+/*TODO: check the file content is valid*/
