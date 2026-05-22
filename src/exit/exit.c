@@ -6,13 +6,13 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 15:10:36 by marthoma          #+#    #+#             */
-/*   Updated: 2026/05/22 15:12:05 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/05/22 15:58:17 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-/*TODO:refactor global exit
+/*TODO:refactor global exit*/
 int	exit_game(t_game *g, int error)
 {
 	free_all(g);
@@ -25,4 +25,3 @@ int	exit_game(t_game *g, int error)
 	exit(EXIT_SUCCESS);
 	return (0);
 }
-*/

@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:19 by marthoma          #+#    #+#             */
-/*   Updated: 2026/05/22 15:22:37 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/05/22 15:57:24 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,16 @@ int	check_input(int argc, char **argv, t_game *g)
 	return (0);
 }
 
+/*TODO: make the key_handler + init_game + load_sprites functions*/
 int	main(int argc, char **argv)
 {
 	t_game	g;
 
 	ft_memset(&g, 0, sizeof(t_game));
-	if(check_input(argc, argv, &g))
+	if (check_input(argc, argv, &g) || init_game(&g) || load_sprites(&g)
+		|| render_map(&g))
 		exit_game(&g, 1);
-	
+	mlx_hook(g.win, 2, 1L << 0, key_handler, &g);
+	mlx_hook(g.win, 17, 0, exit_game, &g);
+	mlx_loop(g.mlx);
 }
