@@ -1,20 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.c                                            :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/22 11:46:19 by marthoma          #+#    #+#             */
-/*   Updated: 2026/05/22 15:06:32 by marthoma         ###   ########.fr       */
+/*   Created: 2025/11/10 17:11:11 by marthoma          #+#    #+#             */
+/*   Updated: 2026/02/03 12:08:05 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+char	*ft_strchr(const char *s, int c)
 {
-	t_game	g;
+	int	i;
 
-	
+	i = 0;
+	while (s[i] && s[i] != (char)c)
+		i++;
+	if (s[i] == (char)c)
+		return ((char *)(s + i));
+	return (0);
 }
+/*
+int main()
+{
+	const char *s;
+	int	c;
+
+	s ="bonjour \x88 petit crustace";
+	c = 'p';
+
+	printf("%s\n", ft_strchr(s, '\x88'));
+	printf("%s\n", strchr(s, '\x88'));
+	printf("%s\n", strrchr(s, c + 256));
+	return (0);
+}
+*/

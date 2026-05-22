@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.c                                            :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/22 11:46:19 by marthoma          #+#    #+#             */
-/*   Updated: 2026/05/22 15:06:32 by marthoma         ###   ########.fr       */
+/*   Created: 2025/11/15 16:47:56 by marthoma          #+#    #+#             */
+/*   Updated: 2025/11/15 16:51:12 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+void	ft_putendl_fd(char *s, int fd)
 {
-	t_game	g;
+	int	i;
 
-	
+	i = 0;
+	while (s[i] != '\0')
+	{
+		i++;
+	}
+	write(fd, s, i);
+	write(fd, "\n", 1);
 }

@@ -1,20 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.c                                            :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/22 11:46:19 by marthoma          #+#    #+#             */
-/*   Updated: 2026/05/22 15:06:32 by marthoma         ###   ########.fr       */
+/*   Created: 2025/11/12 18:12:07 by marthoma          #+#    #+#             */
+/*   Updated: 2025/11/12 18:36:22 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+char	*ft_strdup(const char *s)
 {
-	t_game	g;
+	int		i;
+	char	*new;
 
-	
+	i = 0;
+	new = malloc(sizeof(*new) * (ft_strlen(s) + 1));
+	if (new == NULL)
+		return (NULL);
+	while (s[i])
+	{
+		new[i] = s[i];
+		i++;
+	}
+	new[i] = '\0';
+	return (new);
 }
+/*
+int main ()
+{
+	char *ptr;
+	char str[]="bonjour";
+	ptr = ft_strdup(str);
+	printf("%s", str);
+	printf("%s", ptr);
+	free(ptr);	
+}
+*/

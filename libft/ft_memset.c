@@ -1,20 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.c                                            :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/22 11:46:19 by marthoma          #+#    #+#             */
-/*   Updated: 2026/05/22 15:06:32 by marthoma         ###   ########.fr       */
+/*   Created: 2025/11/10 09:31:15 by marthoma          #+#    #+#             */
+/*   Updated: 2025/11/12 17:36:23 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+void	*ft_memset(void *s, int c, size_t n)
 {
-	t_game	g;
+	unsigned long	i;
 
-	
+	i = 0;
+	while (i < n)
+	{
+		*((char *)(s + i)) = (char) c;
+		i++;
+	}
+	return (s);
 }
+/*
+int main()
+{
+	int	s[]= {42, 7, 2, 48, 1};
+	int	c;
+	unsigned long	n;
+	
+	c = 6;
+	n = 5;
+    printf("%d\n", (*(int *)(ft_memset(s, c, n))));
+    printf("%d", (*(int *)(memset(s, c, n))));
+    return(0);
+}
+*/

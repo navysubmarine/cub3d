@@ -1,20 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.c                                            :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/22 11:46:19 by marthoma          #+#    #+#             */
-/*   Updated: 2026/05/22 15:06:32 by marthoma         ###   ########.fr       */
+/*   Created: 2025/11/15 16:52:33 by marthoma          #+#    #+#             */
+/*   Updated: 2025/11/15 17:04:33 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+void	ft_putnbr_fd(int n, int fd)
 {
-	t_game	g;
+	int long	i;
 
-	
+	if (n == -2147483648)
+	{
+		write (fd, "-2147483648", 11);
+		return ;
+	}
+	i = n;
+	if (i < 0)
+	{
+		write(fd, "-", 1);
+		i = -i;
+	}
+	if (i > 9)
+	{
+		ft_putnbr_fd((i / 10), fd);
+		ft_putchar_fd(((i % 10) + '0'), fd);
+	}
+	if (i < 10)
+		ft_putchar_fd((i + '0'), fd);
 }
