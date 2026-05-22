@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 15:39:55 by marthoma          #+#    #+#             */
-/*   Updated: 2025/11/19 19:04:19 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/05/22 18:59:29 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	i = 0;
 	c = nmemb * size;
 	if (nmemb == 0 || size == 0)
-		new = malloc(0);
+		new = NULL;
 	else if (c / size != nmemb)
 		return (0);
 	else

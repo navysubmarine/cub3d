@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 15:37:53 by marthoma          #+#    #+#             */
-/*   Updated: 2025/11/21 18:18:55 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/05/22 18:59:56 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,9 @@ char	*ft_strtrim(char const *s1, char const *set)
 {
 	char			*new;
 	int				i;
-	int				j;
 	unsigned long	size_new;
 
 	i = 0;
-	j = 0;
 	size_new = 1 + calcul_size(s1, trim_start(s1, set), trim_end(s1, set));
 	new = ft_calloc(size_new, sizeof(char));
 	if (!new)

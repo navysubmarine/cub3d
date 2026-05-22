@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 15:26:58 by marthoma          #+#    #+#             */
-/*   Updated: 2025/11/10 15:38:36 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/05/22 18:58:01 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,8 @@
 
 int	ft_toupper(int c)
 {
-	unsigned long	i;
-
-	i = 0;
 	if (c >= 'a' && c <= 'z')
-			c = c - 32;
+		c = c - 32;
 	return (c);
 }
 /*

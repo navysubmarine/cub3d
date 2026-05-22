@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:19 by marthoma          #+#    #+#             */
-/*   Updated: 2026/05/22 18:30:53 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/05/22 18:54:22 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,33 +34,34 @@ static unsigned int	count_lines(int fd)
 
 char	**store_content(t_game *g, char *file, int nb_of_lines)
 {
-	char	**map;
+	char	**content;
 	int		fd;
 	int		i;
 	char	*eol;
 
+	(void)g;
 	i = 0;
-	map = malloc(sizeof(char *) * (nb_of_lines + 1));
-	if (!map)
+	content = malloc(sizeof(char *) * (nb_of_lines + 1));
+	if (!content)
 		return (NULL);
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
-		return (free(map), NULL);
+		return (free(content), NULL);
 	while (i < nb_of_lines)
 	{
-		map[i] = get_next_line(fd);
-		if (!map[i])
-			return (free_map(map), close(fd), NULL);
-		if (ft_strchr(map[i], '\n'))
+		content[i] = get_next_line(fd);
+	//TODO: add a free "content" in case of error
+		if (!content[i])
+			return (close(fd), NULL);
+		if (ft_strchr(content[i], '\n'))
 		{
-			eol = ft_strchr(map[i], '\n');
+			eol = ft_strchr(content[i], '\n');
 			*eol = '\0';
 		}
 		i++;
 	}
-	return (map[i] = NULL, close(fd), map);
+	return (content[i] = NULL, close(fd), content);
 }
-
 
 static int	check_file(t_game *g, char *filename)
 {
@@ -71,17 +72,16 @@ static int	check_file(t_game *g, char *filename)
 	if (fd < 0)
 		return (-1);
 	nb_of_lines = count_lines(fd);
-	g.file->content = store_content(g, filename, nb_of_lines);
+	g->file.content = store_content(g, filename, nb_of_lines);
 	return (fd);
 }
 
-int	check_map(t_game *g, char *filename)
-{
+/*TODO: make check map function*/\
+// int	check_map(t_game *g, char *filename)
+// {
 
-}
+// }
 
-/*TODO: make the init map (creating an array of strings, easier to check)
-and check_map function(s)*/
 int	check_input(int argc, char **argv, t_game *g)
 {
 	if (argc != 2 || !ft_strchr_cub(argv[1]))
@@ -91,9 +91,9 @@ int	check_input(int argc, char **argv, t_game *g)
 		return (1);
 	}
 	check_file(g, argv[1]);
-	check_textures;
-	check_colors;
-	check_map(g, argv[1]);
+	//check_textures;
+	//check_colors;
+	//check_map(g, argv[1]);
 	return (0);
 }
 
@@ -103,10 +103,13 @@ int	main(int argc, char **argv)
 	t_game	g;
 
 	ft_memset(&g, 0, sizeof(t_game));
-	if (check_input(argc, argv, &g) || init_game(&g) || load_sprites(&g)
-		|| render_map(&g))
-		exit_game(&g, 1);
-	mlx_hook(g.win, 2, 1L << 0, key_handler, &g);
-	mlx_hook(g.win, 17, 0, exit_game, &g);
-	mlx_loop(g.mlx);
+	if (check_input(argc, argv, &g))
+	// || 
+	//init_game(&g) || load_sprites(&g)
+	//	|| render_map(&g)
+	//	exit_game(&g, 1);
+		return (1);
+	//mlx_hook(g.win, 2, 1L << 0, key_handler, &g);
+	//mlx_hook(g.win, 17, 0, exit_game, &g);
+	//mlx_loop(g.mlx);
 }

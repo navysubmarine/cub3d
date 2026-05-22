@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 15:31:38 by marthoma          #+#    #+#             */
-/*   Updated: 2026/01/30 11:45:31 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/05/22 18:58:39 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,10 @@ static int	signe(const char *str)
 long	ft_atoi(const char *nptr)
 {
 	int		i;
-	int		j;
 	long	reliquat;
 	long	resultat;
 
 	i = 0;
-	j = 0;
 	reliquat = 0;
 	resultat = 0;
 	while ((nptr[i] >= 9 && nptr[i] <= 13) || nptr[i] == 32)

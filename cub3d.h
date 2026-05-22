@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:38 by marthoma          #+#    #+#             */
-/*   Updated: 2026/05/22 18:33:21 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/05/22 18:56:31 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,6 @@ char			*call_and_check(int fd, char *buffer, char **stash);
 int				read_and_fill_stash(int fd, char *buffer, char **stash);
 char			*update_stash(char **stash);
 char			*set_line(char *stash);
+char			*clear_stash(char *stash_array[FD_OPEN_MAX]);
 
 #endif

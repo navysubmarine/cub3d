@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 18:22:05 by marthoma          #+#    #+#             */
-/*   Updated: 2026/05/22 18:22:28 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/05/22 18:56:11 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,4 +110,21 @@ char	*set_line(char *stash)
 	else
 		final_line = ft_strdup(stash);
 	return (final_line);
+}
+
+char	*clear_stash(char *stash_array[FD_OPEN_MAX])
+{
+	int	i;
+
+	i = 0;
+	while (i < FD_OPEN_MAX)
+	{
+		if (stash_array[i])
+		{
+			free(stash_array[i]);
+			stash_array[i] = NULL;
+		}
+		i++;
+	}
+	return (NULL);
 }
