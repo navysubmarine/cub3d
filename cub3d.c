@@ -6,7 +6,13 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:19 by marthoma          #+#    #+#             */
-/*   Updated: 2026/05/22 11:46:20 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/05/22 14:48:39 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "cub3d.h"
+
+int main(int argc, char **argv)
+{
+    
+}

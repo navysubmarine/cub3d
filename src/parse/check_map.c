@@ -6,9 +6,9 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:47:36 by marthoma          #+#    #+#             */
-/*   Updated: 2026/05/22 11:48:56 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/05/22 14:48:05 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "././inc/cub3d.h"
+#include "cub3d.h"
 
