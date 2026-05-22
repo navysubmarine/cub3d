@@ -1,36 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.c                                            :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/22 11:46:19 by marthoma          #+#    #+#             */
-/*   Updated: 2026/05/22 15:22:37 by marthoma         ###   ########.fr       */
+/*   Created: 2026/05/22 15:19:04 by marthoma          #+#    #+#             */
+/*   Updated: 2026/05/22 15:19:59 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../../cub3d.h"
 
-/*TODO: make the check_map function(s)*/
-int	check_input(int argc, char **argv, t_game *g)
+int	ft_strchr_cub(const char *s)
 {
-	if (argc != 2 || !ft_strchr_cub(argv[1]))
-	{
-		ft_putstr_fd("Error. Correct input format : ./cub3d <filename>.cub\n",
-			2);
+	int	i;
+
+	i = 0;
+	if (!s)
+		return (0);
+	while (s[i])
+		i++;
+	if (i < 4)
+		return (0);
+	if (s[i - 4] == '.' && s[i - 3] == 'c' && s[i - 2] == 'u' && s[i
+			- 1] == 'b')
 		return (1);
-	}
-	check_map1;
 	return (0);
-}
-
-int	main(int argc, char **argv)
-{
-	t_game	g;
-
-	ft_memset(&g, 0, sizeof(t_game));
-	if(check_input(argc, argv, &g))
-		exit_game(&g, 1);
-	
 }

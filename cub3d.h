@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:38 by marthoma          #+#    #+#             */
-/*   Updated: 2026/05/22 14:51:06 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/05/22 15:19:46 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,7 @@ typedef struct s_game
 }				t_game;
 
 /*CHECK MAP*/
+
+int	ft_strchr_cub(const char *s);
 
 #endif
