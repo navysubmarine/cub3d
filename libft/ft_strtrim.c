@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 15:37:53 by marthoma          #+#    #+#             */
-/*   Updated: 2026/05/22 18:59:56 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/05/22 19:01:54 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static unsigned int	trim_start(char const *s1, char const *set)
 		while (set[j] != '\0')
 		{
 			if (s1[i] == set[j])
-			{	
+			{
 				v++;
 				j = 0;
 				i++;
