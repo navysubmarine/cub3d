@@ -6,12 +6,11 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:19 by marthoma          #+#    #+#             */
-/*   Updated: 2026/05/25 18:30:49 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/05/25 20:33:31 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
 
 static unsigned int	count_lines(int fd)
 {
@@ -37,12 +36,12 @@ char	**store_content(char *file, int nb_of_lines)
 {
 	char	**content;
 	char	*line;
-	char	*tmp;
 	int		fd;
 	int		i;
+	char	*eol;
 
 	i = 0;
-	content = ft_strdup("");
+	content = malloc(sizeof(char *) * (nb_of_lines + 1));
 	if (!content)
 		return (NULL);
 	fd = open(file, O_RDONLY);
@@ -50,19 +49,15 @@ char	**store_content(char *file, int nb_of_lines)
 		return (free(content), NULL);
 	while (i < nb_of_lines)
 	{
-		line = get_next_line(fd);
-		if (!line)
-			return (close(fd), free(content), NULL);
-		tmp = ft_strjoin(content, line);
-		free(content);
-		free(line);
-		if (!tmp)
-			return (close(fd), NULL);
-		content = tmp;
+		content[i] = get_next_line(fd);
+		if (!content[i])
+			return (free_content(content), close(fd), NULL);
+		eol = ft_strchr(content[i], '\n');
+		if (eol)
+			*eol = '\0';
 		i++;
 	}
-	close(fd);
-	return (content);
+	return (content[i] = NULL, close(fd), content);
 }
 
 static int	check_file(t_game *g, char *filename)
