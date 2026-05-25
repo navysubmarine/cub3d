@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:38 by marthoma          #+#    #+#             */
-/*   Updated: 2026/05/22 18:56:31 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/05/25 16:10:09 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,15 @@ typedef struct s_player
 
 typedef struct s_file
 {
+	int			nb_of_lines;
 	char		**content;
+	char		*path_no_texture;
+	char		*path_so_texture;
+	char		*path_we_texture;
+	char		*path_ea_texture;
+	int			*ceiling;
+	int			*floor;
+	char		**map;
 }				t_file;
 
 typedef struct s_map
