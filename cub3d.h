@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:38 by marthoma          #+#    #+#             */
-/*   Updated: 2026/05/25 18:04:05 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/05/25 20:37:29 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # endif
 
 # include "../libft/libft.h"
+# include "minilibx/mlx.h"
 # include <fcntl.h>
 # include <limits.h>
 # include <stdbool.h>
@@ -50,8 +51,8 @@ typedef struct s_file
 	char		*path_so;
 	char		*path_we;
 	char		*path_ea;
-	int			*ceiling;
-	int			*floor;
+	int			**ceiling;
+	int			**floor;
 	char		**map;
 }				t_file;
 
@@ -81,5 +82,9 @@ int				read_and_fill_stash(int fd, char *buffer, char **stash);
 char			*update_stash(char **stash);
 char			*set_line(char *stash);
 char			*clear_stash(char *stash_array[FD_OPEN_MAX]);
-
+/*EXIT*/
+int				exit_game(t_game *g, int error);
+void			free_content(char **content);
+void			free_all(t_game *g);
+char			*clear_stash(char *stash_array[FD_OPEN_MAX]);
 #endif

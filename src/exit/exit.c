@@ -6,13 +6,14 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 15:10:36 by marthoma          #+#    #+#             */
-/*   Updated: 2026/05/25 20:33:17 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/05/25 21:04:34 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../cub3d.h"
 
 /*TODO:refactor global exit*/
+/*
 int	exit_game(t_game *g, int error)
 {
 	(void)g;
@@ -26,11 +27,13 @@ int	exit_game(t_game *g, int error)
 	exit(EXIT_SUCCESS);
 	return (0);
 }
+*/
 
 int	exit_game(t_game *g, int error)
 {
+	(void)g;
 	get_next_line(-1);
-	free_all(g);
+	//free_all(g);
 	if (error)
 	{
 		exit(EXIT_FAILURE);
@@ -84,34 +87,22 @@ static void	free_images(t_game *g)
 		mlx_destroy_image(g->mlx, g->img.exit);
 }
 */
+/*
 void	free_all(t_game *g)
 {
 	if (!g)
 		return ;
-	free_map(g->map);
-	free_map(g->test_map);
-	free_images(g);
+	free_content(g->file.content);
+	//free_map(g->test_map);
+	//free_images(g);
 	if (g->win && g->mlx)
 		mlx_destroy_window(g->mlx, g->win);
 	if (g->mlx)
 		mlx_destroy_display(g->mlx);
 	if (g->mlx)
 		free(g->mlx);
-}
-
-char	*clear_stash(char *stash_array[FD_OPEN_MAX])
-{
-	int	i;
-
-	i = 0;
-	while (i < FD_OPEN_MAX)
-	{
-		if (stash_array[i])
-		{
-			free(stash_array[i]);
-			stash_array[i] = NULL;
-		}
 		i++;
 	}
 	return (NULL);
 }
+*/

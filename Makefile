@@ -1,5 +1,5 @@
 CC      = cc
-CFLAGS  = -Wall -Wextra -Werror -g3
+CFLAGS  = -Wall -Wextra -Werror -g3 -I$(MLX_DIR)
 NAME    = cub3d
 
 SOURCES = cub3d.c \
@@ -8,9 +8,9 @@ SOURCES = cub3d.c \
 
 OBJETS  = $(SOURCES:.c=.o)
 
-# MLX_DIR = minilibx-linux
-# MLX = $(MLX_DIR)/libmlx.a
-# MLX_LIB = -L$(MLX_DIR) -lmlx_Linux -lX11 -lXext -lm -lz
+MLX_DIR = minilibx
+MLX = $(MLX_DIR)/libmlx.a
+MLX_LIB = -L$(MLX_DIR) -lmlx_Linux -lX11 -lXext -lm -lz
 
 LIBFT    = libft/libft.a
 
@@ -18,30 +18,30 @@ LIBFT    = libft/libft.a
 
 all: $(NAME)
 
-$(NAME): $(OBJETS) $(LIBFT)
+$(NAME): $(OBJETS) $(LIBFT) $(MLX)
 	$(CC) $(CFLAGS) $(OBJETS) \
-	-Llibft -lft \
+	-Llibft -lft $(MLX_LIB) \
 	-o $(NAME)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# $(MLX):
-# 	@$(MAKE) -C minilibx-linux
+$(MLX):
+	@$(MAKE) -C $(MLX_DIR)
 
 $(LIBFT):
 	@$(MAKE) -C libft
 
 clean:
 	@$(MAKE) clean -C libft
-# 	@$(MAKE) clean -C minilibx-linux
+	@cd $(MLX_DIR) && if [ -f Makefile.gen ]; then ./configure clean; fi
 	rm -f $(OBJETS)
 
 good: all clean
 
 fclean: clean
 	@$(MAKE) fclean -C libft
-# 	@$(MAKE) fclean -C minilibx-linux
+	@cd $(MLX_DIR) && if [ -f Makefile.gen ]; then ./configure clean; fi
 	rm -f $(NAME)
 
 re: fclean all

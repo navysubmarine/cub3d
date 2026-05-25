@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:19 by marthoma          #+#    #+#             */
-/*   Updated: 2026/05/25 20:33:31 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/05/25 20:56:03 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ static unsigned int	count_lines(int fd)
 char	**store_content(char *file, int nb_of_lines)
 {
 	char	**content;
-	char	*line;
 	int		fd;
 	int		i;
 	char	*eol;
@@ -192,30 +191,31 @@ int	line_type(char *line, t_file *file)
 			return (1);
 		return (0);
 	}
+	/*TODO:how to transform the string into a three elements array of int*/
+	/*
 	content = match_content(line, "F");
 	if (content)
 	{
-		if (set_var(&file->floor, content))
+		if (set_var(file->floor, content))
 			return (1);
 		return (0);
 	}
 	content = match_content(line, "C");
 	if (content)
 	{
-		if (set_var(&file->ceiling, content))
+		if (set_var(file->ceiling, content))
 			return (1);
 		return (0);
 	}
+	*/
 	return (1);
 }
 
 int	parse_header_line(char *line, t_file *file)
 {
-	int		i;
 	char	*new_line;
 	int		ret;
 
-	i = 0;
 	new_line = ft_strtrim(line, " \t");
 	if (!new_line)
 		return (1);
@@ -279,6 +279,7 @@ int	check_content(t_game *g)
 	}
 	if (validate_all_header_set(&g->file))
 		return (1);
+	return (0);
 	/*
 	while (i < g->file.nb_of_lines)
 	{
@@ -300,7 +301,7 @@ int	check_input(int argc, char **argv, t_game *g)
 		ft_putstr_fd("Error. invalid file\n", 2);
 		return (1);
 	}
-	if (check_content(g, argv[1]))
+	if (check_content(g))
 	{
 		return(1);
 	}
