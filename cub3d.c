@@ -6,13 +6,13 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:19 by marthoma          #+#    #+#             */
-/*   Updated: 2026/05/25 16:38:22 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/05/25 18:30:49 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-/*
+
 static unsigned int	count_lines(int fd)
 {
 	char	*line;
@@ -32,7 +32,7 @@ static unsigned int	count_lines(int fd)
 	close(fd);
 	return (count);
 }
-*/
+
 char	**store_content(char *file, int nb_of_lines)
 {
 	char	**content;
@@ -84,21 +84,22 @@ static int	check_file(t_game *g, char *filename)
 // {
 
 // }
-
+/*
 int	check_textures(t_game *g)
 {
 	char	*f_content;
 
 	f_content = g->file.content;
-	g->file.path_no_texture = ft_strnstr(f_content, "NO ./", 6) + 5;
-	if (!g->file.path_no_texture)
+	g->file.path_no = ft_strnstr(f_content, "NO ./", 6) + 5;
+	if (!g->file.path_no)
 	{
 		ft_putstr_fd("Error. Incorrect North texture\n", 33);
 		return (1);
 	}
 	
 }
-
+*/
+/*
 int	parse_config(char **lines, int count, t_map *map)
 {
 	int	i = 0;
@@ -115,20 +116,21 @@ int	parse_config(char **lines, int count, t_map *map)
 		return (error("no map found"), -1);
 	return parse_map_section(&lines[i], count - i, map);
 }
+*/
 
-int	is_valid_map_line(char	*line)
+int	is_valid_map_line(char	*line, t_game *g)
 {
 	int	i;
 
 	i = 0;
-	while (line[i])
+	while (i < g->file.nb_of_lines)
 	{
 		if (line[i] != '0' && line[i] != '1'
 			&& line[i] != 'N' && line[i] != 'S'
 			&& line[i] != 'E' && line[i] != 'W'
 			&& line[i] != ' ' && line[i] != 9)
 		{
-			ft_putstr_fd("Error. Invalid character in map\n", 2);
+			ft_putstr_fd("Error. Invalid character in map line\n", 2);
 			return (1);
 		}
 		i++;
@@ -136,23 +138,158 @@ int	is_valid_map_line(char	*line)
 	return (0);
 }
 
+int	set_var(char **struct_path, char *line)
+{
+	if (*struct_path)
+	{
+		ft_putstr_fd("Error. Duplicate identifyer\n", 2);
+		return (1);
+	}
+	*struct_path = ft_strdup(line);
+	return (*struct_path == NULL);
+}
+
+static char	*match_content(char *line, char *id)
+{
+	int	len;
+	int i;
+
+	len = ft_strlen(id);
+	if (ft_strncmp(line, id, len) != 0)
+		return (NULL);
+	if (line[len] != ' ' && line[len] != '\t')
+		return (NULL);
+	i = len;
+	while (line[i] == ' ' || line[i] == '\t')
+		i++;
+	return (&line[i]);
+}
+
+int	line_type(char *line, t_file *file)
+{
+	char	*content;
+
+	content = match_content(line, "NO");
+	if (content)
+	{
+		if (set_var(&file->path_no, content))
+			return (1);
+		return (0);
+	}
+	content = match_content(line, "SO");
+	if (content)
+	{
+		if (set_var(&file->path_so, content))
+			return (1);
+		return (0);
+	}
+	content = match_content(line, "WE");
+	if (content)
+	{
+		if (set_var(&file->path_we, content))
+			return (1);
+		return (0);
+	}
+	content = match_content(line, "EA");
+	if (content)
+	{
+		if (set_var(&file->path_ea, content))
+			return (1);
+		return (0);
+	}
+	content = match_content(line, "F");
+	if (content)
+	{
+		if (set_var(&file->floor, content))
+			return (1);
+		return (0);
+	}
+	content = match_content(line, "C");
+	if (content)
+	{
+		if (set_var(&file->ceiling, content))
+			return (1);
+		return (0);
+	}
+	return (1);
+}
+
+int	parse_header_line(char *line, t_file *file)
+{
+	int		i;
+	char	*new_line;
+	int		ret;
+
+	i = 0;
+	new_line = ft_strtrim(line, " \t");
+	if (!new_line)
+		return (1);
+	ret = line_type(new_line, file);
+	if (ret)
+	{
+		ft_putstr_fd("Error. File line not recognized\n", 2);
+		free(new_line);
+		return (1);
+	}
+	free(new_line);
+	return (0);
+}
+
+int validate_all_header_set(t_file *file)
+{
+	if (!file->path_no)
+	{
+		ft_putstr_fd("Error. Missing north texture\n", 2);
+		return (1);
+	}
+	if (!file->path_so)
+	{
+		ft_putstr_fd("Error. Missing south texture\n", 2);
+		return (1);
+	}
+	if (!file->path_we)
+	{
+		ft_putstr_fd("Error. Missing west texture\n", 2);
+		return (1);
+	}
+	if (!file->path_ea)
+	{
+		ft_putstr_fd("Error. Missing east texture\n", 2);
+		return (1);
+	}
+	if (!file->floor)
+	{
+		ft_putstr_fd("Error. Missing floor color\n", 2);
+		return (1);
+	}
+	if (!file->ceiling)
+	{
+		ft_putstr_fd("Error. Missing ceiling color\n", 2);
+		return (1);
+	}
+	return (0);
+}
+
 int	check_content(t_game *g)
 {
-	int	i;
-	char **lines;
-	
-	i = 0;
-	g->file.content = lines; 
-	while (i < g->file.nb_of_lines && !is_ valid_map_line(lines[i]))
-	{
-		//
-	}
+	int		i;
+	char	**lines;
 
+	i = 0;
+	lines = g->file.content;
+	while (i < g->file.nb_of_lines && !is_valid_map_line(lines[i], g))
+	{
+		parse_header_line(lines[i], &g->file);
+		i++;
+	}
+	if (validate_all_header_set(&g->file))
+		return (1);
+	/*
 	while (i < g->file.nb_of_lines)
 	{
 		
 	}
-
+	*/
 }
 
 int	check_input(int argc, char **argv, t_game *g)
