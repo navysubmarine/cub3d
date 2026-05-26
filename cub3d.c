@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:19 by marthoma          #+#    #+#             */
-/*   Updated: 2026/05/26 11:26:08 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/05/26 12:01:30 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,70 @@ int	is_valid_map_line(char	*line)
 		i++;
 	}
 	return (0);
+}
+
+int	test_tx_path(char *tx_type, char *path)
+{
+	
+}
+
+int	is_valid_texture_line(char	*line, t_game *g)
+{
+	int	i;
+
+	i = 0;
+	if (!line || line[0] == '\0' || line[0] == '\n' || line[0]== '\t')
+		return (1);
+
+	if (ft_strncmp(line, "NO ./", 5) == 0 && line[5] != '\0')
+	{
+		if (test_tx_path("north", line[5]))
+		{
+			return (1);
+		}
+	}
+	else if (ft_strncmp(line, "SO ./", 5) == 0 && line[5] != '\0')
+	{
+		
+	}
+	else if (ft_strncmp(line, "WE ./", 5) == 0 && line[5] != '\0')
+	{
+		
+	}
+	else if (ft_strncmp(line, "EA ./", 5) == 0 && line[5] != '\0')
+	{
+		
+	}
+	else if (ft_strncmp(line, "F ", 2) == 0 && line[2] != '\0')
+	{
+		
+	}
+	else if (ft_strncmp(line, "C ", 2) == 0 && line[2] != '\0')
+	{
+		
+	}
+	else
+		return (1);
+}
+
+int	is_valid_color_line(char	*line)
+{
+	// int	i;
+
+	// i = 0;
+	// while (line[i] != '\0')
+	// {
+	// 	if (line[i] != '0' && line[i] != '1'
+	// 		&& line[i] != 'N' && line[i] != 'S'
+	// 		&& line[i] != 'E' && line[i] != 'W'
+	// 		&& line[i] != ' ' && line[i] != 9)
+	// 	{
+	// 		ft_putstr_fd("Error. Invalid character in map line\n", 2);
+	// 		return (1);
+	// 	}
+	// 	i++;
+	// }
+	// return (0);
 }
 
 int	set_var(char **struct_path, char *line)
@@ -275,21 +339,33 @@ int	check_content(t_game *g)
 	lines = g->file.content;
 	/*TODO: remake the logic to identify if it's map or header
 	line - or empty line*/
-	while (i < g->file.nb_of_lines && !is_valid_map_line(lines[i]))
-	{
-		if (parse_header_line(lines[i], &g->file))
-			return (1);
-		i++;
-	}
-	if (validate_all_header_set(&g->file))
-		return (1);
-	return (0);
-	/*
 	while (i < g->file.nb_of_lines)
 	{
-		
+		if (!is_valid_texture_line(lines[i], g))
+		{
+			
+		}
+		else if (!is_valid_color_line(lines[i], g))
+		{
+			
+		}
+		else if (!is_valid_map_line(lines[i], g))
+		{
+			
+		}
+		else
+		{
+			ft_putstr_fd("Error. Line %d is invalid\n", i);
+			return (1);
+		}
+		// if (parse_header_line(lines[i], &g->file))
+		// 	return (1);
+		i++;
 	}
-	*/
+	if (validate_all_header_set(&g->file) && validate_all_map(&g->file))
+		return (1);
+	ft_putstr_fd("OK, file is valid. Ready to launch !!\n", 1);
+	return (0);
 }
 
 int	check_input(int argc, char **argv, t_game *g)
