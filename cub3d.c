@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:19 by marthoma          #+#    #+#             */
-/*   Updated: 2026/05/26 17:11:44 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/05/26 19:50:40 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -332,7 +332,6 @@ int validate_all_header_set(t_file *file)
 	}
 	if (!file->floor_set)
 	{
-		print_file(file);
 		ft_putstr_fd("Error. Missing floor color\n", 2);
 		return (1);
 	}
@@ -421,8 +420,6 @@ int	handle_file_content(t_game *g)
 		}
 		else
 		{
-			print_file(&g->file);
-			printf("DEBUG unrecognized line [%d]: '%s'\n", i, lines[i]);
 			ft_putstr_fd("Error. Unrecognized line\n", 2);
 			return (1);
 		}
@@ -431,8 +428,8 @@ int	handle_file_content(t_game *g)
 	/*TODO: add validate_all_map_set*/
 	if (validate_all_header_set(&g->file))
 		return (1);
-	print_file(&g->file);
-	ft_putstr_fd("OK, file is valid. Ready to launch !!\n", 1);
+	//print_file(&g->file);
+	//ft_putstr_fd("OK, file is valid. Ready to launch !!\n", 1);
 	return (0);
 }
 

@@ -15,7 +15,10 @@ MLX_LIB = -L$(MLX_DIR) -lmlx_Linux -lX11 -lXext -lm -lz
 
 LIBFT    = libft/libft.a
 
-.PHONY: all clean fclean re
+MAPS_GOOD = $(wildcard maps/good/*.cub)
+MAPS_BAD  = $(wildcard maps/bad/*.cub)
+
+.PHONY: all clean fclean re test
 
 all: $(NAME)
 
@@ -47,3 +50,24 @@ fclean: clean
 
 re: fclean all
 
+test: all
+	@echo "=== GOOD MAPS (should all succeed) ==="
+	@for map in $(MAPS_GOOD); do \
+		echo "--- $$map ---"; \
+		./$(NAME) $$map; \
+		if [ $$? -eq 0 ]; then \
+			echo "✅ PASS"; \
+		else \
+			echo "❌ FAIL (expected success)"; \
+		fi \
+	done
+	@echo "=== BAD MAPS (should all fail) ==="
+	@for map in $(MAPS_BAD); do \
+		echo "--- $$map ---"; \
+		./$(NAME) $$map; \
+		if [ $$? -ne 0 ]; then \
+			echo "✅ PASS (rejected correctly)"; \
+		else \
+			echo "❌ FAIL (should have been rejected)"; \
+		fi \
+	done
