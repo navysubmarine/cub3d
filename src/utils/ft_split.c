@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 12:54:48 by marthoma          #+#    #+#             */
-/*   Updated: 2026/05/26 12:55:05 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/05/26 13:26:48 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,14 +91,12 @@ static char	**fill_str(char const *s, char c,
 
 char	**ft_split(char const *s, char c)
 {
-	int				i_tab;
 	char			**tab_str;
 	unsigned int	nb_strings;
 	int				i_og;
 
 	if (!s)
 		return (NULL);
-	i_tab = 0;
 	i_og = 0;
 	tab_str = NULL;
 	nb_strings = calcul_nb_strings(s, c);

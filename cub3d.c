@@ -6,11 +6,38 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:19 by marthoma          #+#    #+#             */
-/*   Updated: 2026/05/26 13:20:30 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/05/26 13:33:52 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static char	*match_content(char *line, char *id)
+{
+	int	len;
+	int i;
+
+	len = ft_strlen(id);
+	if (ft_strncmp(line, id, len) != 0)
+		return (NULL);
+	if (line[len] != ' ' && line[len] != '\t')
+		return (NULL);
+	i = len;
+	while (line[i] == ' ' || line[i] == '\t')
+		i++;
+	return (&line[i]);
+}
+
+int	set_var(char **struct_path, char *line)
+{
+	if (*struct_path)
+	{
+		ft_putstr_fd("Error. Duplicate identifyer\n", 2);
+		return (1);
+	}
+	*struct_path = ft_strdup(line);
+	return (*struct_path == NULL);
+}
 
 static unsigned int	count_lines(int fd)
 {
@@ -272,14 +299,20 @@ int	is_valid_texture_line(char	*line, t_game *g)
 				return (1);
 		}
 	}
-	else if (ft_strncmp(line, "F ", 2) == 0 && line[2] != '\0')
+}
+
+int	is_valid_color_line(char	*line)
+{
+	char	*content;
+
+	if (ft_strncmp(line, "F ", 2) == 0 && line[2] != '\0')
 	{
 		content = match_content(line, "F");
 		if (test_rgb_color("Floor", content))
 			return (1);
 		else
 		{
-			if (store_rgb(&g->file.floor, content))
+			if (store_rgb(g->file.floor, content))
 				return (1);
 		}
 	}
@@ -290,60 +323,13 @@ int	is_valid_texture_line(char	*line, t_game *g)
 			return (1);
 		else
 		{
-			if (store_rgb(&g->file.ceiling, content))
+			if (store_rgb(g->file.ceiling, content))
 				return (1);
 		}
 	}
 	else
 		return (1);
 	return (0);
-}
-
-int	is_valid_color_line(char	*line)
-{
-	// int	i;
-
-	// i = 0;
-	// while (line[i] != '\0')
-	// {
-	// 	if (line[i] != '0' && line[i] != '1'
-	// 		&& line[i] != 'N' && line[i] != 'S'
-	// 		&& line[i] != 'E' && line[i] != 'W'
-	// 		&& line[i] != ' ' && line[i] != 9)
-	// 	{
-	// 		ft_putstr_fd("Error. Invalid character in map line\n", 2);
-	// 		return (1);
-	// 	}
-	// 	i++;
-	// }
-	// return (0);
-}
-
-int	set_var(char **struct_path, char *line)
-{
-	if (*struct_path)
-	{
-		ft_putstr_fd("Error. Duplicate identifyer\n", 2);
-		return (1);
-	}
-	*struct_path = ft_strdup(line);
-	return (*struct_path == NULL);
-}
-
-static char	*match_content(char *line, char *id)
-{
-	int	len;
-	int i;
-
-	len = ft_strlen(id);
-	if (ft_strncmp(line, id, len) != 0)
-		return (NULL);
-	if (line[len] != ' ' && line[len] != '\t')
-		return (NULL);
-	i = len;
-	while (line[i] == ' ' || line[i] == '\t')
-		i++;
-	return (&line[i]);
 }
 
 int	line_type(char *line, t_file *file)
@@ -459,36 +445,28 @@ int	check_content(t_game *g)
 
 	i = 0;
 	lines = g->file.content;
-	/*TODO: remake the logic to identify if it's map or header
-	line - or empty line*/
 	while (i < g->file.nb_of_lines)
 	{
-		if (!is_valid_texture_line(lines[i], g))
+		if (is_valid_texture_line(lines[i], g) && is_valid_color_line(lines[i], g) && is_valid_map_line(lines[i], g))
 		{
-			
-		}
-		else if (!is_valid_color_line(lines[i], g))
-		{
-			
-		}
-		else if (!is_valid_map_line(lines[i], g))
-		{
-			
+			/*redundant ?*/
+			ft_putstr_fd("Error. Invalid line\n", 2);
+			return (1);
 		}
 		else
 		{
-			ft_putstr_fd("Error. Line %d is invalid\n", i);
-			return (1);
+			ft_putstr_fd("Congrats !!!! line %d is valid \n", i);
 		}
 		// if (parse_header_line(lines[i], &g->file))
 		// 	return (1);
 		i++;
 	}
-	if (validate_all_header_set(&g->file) && validate_all_map(&g->file))
-		return (1);
+	// if (validate_all_header_set(&g->file) && validate_all_map(&g->file))
+	// 	return (1);
 	ft_putstr_fd("OK, file is valid. Ready to launch !!\n", 1);
 	return (0);
 }
+
 
 int	check_input(int argc, char **argv, t_game *g)
 {

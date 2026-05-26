@@ -3,7 +3,8 @@ CFLAGS  = -Wall -Wextra -Werror -g3 -I$(MLX_DIR)
 NAME    = cub3d
 
 SOURCES = cub3d.c \
-          src/gnl/get_next_line.c src/parse/check_map.c \
+          src/utils/get_next_line.c src/utils/ft_split.c \
+		  src/parse/check_map.c \
 		  src/parse/utils.c src/exit/exit.c
 
 OBJETS  = $(SOURCES:.c=.o)
