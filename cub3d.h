@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:38 by marthoma          #+#    #+#             */
-/*   Updated: 2026/05/25 20:37:29 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/05/26 16:18:10 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+# define TRUE 0
+# define FALSE 1
+
 typedef struct s_img
 {
 	int			i;
@@ -51,8 +54,10 @@ typedef struct s_file
 	char		*path_so;
 	char		*path_we;
 	char		*path_ea;
-	int			**ceiling;
-	int			**floor;
+	int			ceiling[3];
+	bool		ceiling_set;
+	int			floor[3];
+	bool		floor_set;
 	char		**map;
 }				t_file;
 
@@ -87,4 +92,6 @@ int				exit_game(t_game *g, int error);
 void			free_content(char **content);
 void			free_all(t_game *g);
 char			*clear_stash(char *stash_array[FD_OPEN_MAX]);
+/*PRINT*/
+void			print_file(t_file *file);
 #endif

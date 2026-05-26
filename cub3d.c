@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:19 by marthoma          #+#    #+#             */
-/*   Updated: 2026/05/26 15:28:32 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/05/26 17:04:36 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,9 @@ static int	handle_file(t_game *g, char *filename)
 	return (0);
 }
 
-int	is_valid_map_line(char	*line, t_game *g)
+int	is_valid_map_line(char	*line)
 {
 	int	i;
-	(void)g;
 
 	i = 0;
 	while (line[i] != '\0')
@@ -117,6 +116,19 @@ int	is_valid_map_line(char	*line, t_game *g)
 		i++;
 	}
 	return (0);
+}
+
+int	map_line_detector(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i] == ' ' || line[i] == '\t')
+		i++;
+	if (line[i] == '0' || line[i] == '1')
+		return (TRUE);
+	else
+		return (FALSE);
 }
 
 int	test_tx_path(char *tx_type, char *path)
@@ -144,7 +156,7 @@ int	test_rgb_format(char *content)
 	{
 		if (content[i] == ',')
 			comma_nb++;
-		else if (content[i] < '0' && content[i] > '9')
+		else if (content[i] < '0' || content[i] > '9')
 		{
 			return (1);
 		}
@@ -186,7 +198,7 @@ int	test_rgb_color(char	*id, char *content)
 	return (0);
 }
 
-int	store_rgb(int **values, char *content)
+int	store_rgb(int *values, char *content)
 {
 	char	**tab;
 	int		i;
@@ -200,14 +212,14 @@ int	store_rgb(int **values, char *content)
 	}
 	while (i < 3)
 	{
-		*values[i] = ft_atoi(tab[i]);
+		values[i] = ft_atoi(tab[i]);
 		i++;
 	}
 	free_content(tab);
 	return (0);
 }
 
-int	is_valid_texture_line(char	*line, t_game *g)
+int	validate_texture_line(char	*line, t_game *g)
 {
 	char	*content;
 	/*TODO: blank is not an error - handle differently*/
@@ -261,7 +273,7 @@ int	is_valid_texture_line(char	*line, t_game *g)
 	return (0);
 }
 
-int	is_valid_color_line(char	*line, t_game *g)
+int	validate_color_line(char	*line, t_game *g)
 {
 	char	*content;
 
@@ -274,6 +286,8 @@ int	is_valid_color_line(char	*line, t_game *g)
 		{
 			if (store_rgb(g->file.floor, content))
 				return (1);
+			else
+				g->file.floor_set = 1;
 		}
 	}
 	else if (ft_strncmp(line, "C ", 2) == 0 && line[2] != '\0')
@@ -285,6 +299,8 @@ int	is_valid_color_line(char	*line, t_game *g)
 		{
 			if (store_rgb(g->file.ceiling, content))
 				return (1);
+			else
+				g->file.ceiling_set = 1;
 		}
 	}
 	else
@@ -314,17 +330,44 @@ int validate_all_header_set(t_file *file)
 		ft_putstr_fd("Error. Missing east texture\n", 2);
 		return (1);
 	}
-	if (!file->floor)
+	if (!file->floor_set)
 	{
+		print_file(file);
 		ft_putstr_fd("Error. Missing floor color\n", 2);
 		return (1);
 	}
-	if (!file->ceiling)
+	if (!file->ceiling_set)
 	{
 		ft_putstr_fd("Error. Missing ceiling color\n", 2);
 		return (1);
 	}
 	return (0);
+}
+
+int	texture_line_detector(char *line)
+{
+	/*0=yes it's a texture line, 1=no*/
+	if (ft_strncmp(line, "NO ", 3) == 0)
+		return (0);
+	else if (ft_strncmp(line, "SO ", 3) == 0)
+		return (0);
+	else if (ft_strncmp(line, "WE ", 3) == 0)
+		return (0);
+	else if (ft_strncmp(line, "EA ", 3) == 0)
+		return (0);
+	else
+		return (1);
+}
+
+int	color_line_detector(char *line)
+{
+	/*0=yes it's a color line, 1=no*/
+	if (ft_strncmp(line, "F ", 2) == 0)
+		return (0);
+	else if (ft_strncmp(line, "C ", 2) == 0)
+		return (0);
+	else
+		return (1);
 }
 
 int	handle_file_content(t_game *g)
@@ -336,22 +379,38 @@ int	handle_file_content(t_game *g)
 	lines = g->file.content;
 	while (i < g->file.nb_of_lines)
 	{
-		if (is_valid_texture_line(lines[i], g) && is_valid_color_line(lines[i], g)
-			&& is_valid_map_line(lines[i], g))
+		/*TODO:if is_blank_line -> skip*/
+		if (texture_line_detector(lines[i]) == TRUE)
 		{
-			/*redundant ?*/
-			ft_putstr_fd("Error. Invalid line\n", 2);
-			return (1);
+			if (validate_texture_line(lines[i], g))
+				return (1);
+		}
+		else if (color_line_detector(lines[i]) == TRUE)
+		{
+			if (validate_color_line(lines[i], g))
+				return (1);
+		}
+		else if (map_line_detector(lines[i]) == TRUE)
+		{
+			/*TODO: parse the map and validate it*/
+			/*Store the map and check it after everyline has been collected*/
+			if (is_valid_map_line(lines[i]))
+				return (1);
+			break ;
 		}
 		else
 		{
-			ft_putstr_fd("Congrats !!!! line %d is valid \n", i);
+			print_file(&g->file);
+			printf("DEBUG unrecognized line [%d]: '%s'\n", i, lines[i]);
+			ft_putstr_fd("Error. Unrecognized line\n", 2);
+			return (1);
 		}
 		i++;
 	}
 	/*TODO: add validate_all_map_set*/
 	if (validate_all_header_set(&g->file))
 		return (1);
+	print_file(&g->file);
 	ft_putstr_fd("OK, file is valid. Ready to launch !!\n", 1);
 	return (0);
 }
@@ -373,6 +432,9 @@ int	handle_input(int argc, char **argv, t_game *g)
 	{
 		return (1);
 	}
+	/*TODO: make this function*/
+	// if (is_map_playable(g))
+	// 	return (1);
 	return (0);
 }
 
