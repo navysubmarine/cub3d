@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:19 by marthoma          #+#    #+#             */
-/*   Updated: 2026/05/26 13:33:52 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/05/26 15:28:32 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static char	*match_content(char *line, char *id)
 {
 	int	len;
-	int i;
+	int	i;
 
 	len = ft_strlen(id);
 	if (ft_strncmp(line, id, len) != 0)
@@ -86,63 +86,22 @@ char	**store_content(char *file, int nb_of_lines)
 	return (content[i] = NULL, close(fd), content);
 }
 
-static int	check_file(t_game *g, char *filename)
+static int	handle_file(t_game *g, char *filename)
 {
 	int	fd;
-	/*we check if the file exists*/
+
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		return (1);
-	/*we store the nb of lines inside the g struct*/
 	g->file.nb_of_lines = count_lines(fd);
-	/*we store the content of the file inside an array of strings*/
 	g->file.content = store_content(filename, g->file.nb_of_lines);
 	return (0);
 }
 
-
-/*TODO: make check map function*/\
-// int	check_map(t_game *g, char *filename)
-// {
-
-// }
-/*
-int	check_textures(t_game *g)
-{
-	char	*f_content;
-
-	f_content = g->file.content;
-	g->file.path_no = ft_strnstr(f_content, "NO ./", 6) + 5;
-	if (!g->file.path_no)
-	{
-		ft_putstr_fd("Error. Incorrect North texture\n", 33);
-		return (1);
-	}
-	
-}
-*/
-/*
-int	parse_config(char **lines, int count, t_map *map)
-{
-	int	i = 0;
-
-	// Pass 1: header entries (until we hit a map line)
-	while (i < count && !is_map_line(lines[i])) {
-		if (*lines[i] != '\0' && parse_header_line(lines[i], map) != 0)
-			return -1;
-		i++;
-	}
-
-	// Pass 2: map (everything from here to EOF)
-	if (i >= count)
-		return (error("no map found"), -1);
-	return parse_map_section(&lines[i], count - i, map);
-}
-*/
-
-int	is_valid_map_line(char	*line)
+int	is_valid_map_line(char	*line, t_game *g)
 {
 	int	i;
+	(void)g;
 
 	i = 0;
 	while (line[i] != '\0')
@@ -299,9 +258,10 @@ int	is_valid_texture_line(char	*line, t_game *g)
 				return (1);
 		}
 	}
+	return (0);
 }
 
-int	is_valid_color_line(char	*line)
+int	is_valid_color_line(char	*line, t_game *g)
 {
 	char	*content;
 
@@ -329,77 +289,6 @@ int	is_valid_color_line(char	*line)
 	}
 	else
 		return (1);
-	return (0);
-}
-
-int	line_type(char *line, t_file *file)
-{
-	char	*content;
-
-	content = match_content(line, "NO");
-	if (content)
-	{
-		if (set_var(&file->path_no, content))
-			return (1);
-		return (0);
-	}
-	content = match_content(line, "SO");
-	if (content)
-	{
-		if (set_var(&file->path_so, content))
-			return (1);
-		return (0);
-	}
-	content = match_content(line, "WE");
-	if (content)
-	{
-		if (set_var(&file->path_we, content))
-			return (1);
-		return (0);
-	}
-	content = match_content(line, "EA");
-	if (content)
-	{
-		if (set_var(&file->path_ea, content))
-			return (1);
-		return (0);
-	}
-	/*TODO:how to transform the string into a three elements array of int*/
-	/*
-	content = match_content(line, "F");
-	if (content)
-	{
-		if (set_var(file->floor, content))
-			return (1);
-		return (0);
-	}
-	content = match_content(line, "C");
-	if (content)
-	{
-		if (set_var(file->ceiling, content))
-			return (1);
-		return (0);
-	}
-	*/
-	return (1);
-}
-
-int	parse_header_line(char *line, t_file *file)
-{
-	char	*new_line;
-	int		ret;
-
-	new_line = ft_strtrim(line, " \t");
-	if (!new_line)
-		return (1);
-	ret = line_type(new_line, file);
-	if (ret)
-	{
-		ft_putstr_fd("Error. File line not recognized\n", 2);
-		free(new_line);
-		return (1);
-	}
-	free(new_line);
 	return (0);
 }
 
@@ -438,7 +327,7 @@ int validate_all_header_set(t_file *file)
 	return (0);
 }
 
-int	check_content(t_game *g)
+int	handle_file_content(t_game *g)
 {
 	int		i;
 	char	**lines;
@@ -447,7 +336,8 @@ int	check_content(t_game *g)
 	lines = g->file.content;
 	while (i < g->file.nb_of_lines)
 	{
-		if (is_valid_texture_line(lines[i], g) && is_valid_color_line(lines[i], g) && is_valid_map_line(lines[i], g))
+		if (is_valid_texture_line(lines[i], g) && is_valid_color_line(lines[i], g)
+			&& is_valid_map_line(lines[i], g))
 		{
 			/*redundant ?*/
 			ft_putstr_fd("Error. Invalid line\n", 2);
@@ -457,18 +347,16 @@ int	check_content(t_game *g)
 		{
 			ft_putstr_fd("Congrats !!!! line %d is valid \n", i);
 		}
-		// if (parse_header_line(lines[i], &g->file))
-		// 	return (1);
 		i++;
 	}
-	// if (validate_all_header_set(&g->file) && validate_all_map(&g->file))
-	// 	return (1);
+	/*TODO: add validate_all_map_set*/
+	if (validate_all_header_set(&g->file))
+		return (1);
 	ft_putstr_fd("OK, file is valid. Ready to launch !!\n", 1);
 	return (0);
 }
 
-
-int	check_input(int argc, char **argv, t_game *g)
+int	handle_input(int argc, char **argv, t_game *g)
 {
 	if (argc != 2 || !ft_strchr_cub(argv[1]))
 	{
@@ -476,14 +364,14 @@ int	check_input(int argc, char **argv, t_game *g)
 			2);
 		return (1);
 	}
-	if (check_file(g, argv[1]))
+	if (handle_file(g, argv[1]))
 	{
 		ft_putstr_fd("Error. invalid file\n", 2);
 		return (1);
 	}
-	if (check_content(g))
+	if (handle_file_content(g))
 	{
-		return(1);
+		return (1);
 	}
 	return (0);
 }
@@ -494,9 +382,9 @@ int	main(int argc, char **argv)
 	t_game	g;
 
 	ft_memset(&g, 0, sizeof(t_game));
-	//init struct
-	/*we check if the input file is playable*/
-	if (check_input(argc, argv, &g))
+	/*we check if the input file is playable
+	+we store what we find in the struct*/
+	if (handle_input(argc, argv, &g))
 		return (1);
 
 	//init_game(&g) || load_sprites(&g)
