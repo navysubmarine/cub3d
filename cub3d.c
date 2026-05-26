@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:19 by marthoma          #+#    #+#             */
-/*   Updated: 2026/05/26 12:01:30 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/05/26 13:20:30 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,46 +135,168 @@ int	is_valid_map_line(char	*line)
 
 int	test_tx_path(char *tx_type, char *path)
 {
-	
+	int	fd;
+
+	fd = open(path, O_RDONLY);
+	if (fd < 0)
+	{
+		printf("Error. %s texture has invalid pathname\n", tx_type);
+		return (1);
+	}
+	close (fd);
+	return (0);
+}
+
+int	test_rgb_format(char *content)
+{
+	int	i;
+	int	comma_nb;
+
+	i = 0;
+	comma_nb = 0;
+	while (content[i])
+	{
+		if (content[i] == ',')
+			comma_nb++;
+		else if (content[i] < '0' && content[i] > '9')
+		{
+			return (1);
+		}
+		i++;
+	}
+	if (comma_nb != 2)
+		return (1);
+	return (0);
+}
+
+int	test_rgb_color(char	*id, char *content)
+{
+	char	**tab;
+	int		i;
+
+	i = 0;
+	if (test_rgb_format(content))
+	{
+		printf("Error. %s color of invalid format\n", id);
+		return (1);
+	}
+	tab = ft_split(content, ',');
+	if (!tab)
+	{
+		ft_putstr_fd("Error. Ft_split failed\n", 2);
+		return (1);
+	}
+	while (tab[i])
+	{
+		if (ft_atoi(tab[i]) > 255 || ft_atoi(tab[i]) < 0)
+		{
+			ft_putstr_fd("Error. RGB number is out of bound\n", 2);
+			free_content(tab);
+			return (1);
+		}
+		i++;
+	}
+	free_content(tab);
+	return (0);
+}
+
+int	store_rgb(int **values, char *content)
+{
+	char	**tab;
+	int		i;
+
+	i = 0;
+	tab = ft_split(content, ',');
+	if (!tab)
+	{
+		ft_putstr_fd("Error. Ft_split failed\n", 2);
+		return (1);
+	}
+	while (i < 3)
+	{
+		*values[i] = ft_atoi(tab[i]);
+		i++;
+	}
+	free_content(tab);
+	return (0);
 }
 
 int	is_valid_texture_line(char	*line, t_game *g)
 {
-	int	i;
-
-	i = 0;
+	char	*content;
+	/*TODO: blank is not an error - handle differently*/
 	if (!line || line[0] == '\0' || line[0] == '\n' || line[0]== '\t')
 		return (1);
 
-	if (ft_strncmp(line, "NO ./", 5) == 0 && line[5] != '\0')
+	if (ft_strncmp(line, "NO ", 3) == 0 && line[3] != '\0')
 	{
-		if (test_tx_path("north", line[5]))
-		{
+		content = match_content(line, "NO");
+		if (test_tx_path("North", content))
 			return (1);
+		else
+		{
+			if (set_var(&g->file.path_no, content))
+				return (1);
 		}
 	}
-	else if (ft_strncmp(line, "SO ./", 5) == 0 && line[5] != '\0')
+	else if (ft_strncmp(line, "SO ", 3) == 0 && line[3] != '\0')
 	{
-		
+		content = match_content(line, "SO");
+		if (test_tx_path("South", content))
+			return (1);
+		else
+		{
+			if (set_var(&g->file.path_so, content))
+				return (1);
+		}
 	}
-	else if (ft_strncmp(line, "WE ./", 5) == 0 && line[5] != '\0')
+	else if (ft_strncmp(line, "WE ", 3) == 0 && line[3] != '\0')
 	{
-		
+		content = match_content(line, "WE");
+		if (test_tx_path("West", content))
+			return (1);
+		else
+		{
+			if (set_var(&g->file.path_we, content))
+				return (1);
+		}
 	}
-	else if (ft_strncmp(line, "EA ./", 5) == 0 && line[5] != '\0')
+	else if (ft_strncmp(line, "EA ", 3) == 0 && line[3] != '\0')
 	{
-		
+		content = match_content(line, "EA");
+		if (test_tx_path("East", content))
+			return (1);
+		else
+		{
+			if (set_var(&g->file.path_ea, content))
+				return (1);
+		}
 	}
 	else if (ft_strncmp(line, "F ", 2) == 0 && line[2] != '\0')
 	{
-		
+		content = match_content(line, "F");
+		if (test_rgb_color("Floor", content))
+			return (1);
+		else
+		{
+			if (store_rgb(&g->file.floor, content))
+				return (1);
+		}
 	}
 	else if (ft_strncmp(line, "C ", 2) == 0 && line[2] != '\0')
 	{
-		
+		content = match_content(line, "C");
+		if (test_rgb_color("Ceiling", content))
+			return (1);
+		else
+		{
+			if (store_rgb(&g->file.ceiling, content))
+				return (1);
+		}
 	}
 	else
 		return (1);
+	return (0);
 }
 
 int	is_valid_color_line(char	*line)
