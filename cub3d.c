@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:19 by marthoma          #+#    #+#             */
-/*   Updated: 2026/05/26 17:04:36 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/05/26 17:11:44 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -370,6 +370,23 @@ int	color_line_detector(char *line)
 		return (1);
 }
 
+int	blank_line_detector(char	*line)
+{
+	int	i;
+
+	i = 0;
+	if (line[0] == '\0' || line[0] == '\n')
+		return (TRUE);
+	while (line[i] == ' ' || line[i] == '\t')
+	{
+		i++;
+	}
+	if (line[i] == '\0' || line[i] == '\n')
+		return (TRUE);
+	else
+		return (FALSE);
+}
+
 int	handle_file_content(t_game *g)
 {
 	int		i;
@@ -379,8 +396,12 @@ int	handle_file_content(t_game *g)
 	lines = g->file.content;
 	while (i < g->file.nb_of_lines)
 	{
-		/*TODO:if is_blank_line -> skip*/
-		if (texture_line_detector(lines[i]) == TRUE)
+		if (blank_line_detector(lines[i]) == TRUE)
+		{
+			i++;
+			continue ;
+		}
+		else if (texture_line_detector(lines[i]) == TRUE)
 		{
 			if (validate_texture_line(lines[i], g))
 				return (1);
