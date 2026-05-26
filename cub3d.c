@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:19 by marthoma          #+#    #+#             */
-/*   Updated: 2026/05/26 19:50:40 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/05/26 20:16:33 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,13 +154,17 @@ int	test_rgb_format(char *content)
 	comma_nb = 0;
 	while (content[i])
 	{
-		if (content[i] == ',')
-			comma_nb++;
-		else if (content[i] < '0' || content[i] > '9')
+		while (content[i] == ' ' || content[i] == '\t')
+			i++;
+		if (content[i] >= '0' && content[i] <= '9')
+			i++;
+		else if (content[i] == ',')
 		{
-			return (1);
+			comma_nb++;
+			i++;
 		}
-		i++;
+		else
+			return (1);
 	}
 	if (comma_nb != 2)
 		return (1);
@@ -276,8 +280,12 @@ int	validate_texture_line(char	*line, t_game *g)
 int	validate_color_line(char	*line, t_game *g)
 {
 	char	*content;
+	int	i;
 
-	if (ft_strncmp(line, "F ", 2) == 0 && line[2] != '\0')
+	i = 0;
+	while (line[i] == ' ' || line[i] == '\t')
+		i++;
+	if (ft_strncmp(line + i, "F ", 2) == 0 && (line[2] + i) != '\0')
 	{
 		content = match_content(line, "F");
 		if (test_rgb_color("Floor", content))
@@ -345,25 +353,35 @@ int validate_all_header_set(t_file *file)
 
 int	texture_line_detector(char *line)
 {
+	int	i;
+
+	i = 0;
+	while (line[i] == ' ' || line[i] == '\t')
+		i++;
 	/*0=yes it's a texture line, 1=no*/
-	if (ft_strncmp(line, "NO ", 3) == 0)
-		return (0);
-	else if (ft_strncmp(line, "SO ", 3) == 0)
-		return (0);
-	else if (ft_strncmp(line, "WE ", 3) == 0)
-		return (0);
-	else if (ft_strncmp(line, "EA ", 3) == 0)
-		return (0);
+	if (ft_strncmp(line + i, "NO ", 3) == TRUE)
+		return (TRUE);
+	else if (ft_strncmp(line + i, "SO ", 3) == TRUE)
+		return (TRUE);
+	else if (ft_strncmp(line + i, "WE ", 3) == TRUE)
+		return (TRUE);
+	else if (ft_strncmp(line + i, "EA ", 3) == TRUE)
+		return (TRUE);
 	else
-		return (1);
+		return (FALSE);
 }
 
 int	color_line_detector(char *line)
 {
+	int	i;
+
+	i = 0;
+	while (line[i] == ' ' || line[i] == '\t')
+		i++;
 	/*0=yes it's a color line, 1=no*/
-	if (ft_strncmp(line, "F ", 2) == 0)
+	if (ft_strncmp(line + i, "F ", 2) == 0)
 		return (0);
-	else if (ft_strncmp(line, "C ", 2) == 0)
+	else if (ft_strncmp(line + i, "C ", 2) == 0)
 		return (0);
 	else
 		return (1);
@@ -420,6 +438,7 @@ int	handle_file_content(t_game *g)
 		}
 		else
 		{
+			//printf("DEBUG: line %d\n", i);
 			ft_putstr_fd("Error. Unrecognized line\n", 2);
 			return (1);
 		}

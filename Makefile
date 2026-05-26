@@ -51,7 +51,9 @@ fclean: clean
 re: fclean all
 
 test: all
-	@echo "=== GOOD MAPS (should all succeed) ==="
+	@echo "┌──────────────────────────────────────┐"
+	@echo "│  GOOD MAPS — should all succeed      │"
+	@echo "└──────────────────────────────────────┘"
 	@for map in $(MAPS_GOOD); do \
 		echo "--- $$map ---"; \
 		./$(NAME) $$map; \
@@ -61,7 +63,9 @@ test: all
 			echo "❌ FAIL (expected success)"; \
 		fi \
 	done
-	@echo "=== BAD MAPS (should all fail) ==="
+	@echo "┌──────────────────────────────────────┐"
+	@echo "│  BAD MAPS — should all fail          │"
+	@echo "└──────────────────────────────────────┘"
 	@for map in $(MAPS_BAD); do \
 		echo "--- $$map ---"; \
 		./$(NAME) $$map; \
