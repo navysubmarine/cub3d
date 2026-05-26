@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:19 by marthoma          #+#    #+#             */
-/*   Updated: 2026/05/25 20:56:03 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/05/26 11:26:08 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,14 @@ char	**store_content(char *file, int nb_of_lines)
 static int	check_file(t_game *g, char *filename)
 {
 	int	fd;
-
+	/*we check if the file exists*/
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
-		return (-1);
+		return (1);
+	/*we store the nb of lines inside the g struct*/
 	g->file.nb_of_lines = count_lines(fd);
+	/*we store the content of the file inside an array of strings*/
 	g->file.content = store_content(filename, g->file.nb_of_lines);
-	close(fd);
 	return (0);
 }
 
@@ -112,12 +113,12 @@ int	parse_config(char **lines, int count, t_map *map)
 }
 */
 
-int	is_valid_map_line(char	*line, t_game *g)
+int	is_valid_map_line(char	*line)
 {
 	int	i;
 
 	i = 0;
-	while (i < g->file.nb_of_lines)
+	while (line[i] != '\0')
 	{
 		if (line[i] != '0' && line[i] != '1'
 			&& line[i] != 'N' && line[i] != 'S'
@@ -272,9 +273,12 @@ int	check_content(t_game *g)
 
 	i = 0;
 	lines = g->file.content;
-	while (i < g->file.nb_of_lines && !is_valid_map_line(lines[i], g))
+	/*TODO: remake the logic to identify if it's map or header
+	line - or empty line*/
+	while (i < g->file.nb_of_lines && !is_valid_map_line(lines[i]))
 	{
-		parse_header_line(lines[i], &g->file);
+		if (parse_header_line(lines[i], &g->file))
+			return (1);
 		i++;
 	}
 	if (validate_all_header_set(&g->file))
@@ -315,12 +319,13 @@ int	main(int argc, char **argv)
 
 	ft_memset(&g, 0, sizeof(t_game));
 	//init struct
+	/*we check if the input file is playable*/
 	if (check_input(argc, argv, &g))
-	// || 
+		return (1);
+
 	//init_game(&g) || load_sprites(&g)
 	//	|| render_map(&g)
 	//	exit_game(&g, 1);
-		return (1);
 	//mlx_hook(g.win, 2, 1L << 0, key_handler, &g);
 	//mlx_hook(g.win, 17, 0, exit_game, &g);
 	//mlx_loop(g.mlx);
