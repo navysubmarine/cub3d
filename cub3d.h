@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:38 by marthoma          #+#    #+#             */
-/*   Updated: 2026/05/27 12:58:46 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/05/27 16:01:52 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,18 @@ typedef struct s_game
 	t_player	player;
 }				t_game;
 
-/*CHECK MAP*/
+/****PARSING INPUT FILE****/
 int				ft_strchr_cub(const char *s);
+int				handle_file(t_game *g, char *filename);
+char			*find_content(char *line, char *id);
+int				assign_field_once(char **struct_path, char *line);
+int				count_lines(int fd);
+char			**store_content(char *file, int nb_of_lines);
+/*PARSING MAP*/
+int				is_valid_map_line(char	*line);
+int				map_line_detector(char *line);
+/*PARSING TEXTURE*/
+int				test_tx_path(char *tx_type, char *path);
 /*GET NEXT LINE*/
 char			*get_next_line(int fd);
 char			*call_and_check(int fd, char *buffer, char **stash);

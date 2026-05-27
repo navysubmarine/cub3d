@@ -6,171 +6,11 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:19 by marthoma          #+#    #+#             */
-/*   Updated: 2026/05/27 13:01:15 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/05/27 16:05:02 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-static char	*match_content(char *line, char *id)
-{
-	int	len;
-	int	i;
-
-	len = ft_strlen(id);
-	if (ft_strncmp(line, id, len) != 0)
-		return (NULL);
-	if (line[len] != ' ' && line[len] != '\t')
-		return (NULL);
-	i = len;
-	while (line[i] == ' ' || line[i] == '\t')
-		i++;
-	return (&line[i]);
-}
-
-int	set_var(char **struct_path, char *line)
-{
-	if (*struct_path)
-	{
-		ft_putstr_fd("Error. Duplicate identifyer\n", 2);
-		return (1);
-	}
-	*struct_path = ft_strdup(line);
-	return (*struct_path == NULL);
-}
-
-static unsigned int	count_lines(int fd)
-{
-	char	*line;
-	int		count;
-
-	count = 0;
-	while (1)
-	{
-		line = get_next_line(fd);
-		if (!line)
-		{
-			break ;
-		}
-		count++;
-		free(line);
-	}
-	close(fd);
-	return (count);
-}
-
-char	**store_content(char *file, int nb_of_lines)
-{
-	char	**content;
-	int		fd;
-	int		i;
-	char	*eol;
-
-	i = 0;
-	content = malloc(sizeof(char *) * (nb_of_lines + 1));
-	if (!content)
-		return (NULL);
-	fd = open(file, O_RDONLY);
-	if (fd < 0)
-		return (free(content), NULL);
-	while (i < nb_of_lines)
-	{
-		content[i] = get_next_line(fd);
-		if (!content[i])
-			return (free_content(content), close(fd), NULL);
-		eol = ft_strchr(content[i], '\n');
-		if (eol)
-			*eol = '\0';
-		i++;
-	}
-	return (content[i] = NULL, close(fd), content);
-}
-
-static int	handle_file(t_game *g, char *filename)
-{
-	int	fd;
-
-	fd = open(filename, O_RDONLY);
-	if (fd < 0)
-		return (1);
-	g->file.nb_of_lines = count_lines(fd);
-	g->file.content = store_content(filename, g->file.nb_of_lines);
-	return (0);
-}
-
-int	is_valid_map_line(char	*line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i] != '\0')
-	{
-		if (line[i] != '0' && line[i] != '1'
-			&& line[i] != 'N' && line[i] != 'S'
-			&& line[i] != 'E' && line[i] != 'W'
-			&& line[i] != ' ' && line[i] != 9)
-		{
-			ft_putstr_fd("Error. Invalid character in map line\n", 2);
-			return (1);
-		}
-		i++;
-	}
-	return (0);
-}
-
-int	map_line_detector(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i] == ' ' || line[i] == '\t')
-		i++;
-	if (line[i] == '0' || line[i] == '1')
-		return (TRUE);
-	else
-		return (FALSE);
-}
-
-int	test_tx_path(char *tx_type, char *path)
-{
-	int	fd;
-
-	path = ft_strtrim(path, " 	");
-	fd = open(path, O_RDONLY);
-	if (fd < 0)
-	{
-		printf("Error. %s texture has invalid pathname\n", tx_type);
-		return (1);
-	}
-	close (fd);
-	return (0);
-}
-
-int	test_rgb_format(char *content)
-{
-	int	i;
-	int	comma_nb;
-
-	i = 0;
-	comma_nb = 0;
-	while (content[i])
-	{
-		while (content[i] == ' ' || content[i] == '\t')
-			i++;
-		if (content[i] >= '0' && content[i] <= '9')
-			i++;
-		else if (content[i] == ',')
-		{
-			comma_nb++;
-			i++;
-		}
-		else
-			return (1);
-	}
-	if (comma_nb != 2)
-		return (1);
-	return (0);
-}
 
 int	test_rgb_color(char	*id, char *content)
 {
@@ -238,45 +78,45 @@ int	validate_texture_line(char	*line, t_game *g)
 		i++;
 	if (ft_strncmp(line + i, "NO ", 3) == 0 && line[3 + i] != '\0')
 	{
-		content = match_content(line + i, "NO");
+		content = find_content(line + i, "NO");
 		if (test_tx_path("North", content))
 			return (1);
 		else
 		{
-			if (set_var(&g->file.path_no, content))
+			if (assign_field_once(&g->file.path_no, content))
 				return (1);
 		}
 	}
 	else if (ft_strncmp(line + i, "SO ", 3) == 0 && line[3 + i] != '\0')
 	{
-		content = match_content(line + i, "SO");
+		content = find_content(line + i, "SO");
 		if (test_tx_path("South", content))
 			return (1);
 		else
 		{
-			if (set_var(&g->file.path_so, content))
+			if (assign_field_once(&g->file.path_so, content))
 				return (1);
 		}
 	}
 	else if (ft_strncmp(line + i, "WE ", 3) == 0 && line[3 + i] != '\0')
 	{
-		content = match_content(line + i, "WE");
+		content = find_content(line + i, "WE");
 		if (test_tx_path("West", content))
 			return (1);
 		else
 		{
-			if (set_var(&g->file.path_we, content))
+			if (assign_field_once(&g->file.path_we, content))
 				return (1);
 		}
 	}
 	else if (ft_strncmp(line + i, "EA ", 3) == 0 && line[3 + i] != '\0')
 	{
-		content = match_content(line + i, "EA");
+		content = find_content(line + i, "EA");
 		if (test_tx_path("East", content))
 			return (1);
 		else
 		{
-			if (set_var(&g->file.path_ea, content))
+			if (assign_field_once(&g->file.path_ea, content))
 				return (1);
 		}
 	}
@@ -293,8 +133,8 @@ int	validate_color_line(char	*line, t_game *g)
 		i++;
 	if (ft_strncmp(line + i, "F ", 2) == 0 && (line[2] + i) != '\0')
 	{
-		content = match_content(line + i, "F");
-	
+		content = find_content(line + i, "F");
+
 		if (test_rgb_color("Floor", content))
 			return (1);
 		else
@@ -307,7 +147,7 @@ int	validate_color_line(char	*line, t_game *g)
 	}
 	else if (ft_strncmp(line + i, "C ", 2) == 0 && line[2] != '\0')
 	{
-		content = match_content(line + i, "C");
+		content = find_content(line + i, "C");
 		if (test_rgb_color("Ceiling", content))
 			return (1);
 		else
@@ -410,12 +250,12 @@ int	blank_line_detector(char	*line)
 	else
 		return (FALSE);
 }
-
+/*
 int	store_map_line(t_game *g, char *line)
 {
 
 }
-
+*/
 
 int	calculate_map_len(int i, t_game *g)
 {
@@ -438,7 +278,6 @@ int	init_map(t_game *g, int i)
 		ft_putstr_fd("Error. Malloc map failed\n", 2);
 		return (1);
 	}
-	g->map.is_map_set == TRUE;
 	return (0);
 }
 
@@ -468,24 +307,25 @@ int	handle_file_content(t_game *g)
 		}
 		else if (map_line_detector(lines[i]) == TRUE)
 		{
-
 			/*TODO: parse the map and validate it*/
 			/*Store the map and check it after everyline has been collected*/
 			if (is_valid_map_line(lines[i]))
-				return (1);
-			/*TODO: this function, after having initialized the map with the right number of lines*/
+			 	return (1);
+			// /*TODO: this function, after having initialized the map with the right number of lines*/
 			if (g->map.is_map_set == FALSE)
 			{
+				g->map.is_map_set = TRUE;
 				if (init_map(g, i))
 					return (1);
+				printf("map_set ? : %i\n", g->map.is_map_set);
 			}
-			if (store_map_line(g, lines[i]))
-				return (1);
+			// if (store_map_line(g, lines[i]))
+			// 	return (1);
 			break ;
 		}
 		else
 		{
-			//printf("DEBUG: line %d\n", i);
+			printf("DEBUG: line %d\n", i);
 			ft_putstr_fd("Error. Unrecognized line\n", 2);
 			return (1);
 		}

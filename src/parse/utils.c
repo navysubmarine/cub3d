@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 15:19:04 by marthoma          #+#    #+#             */
-/*   Updated: 2026/05/22 15:19:59 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/05/27 15:12:15 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,68 @@ int	ft_strchr_cub(const char *s)
 			- 1] == 'b')
 		return (1);
 	return (0);
+}
+
+int	handle_file(t_game *g, char *filename)
+{
+	int	fd;
+
+	fd = open(filename, O_RDONLY);
+	if (fd < 0)
+		return (1);
+	g->file.nb_of_lines = count_lines(fd);
+	close (fd);
+	g->file.content = store_content(filename, g->file.nb_of_lines);
+	if (!g->file.content)
+		return (1);
+	return (0);
+}
+
+char	*find_content(char *line, char *id)
+{
+	int	len;
+	int	i;
+
+	len = ft_strlen(id);
+	if (ft_strncmp(line, id, len) != 0)
+		return (NULL);
+	if (line[len] != ' ' && line[len] != '\t')
+		return (NULL);
+	i = len;
+	while (line[i] == ' ' || line[i] == '\t')
+		i++;
+	return (&line[i]);
+}
+
+
+int	assign_field_once(char **struct_path, char *line)
+{
+	if (*struct_path)
+	{
+		ft_putstr_fd("Error. Duplicate identifyer\n", 2);
+		return (1);
+	}
+	*struct_path = ft_strdup(line);
+	if (*struct_path == NULL)
+		return (1);
+	return (0);
+}
+
+int	count_lines(int fd)
+{
+	char	*line;
+	int		count;
+
+	count = 0;
+	while (1)
+	{
+		line = get_next_line(fd);
+		if (!line)
+		{
+			break ;
+		}
+		count++;
+		free(line);
+	}
+	return (count);
 }
