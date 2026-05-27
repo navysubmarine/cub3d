@@ -6,11 +6,9 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:38 by marthoma          #+#    #+#             */
-/*   Updated: 2026/05/26 16:18:10 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/05/27 11:38:59 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-/*TODO: structure globale sur l'etat de jeu + autre structure pour le player*/
 
 #ifndef CUB3D_H
 # define CUB3D_H

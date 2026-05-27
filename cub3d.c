@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:19 by marthoma          #+#    #+#             */
-/*   Updated: 2026/05/26 20:16:33 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/05/27 12:15:26 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ int	test_tx_path(char *tx_type, char *path)
 {
 	int	fd;
 
+	path = ft_strtrim(path, " 	");
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 	{
@@ -226,13 +227,18 @@ int	store_rgb(int *values, char *content)
 int	validate_texture_line(char	*line, t_game *g)
 {
 	char	*content;
-	/*TODO: blank is not an error - handle differently*/
-	if (!line || line[0] == '\0' || line[0] == '\n' || line[0]== '\t')
-		return (1);
+	int		i;
 
-	if (ft_strncmp(line, "NO ", 3) == 0 && line[3] != '\0')
+	i = 0;
+	if (!line || line[0] == '\0')
+		return (1);
+	if (line[0] == '\n' || line[0] == '\t')
+		return (0);
+	while (line[i] == ' ' || line[i] == '\t')
+		i++;
+	if (ft_strncmp(line + i, "NO ", 3) == 0 && line[3 + i] != '\0')
 	{
-		content = match_content(line, "NO");
+		content = match_content(line + i, "NO");
 		if (test_tx_path("North", content))
 			return (1);
 		else
@@ -241,9 +247,9 @@ int	validate_texture_line(char	*line, t_game *g)
 				return (1);
 		}
 	}
-	else if (ft_strncmp(line, "SO ", 3) == 0 && line[3] != '\0')
+	else if (ft_strncmp(line + i, "SO ", 3) == 0 && line[3 + i] != '\0')
 	{
-		content = match_content(line, "SO");
+		content = match_content(line + i, "SO");
 		if (test_tx_path("South", content))
 			return (1);
 		else
@@ -252,9 +258,9 @@ int	validate_texture_line(char	*line, t_game *g)
 				return (1);
 		}
 	}
-	else if (ft_strncmp(line, "WE ", 3) == 0 && line[3] != '\0')
+	else if (ft_strncmp(line + i, "WE ", 3) == 0 && line[3 + i] != '\0')
 	{
-		content = match_content(line, "WE");
+		content = match_content(line + i, "WE");
 		if (test_tx_path("West", content))
 			return (1);
 		else
@@ -263,9 +269,9 @@ int	validate_texture_line(char	*line, t_game *g)
 				return (1);
 		}
 	}
-	else if (ft_strncmp(line, "EA ", 3) == 0 && line[3] != '\0')
+	else if (ft_strncmp(line + i, "EA ", 3) == 0 && line[3 + i] != '\0')
 	{
-		content = match_content(line, "EA");
+		content = match_content(line + i, "EA");
 		if (test_tx_path("East", content))
 			return (1);
 		else
@@ -287,7 +293,8 @@ int	validate_color_line(char	*line, t_game *g)
 		i++;
 	if (ft_strncmp(line + i, "F ", 2) == 0 && (line[2] + i) != '\0')
 	{
-		content = match_content(line, "F");
+		content = match_content(line + i, "F");
+	
 		if (test_rgb_color("Floor", content))
 			return (1);
 		else
@@ -298,9 +305,9 @@ int	validate_color_line(char	*line, t_game *g)
 				g->file.floor_set = 1;
 		}
 	}
-	else if (ft_strncmp(line, "C ", 2) == 0 && line[2] != '\0')
+	else if (ft_strncmp(line + i, "C ", 2) == 0 && line[2] != '\0')
 	{
-		content = match_content(line, "C");
+		content = match_content(line + i, "C");
 		if (test_rgb_color("Ceiling", content))
 			return (1);
 		else
