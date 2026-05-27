@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:38 by marthoma          #+#    #+#             */
-/*   Updated: 2026/05/27 11:38:59 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/05/27 12:58:46 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct s_map
 	char		**map;
 	int			map_w;
 	int			map_h;
+	bool		is_map_set;
 }				t_map;
 
 typedef struct s_game

@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:19 by marthoma          #+#    #+#             */
-/*   Updated: 2026/05/27 12:55:13 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/05/27 13:01:15 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -410,13 +410,12 @@ int	blank_line_detector(char	*line)
 	else
 		return (FALSE);
 }
-/*
+
 int	store_map_line(t_game *g, char *line)
 {
-	static	
-	g->map.map = ft_calloc()
+
 }
-*/
+
 
 int	calculate_map_len(int i, t_game *g)
 {
@@ -429,22 +428,27 @@ int	calculate_map_len(int i, t_game *g)
 	return (0);
 }
 
-int	init_map(t_game *g, char *cur_line, int i)
+int	init_map(t_game *g, int i)
 {
 	if (calculate_map_len(i, g))
 		return (1);
-
+	g->map.map = ft_calloc(g->map.map_h + 1, sizeof (char *));
+	if (!g->map.map)
+	{
+		ft_putstr_fd("Error. Malloc map failed\n", 2);
+		return (1);
+	}
+	g->map.is_map_set == TRUE;
+	return (0);
 }
 
 int	handle_file_content(t_game *g)
 {
 	int		i;
 	char	**lines;
-	bool	is_map_set;
 
 	i = 0;
 	lines = g->file.content;
-	is_map_set = FALSE;
 	while (i < g->file.nb_of_lines)
 	{
 		if (blank_line_detector(lines[i]) == TRUE)
@@ -452,29 +456,31 @@ int	handle_file_content(t_game *g)
 			i++;
 			continue ;
 		}
-		else if (is_map_set == FALSE && texture_line_detector(lines[i]) == TRUE)
+		else if (g->map.is_map_set == FALSE && texture_line_detector(lines[i]) == TRUE)
 		{
 			if (validate_texture_line(lines[i], g))
 				return (1);
 		}
-		else if (is_map_set == FALSE && color_line_detector(lines[i]) == TRUE)
+		else if (g->map.is_map_set== FALSE && color_line_detector(lines[i]) == TRUE)
 		{
 			if (validate_color_line(lines[i], g))
 				return (1);
 		}
 		else if (map_line_detector(lines[i]) == TRUE)
 		{
-			is_map_set = TRUE;
+
 			/*TODO: parse the map and validate it*/
 			/*Store the map and check it after everyline has been collected*/
 			if (is_valid_map_line(lines[i]))
 				return (1);
 			/*TODO: this function, after having initialized the map with the right number of lines*/
-			if (init_map(g, lines[i], i))
-				return (1);
+			if (g->map.is_map_set == FALSE)
+			{
+				if (init_map(g, i))
+					return (1);
+			}
 			if (store_map_line(g, lines[i]))
 				return (1);
-
 			break ;
 		}
 		else
