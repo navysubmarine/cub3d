@@ -6,63 +6,13 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:19 by marthoma          #+#    #+#             */
-/*   Updated: 2026/05/27 16:05:02 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/05/28 11:43:54 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	test_rgb_color(char	*id, char *content)
-{
-	char	**tab;
-	int		i;
 
-	i = 0;
-	if (test_rgb_format(content))
-	{
-		printf("Error. %s color of invalid format\n", id);
-		return (1);
-	}
-	tab = ft_split(content, ',');
-	if (!tab)
-	{
-		ft_putstr_fd("Error. Ft_split failed\n", 2);
-		return (1);
-	}
-	while (tab[i])
-	{
-		if (ft_atoi(tab[i]) > 255 || ft_atoi(tab[i]) < 0)
-		{
-			ft_putstr_fd("Error. RGB number is out of bound\n", 2);
-			free_content(tab);
-			return (1);
-		}
-		i++;
-	}
-	free_content(tab);
-	return (0);
-}
-
-int	store_rgb(int *values, char *content)
-{
-	char	**tab;
-	int		i;
-
-	i = 0;
-	tab = ft_split(content, ',');
-	if (!tab)
-	{
-		ft_putstr_fd("Error. Ft_split failed\n", 2);
-		return (1);
-	}
-	while (i < 3)
-	{
-		values[i] = ft_atoi(tab[i]);
-		i++;
-	}
-	free_content(tab);
-	return (0);
-}
 
 int	validate_texture_line(char	*line, t_game *g)
 {
@@ -70,10 +20,6 @@ int	validate_texture_line(char	*line, t_game *g)
 	int		i;
 
 	i = 0;
-	if (!line || line[0] == '\0')
-		return (1);
-	if (line[0] == '\n' || line[0] == '\t')
-		return (0);
 	while (line[i] == ' ' || line[i] == '\t')
 		i++;
 	if (ft_strncmp(line + i, "NO ", 3) == 0 && line[3 + i] != '\0')

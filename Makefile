@@ -4,8 +4,9 @@ NAME    = cub3d
 
 SOURCES = cub3d.c \
           src/utils/get_next_line.c src/utils/ft_split.c \
-		  src/utils/print.c src/parse/check_map.c \
-		  src/parse/utils.c src/exit/exit.c
+		  src/utils/print.c src/parse/check_map.c src/parse/colors.c \
+		  src/parse/utils.c src/parse/map.c src/parse/store.c src/exit/exit.c \
+		  src/parse/texture.c
 
 OBJETS  = $(SOURCES:.c=.o)
 

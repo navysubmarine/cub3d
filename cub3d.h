@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:38 by marthoma          #+#    #+#             */
-/*   Updated: 2026/05/27 16:01:52 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/05/28 11:32:11 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,10 @@ int				is_valid_map_line(char	*line);
 int				map_line_detector(char *line);
 /*PARSING TEXTURE*/
 int				test_tx_path(char *tx_type, char *path);
+/*PARSING COLORS*/
+int				test_rgb_format(char *content);
+int				test_rgb_color(char	*id, char *content);
+int				store_rgb(int *values, char *content);
 /*GET NEXT LINE*/
 char			*get_next_line(int fd);
 char			*call_and_check(int fd, char *buffer, char **stash);
