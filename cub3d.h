@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:38 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/01 18:32:56 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/01 19:12:18 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,11 @@ typedef struct s_file
 	int			floor_set;
 	int			ceiling[3];
 	int			ceiling_set;
-	char		**map;
 }				t_file;
 
 typedef struct s_map
 {
 	char		**map;
-	int			map_w;
 	int			map_h;
 	bool		is_map_set;
 }				t_map;
@@ -101,17 +99,21 @@ char			*find_content(char *line, char *id);
 int				assign_field_once(char **struct_path, char *line);
 int				count_lines(int fd);
 char			**store_content(char *file, int nb_of_lines);
+int				validate_header_set(t_file *file);
+int				blank_line_detector(char	*line);
 /*PARSING MAP*/
 int				is_valid_map_line(char	*line);
 int				map_line_detector(char *line);
 /*PARSING TEXTURE*/
 int				validate_texture_line(char	*line, t_game *g);
+int				texture_line_detector(char *line);
 int				test_tx_path(char *tx_type, char *path);
 /*PARSING COLORS*/
 int				validate_color_line(char *line, t_game *g);
 int				test_rgb_format(char *content);
 int				test_rgb_color(char	*id, char *content);
 int				store_rgb(int *values, char *content);
+int				color_line_detector(char *line);
 /*GET NEXT LINE*/
 char			*get_next_line(int fd);
 char			*call_and_check(int fd, char *buffer, char **stash);
@@ -125,5 +127,5 @@ void			free_content(char **content);
 void			free_all(t_game *g);
 char			*clear_stash(char *stash_array[FD_OPEN_MAX]);
 /*PRINT*/
-void			print_file(t_file *file);
+void			print_file(t_game *g);
 #endif

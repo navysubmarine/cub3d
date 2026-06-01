@@ -6,16 +6,18 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 15:35:33 by marthoma          #+#    #+#             */
-/*   Updated: 2026/05/26 16:57:01 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/01 19:12:35 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	print_file(t_file *file)
+void	print_file(t_game *g)
 {
-	int	i;
+	t_file	*file;
+	int		i;
 
+	file = &g->file;
 	i = 0;
 	printf("=== FILE CONTENTS ===\n");
 	printf("nb_of_lines: %d\n", file->nb_of_lines);
@@ -31,17 +33,10 @@ void	print_file(t_file *file)
 		printf("ceiling: %d,%d,%d\n", file->ceiling[0], file->ceiling[1], file->ceiling[2]);
 	else
 		printf("ceiling: (not set)\n");
-	printf("--- content (%d lines) ---\n", file->nb_of_lines);
-	while (file->content && file->content[i])
+	printf("--- map (%d lines) ---\n", g->map.map_h);
+	while (g->map.map && i < g->map.map_h)
 	{
-		printf("  [%d]: %s\n", i, file->content[i]);
-		i++;
-	}
-	i = 0;
-	printf("--- map ---\n");
-	while (file->map && file->map[i])
-	{
-		printf("  [%d]: %s\n", i, file->map[i]);
+		printf("  [%d]: %s\n", i, g->map.map[i]);
 		i++;
 	}
 	printf("=====================\n");

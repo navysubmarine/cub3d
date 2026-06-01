@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 16:05:05 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/01 18:06:45 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/01 18:40:02 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,4 +115,20 @@ int	validate_color_line(char *line, t_game *g)
 		j++;
 	}
 	return (1);
+}
+
+/*0=yes it's a color line, 1=no*/
+int	color_line_detector(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i] == ' ' || line[i] == '\t')
+		i++;
+	if (ft_strncmp(line + i, "F ", 2) == 0)
+		return (TRUE);
+	else if (ft_strncmp(line + i, "C ", 2) == 0)
+		return (TRUE);
+	else
+		return (FALSE);
 }

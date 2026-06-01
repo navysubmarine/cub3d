@@ -6,105 +6,34 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:19 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/01 18:33:34 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/01 19:15:37 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int validate_all_header_set(t_file *file)
+int	validate_header_set(t_file *file)
 {
 	if (!file->path_no)
-	{
-		ft_putstr_fd("Error. Missing north texture\n", 2);
-		return (1);
-	}
+		return (ft_putstr_fd("Error. Missing north texture\n", 2), 1);
 	if (!file->path_so)
-	{
-		ft_putstr_fd("Error. Missing south texture\n", 2);
-		return (1);
-	}
+		return (ft_putstr_fd("Error. Missing south texture\n", 2), 1);
 	if (!file->path_we)
-	{
-		ft_putstr_fd("Error. Missing west texture\n", 2);
-		return (1);
-	}
+		return (ft_putstr_fd("Error. Missing west texture\n", 2), 1);
 	if (!file->path_ea)
-	{
-		ft_putstr_fd("Error. Missing east texture\n", 2);
-		return (1);
-	}
+		return (ft_putstr_fd("Error. Missing east texture\n", 2), 1);
 	if (file->floor_set == FALSE)
-	{
-		ft_putstr_fd("Error. Missing floor color\n", 2);
-		return (1);
-	}
+		return (ft_putstr_fd("Error. Missing floor color\n", 2), 1);
 	if (file->ceiling_set == FALSE)
-	{
-		ft_putstr_fd("Error. Missing ceiling color\n", 2);
-		return (1);
-	}
+		return (ft_putstr_fd("Error. Missing ceiling color\n", 2), 1);
 	return (0);
 }
 
-int	texture_line_detector(char *line)
+
+void	store_map_line(t_game *g, char *line, int i)
 {
-	int	i;
-
-	i = 0;
-	while (line[i] == ' ' || line[i] == '\t')
-		i++;
-	/*0=yes it's a texture line, 1=no*/
-	if (ft_strncmp(line + i, "NO ", 3) == 0)
-		return (TRUE);
-	else if (ft_strncmp(line + i, "SO ", 3) == 0)
-		return (TRUE);
-	else if (ft_strncmp(line + i, "WE ", 3) == 0)
-		return (TRUE);
-	else if (ft_strncmp(line + i, "EA ", 3) == 0)
-		return (TRUE);
-	else
-		return (FALSE);
+	g->map.map[i] = line;
 }
-
-int	color_line_detector(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i] == ' ' || line[i] == '\t')
-		i++;
-	/*0=yes it's a color line, 1=no*/
-	if (ft_strncmp(line + i, "F ", 2) == 0)
-		return (TRUE);
-	else if (ft_strncmp(line + i, "C ", 2) == 0)
-		return (TRUE);
-	else
-		return (FALSE);
-}
-
-int	blank_line_detector(char	*line)
-{
-	int	i;
-
-	i = 0;
-	if (line[0] == '\0' || line[0] == '\n')
-		return (TRUE);
-	while (line[i] == ' ' || line[i] == '\t')
-	{
-		i++;
-	}
-	if (line[i] == '\0' || line[i] == '\n')
-		return (TRUE);
-	else
-		return (FALSE);
-}
-/*
-int	store_map_line(t_game *g, char *line)
-{
-
-}
-*/
 
 int	calculate_map_len(int i, t_game *g)
 {
@@ -147,9 +76,11 @@ void	init_col_info_struct(t_game *g)
 int	handle_file_content(t_game *g)
 {
 	int		i;
+	int		i_map;
 	char	**lines;
 
 	i = 0;
+	i_map = 0;
 	lines = g->file.content;
 	while (i < g->file.nb_of_lines)
 	{
@@ -175,7 +106,7 @@ int	handle_file_content(t_game *g)
 			i++;
 			continue ;
 		}
-		while (map_line_detector(lines[i]) == TRUE)
+		while (i < g->file.nb_of_lines && map_line_detector(lines[i]) == TRUE)
 		{
 			printf("map line detector triggered\n");
 			/*TODO: parse the map and validate it*/
@@ -189,21 +120,26 @@ int	handle_file_content(t_game *g)
 				if (init_map(g, i))
 					return (1);
 			}
-			// if (store_map_line(g, lines[i]))
-			// 	return (1);
+			store_map_line(g, lines[i], i_map);
+			i_map++;
 			i++;
+			continue ;
+		}
+		if (blank_line_detector(lines[i]) == TRUE)
+		{
+			printf("EOF found\n");
+			break ;
 		}
 		// 	printf("DEBUG: line %d\n", i);
-		// 	ft_putstr_fd("Error. Unrecognized line\n", 2);
-		// return (1);
-		i++;
+		//ft_putstr_fd("Error. Unrecognized line\n", 2);
+		//return (1);
 	}
 	
 	/*TODO: add validate_all_map_set*/
-	if (validate_all_header_set(&g->file))
+	if (validate_header_set(&g->file))
 		return (1);
-	//print_file(&g->file);
-	//ft_putstr_fd("OK, file is valid. Ready to launch !!\n", 1);
+	print_file(g);
+	ft_putstr_fd("OK, file is valid. Ready to launch !!\n", 1);
 	return (0);
 }
 
