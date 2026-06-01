@@ -6,51 +6,11 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:19 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/01 15:48:30 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/01 18:33:34 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-int	validate_color_line(char	*line, t_game *g)
-{
-	char	*content;
-	int	i;
-
-	i = 0;
-	while (line[i] == ' ' || line[i] == '\t')
-		i++;
-	if (ft_strncmp(line + i, "F ", 2) == 0 && (line[2] + i) != '\0')
-	{
-		content = find_content(line + i, "F");
-
-		if (test_rgb_color("Floor", content))
-			return (1);
-		else
-		{
-			if (store_rgb(g->file.floor, content))
-				return (1);
-			else
-				g->file.floor_set = 1;
-		}
-	}
-	else if (ft_strncmp(line + i, "C ", 2) == 0 && line[2] != '\0')
-	{
-		content = find_content(line + i, "C");
-		if (test_rgb_color("Ceiling", content))
-			return (1);
-		else
-		{
-			if (store_rgb(g->file.ceiling, content))
-				return (1);
-			else
-				g->file.ceiling_set = 1;
-		}
-	}
-	else
-		return (1);
-	return (0);
-}
 
 int validate_all_header_set(t_file *file)
 {
@@ -74,12 +34,12 @@ int validate_all_header_set(t_file *file)
 		ft_putstr_fd("Error. Missing east texture\n", 2);
 		return (1);
 	}
-	if (!file->floor_set)
+	if (file->floor_set == FALSE)
 	{
 		ft_putstr_fd("Error. Missing floor color\n", 2);
 		return (1);
 	}
-	if (!file->ceiling_set)
+	if (file->ceiling_set == FALSE)
 	{
 		ft_putstr_fd("Error. Missing ceiling color\n", 2);
 		return (1);
@@ -95,13 +55,13 @@ int	texture_line_detector(char *line)
 	while (line[i] == ' ' || line[i] == '\t')
 		i++;
 	/*0=yes it's a texture line, 1=no*/
-	if (ft_strncmp(line + i, "NO ", 3) == TRUE)
+	if (ft_strncmp(line + i, "NO ", 3) == 0)
 		return (TRUE);
-	else if (ft_strncmp(line + i, "SO ", 3) == TRUE)
+	else if (ft_strncmp(line + i, "SO ", 3) == 0)
 		return (TRUE);
-	else if (ft_strncmp(line + i, "WE ", 3) == TRUE)
+	else if (ft_strncmp(line + i, "WE ", 3) == 0)
 		return (TRUE);
-	else if (ft_strncmp(line + i, "EA ", 3) == TRUE)
+	else if (ft_strncmp(line + i, "EA ", 3) == 0)
 		return (TRUE);
 	else
 		return (FALSE);
@@ -116,11 +76,11 @@ int	color_line_detector(char *line)
 		i++;
 	/*0=yes it's a color line, 1=no*/
 	if (ft_strncmp(line + i, "F ", 2) == 0)
-		return (0);
+		return (TRUE);
 	else if (ft_strncmp(line + i, "C ", 2) == 0)
-		return (0);
+		return (TRUE);
 	else
-		return (1);
+		return (FALSE);
 }
 
 int	blank_line_detector(char	*line)
@@ -174,8 +134,14 @@ void	init_tx_info_struct(t_game *g)
 {
 	g->textures[0] = (t_tx_info){"NO", "North", &g->file.path_no};
 	g->textures[1] = (t_tx_info){"SO", "South", &g->file.path_so};
-	g->textures[2] = (t_tx_info){"WE", "West",  &g->file.path_we};
-	g->textures[3] = (t_tx_info){"EA", "East",  &g->file.path_ea};
+	g->textures[2] = (t_tx_info){"WE", "West", &g->file.path_we};
+	g->textures[3] = (t_tx_info){"EA", "East", &g->file.path_ea};
+}
+
+void	init_col_info_struct(t_game *g)
+{
+	g->colors[0] = (t_col_info){"F", "Floor", g->file.floor, &g->file.floor_set};
+	g->colors[1] = (t_col_info){"C", "Ceiling", g->file.ceiling, &g->file.ceiling_set};
 }
 
 int	handle_file_content(t_game *g)
@@ -189,21 +155,29 @@ int	handle_file_content(t_game *g)
 	{
 		if (blank_line_detector(lines[i]) == TRUE)
 		{
+			printf("blank line detector triggered\n");
 			i++;
 			continue ;
 		}
 		else if (g->map.is_map_set == FALSE && texture_line_detector(lines[i]) == TRUE)
 		{
+			printf("texture line detector triggered\n");
 			if (validate_texture_line(lines[i], g))
 				return (1);
+			i++;
+			continue ;
 		}
 		else if (g->map.is_map_set == FALSE && color_line_detector(lines[i]) == TRUE)
 		{
+			printf("color line detector triggered\n");
 			if (validate_color_line(lines[i], g))
 				return (1);
+			i++;
+			continue ;
 		}
-		else if (map_line_detector(lines[i]) == TRUE)
+		while (map_line_detector(lines[i]) == TRUE)
 		{
+			printf("map line detector triggered\n");
 			/*TODO: parse the map and validate it*/
 			/*Store the map and check it after everyline has been collected*/
 			if (is_valid_map_line(lines[i]))
@@ -217,14 +191,11 @@ int	handle_file_content(t_game *g)
 			}
 			// if (store_map_line(g, lines[i]))
 			// 	return (1);
-			break ;
+			i++;
 		}
-		else
-		{
-			printf("DEBUG: line %d\n", i);
-			ft_putstr_fd("Error. Unrecognized line\n", 2);
-			return (1);
-		}
+		// 	printf("DEBUG: line %d\n", i);
+		// 	ft_putstr_fd("Error. Unrecognized line\n", 2);
+		// return (1);
 		i++;
 	}
 	
@@ -268,6 +239,7 @@ int	main(int argc, char **argv)
 	/*we check if the input file is playable
 	+we store what we find in the struct*/
 	init_tx_info_struct(&g);
+	init_col_info_struct(&g);
 	g.map.is_map_set = FALSE;
 	if (handle_input(argc, argv, &g))
 		return (1);

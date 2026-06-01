@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 16:05:05 by marthoma          #+#    #+#             */
-/*   Updated: 2026/05/28 11:31:51 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/01 18:06:45 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,31 @@ int	store_rgb(int *values, char *content)
 	}
 	free_content(tab);
 	return (0);
+}
+
+int	validate_color_line(char *line, t_game *g)
+{
+	char	*content;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	while (line[i] == ' ' || line[i] == '\t')
+		i++;
+	while (j < 2)
+	{
+		if (ft_strncmp(line + i, g->colors[j].id, 1) == 0
+			&& (line[i + 1]) != '\0')
+		{
+			content = find_content(line + i, g->colors[j].id);
+			if (test_rgb_color(g->colors[j].word, content)
+				|| store_rgb(g->colors[j].field, content))
+				return (1);
+			*g->colors[j].is_set = TRUE;
+			return (0);
+		}
+		j++;
+	}
+	return (1);
 }

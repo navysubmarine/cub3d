@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:38 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/01 15:28:50 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/01 18:32:56 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-# define TRUE 0
-# define FALSE 1
+# define TRUE 1
+# define FALSE 0
 
 typedef struct s_tx_info
 {
@@ -39,6 +39,14 @@ typedef struct s_tx_info
 	char		*word;
 	char		**field;
 }				t_tx_info;
+
+typedef struct s_col_info
+{
+	char		*id;
+	char		*word;
+	int			*field;
+	int		*is_set;
+}				t_col_info;
 
 typedef struct s_img
 {
@@ -59,10 +67,10 @@ typedef struct s_file
 	char		*path_so;
 	char		*path_we;
 	char		*path_ea;
-	int			ceiling[3];
-	bool		ceiling_set;
 	int			floor[3];
-	bool		floor_set;
+	int			floor_set;
+	int			ceiling[3];
+	int			ceiling_set;
 	char		**map;
 }				t_file;
 
@@ -83,6 +91,7 @@ typedef struct s_game
 	t_file		file;
 	t_player	player;
 	t_tx_info	textures[4];
+	t_col_info	colors[2];
 }				t_game;
 
 /****PARSING INPUT FILE****/
@@ -99,6 +108,7 @@ int				map_line_detector(char *line);
 int				validate_texture_line(char	*line, t_game *g);
 int				test_tx_path(char *tx_type, char *path);
 /*PARSING COLORS*/
+int				validate_color_line(char *line, t_game *g);
 int				test_rgb_format(char *content);
 int				test_rgb_color(char	*id, char *content);
 int				store_rgb(int *values, char *content);
