@@ -6,68 +6,11 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:19 by marthoma          #+#    #+#             */
-/*   Updated: 2026/05/28 11:43:54 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/01 15:48:30 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-
-
-int	validate_texture_line(char	*line, t_game *g)
-{
-	char	*content;
-	int		i;
-
-	i = 0;
-	while (line[i] == ' ' || line[i] == '\t')
-		i++;
-	if (ft_strncmp(line + i, "NO ", 3) == 0 && line[3 + i] != '\0')
-	{
-		content = find_content(line + i, "NO");
-		if (test_tx_path("North", content))
-			return (1);
-		else
-		{
-			if (assign_field_once(&g->file.path_no, content))
-				return (1);
-		}
-	}
-	else if (ft_strncmp(line + i, "SO ", 3) == 0 && line[3 + i] != '\0')
-	{
-		content = find_content(line + i, "SO");
-		if (test_tx_path("South", content))
-			return (1);
-		else
-		{
-			if (assign_field_once(&g->file.path_so, content))
-				return (1);
-		}
-	}
-	else if (ft_strncmp(line + i, "WE ", 3) == 0 && line[3 + i] != '\0')
-	{
-		content = find_content(line + i, "WE");
-		if (test_tx_path("West", content))
-			return (1);
-		else
-		{
-			if (assign_field_once(&g->file.path_we, content))
-				return (1);
-		}
-	}
-	else if (ft_strncmp(line + i, "EA ", 3) == 0 && line[3 + i] != '\0')
-	{
-		content = find_content(line + i, "EA");
-		if (test_tx_path("East", content))
-			return (1);
-		else
-		{
-			if (assign_field_once(&g->file.path_ea, content))
-				return (1);
-		}
-	}
-	return (0);
-}
 
 int	validate_color_line(char	*line, t_game *g)
 {
@@ -227,6 +170,14 @@ int	init_map(t_game *g, int i)
 	return (0);
 }
 
+void	init_tx_info_struct(t_game *g)
+{
+	g->textures[0] = (t_tx_info){"NO", "North", &g->file.path_no};
+	g->textures[1] = (t_tx_info){"SO", "South", &g->file.path_so};
+	g->textures[2] = (t_tx_info){"WE", "West",  &g->file.path_we};
+	g->textures[3] = (t_tx_info){"EA", "East",  &g->file.path_ea};
+}
+
 int	handle_file_content(t_game *g)
 {
 	int		i;
@@ -246,7 +197,7 @@ int	handle_file_content(t_game *g)
 			if (validate_texture_line(lines[i], g))
 				return (1);
 		}
-		else if (g->map.is_map_set== FALSE && color_line_detector(lines[i]) == TRUE)
+		else if (g->map.is_map_set == FALSE && color_line_detector(lines[i]) == TRUE)
 		{
 			if (validate_color_line(lines[i], g))
 				return (1);
@@ -263,7 +214,6 @@ int	handle_file_content(t_game *g)
 				g->map.is_map_set = TRUE;
 				if (init_map(g, i))
 					return (1);
-				printf("map_set ? : %i\n", g->map.is_map_set);
 			}
 			// if (store_map_line(g, lines[i]))
 			// 	return (1);
@@ -317,6 +267,8 @@ int	main(int argc, char **argv)
 	ft_memset(&g, 0, sizeof(t_game));
 	/*we check if the input file is playable
 	+we store what we find in the struct*/
+	init_tx_info_struct(&g);
+	g.map.is_map_set = FALSE;
 	if (handle_input(argc, argv, &g))
 		return (1);
 

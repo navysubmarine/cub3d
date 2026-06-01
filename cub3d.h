@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:38 by marthoma          #+#    #+#             */
-/*   Updated: 2026/05/28 11:32:11 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/01 15:28:50 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,13 @@
 
 # define TRUE 0
 # define FALSE 1
+
+typedef struct s_tx_info
+{
+	char		*id;
+	char		*word;
+	char		**field;
+}				t_tx_info;
 
 typedef struct s_img
 {
@@ -75,6 +82,7 @@ typedef struct s_game
 	t_map		map;
 	t_file		file;
 	t_player	player;
+	t_tx_info	textures[4];
 }				t_game;
 
 /****PARSING INPUT FILE****/
@@ -88,6 +96,7 @@ char			**store_content(char *file, int nb_of_lines);
 int				is_valid_map_line(char	*line);
 int				map_line_detector(char *line);
 /*PARSING TEXTURE*/
+int				validate_texture_line(char	*line, t_game *g);
 int				test_tx_path(char *tx_type, char *path);
 /*PARSING COLORS*/
 int				test_rgb_format(char *content);

@@ -6,11 +6,38 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 16:01:22 by marthoma          #+#    #+#             */
-/*   Updated: 2026/05/28 11:31:44 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/01 15:47:07 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+int	validate_texture_line(char	*line, t_game *g)
+{
+	int		i;
+	int		j;
+	char	*content;
+
+	j = 0;
+	i = 0;
+	while (line[i] == ' ' || line[i] == '\t')
+		i++;
+	while (j < 4)
+	{
+		if (ft_strncmp(line + i, g->textures[j].id, 2) == 0
+			&& line[2 + i] != '\0')
+		{
+			content = find_content(line + i, g->textures[j].id);
+			if (test_tx_path(g->textures[j].word, content))
+				return (1);
+			if (assign_field_once(g->textures[j].field, content))
+				return (1);
+			return (0);
+		}
+		j++;
+	}
+	return (1);
+}
 
 int	test_tx_path(char *tx_type, char *path)
 {
