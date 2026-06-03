@@ -6,38 +6,20 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:19 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/01 19:15:37 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/03 16:17:16 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	validate_header_set(t_file *file)
+int	calculate_map_len(char **lines, int i, t_game *g)
 {
-	if (!file->path_no)
-		return (ft_putstr_fd("Error. Missing north texture\n", 2), 1);
-	if (!file->path_so)
-		return (ft_putstr_fd("Error. Missing south texture\n", 2), 1);
-	if (!file->path_we)
-		return (ft_putstr_fd("Error. Missing west texture\n", 2), 1);
-	if (!file->path_ea)
-		return (ft_putstr_fd("Error. Missing east texture\n", 2), 1);
-	if (file->floor_set == FALSE)
-		return (ft_putstr_fd("Error. Missing floor color\n", 2), 1);
-	if (file->ceiling_set == FALSE)
-		return (ft_putstr_fd("Error. Missing ceiling color\n", 2), 1);
-	return (0);
-}
+	int	j;
 
-
-void	store_map_line(t_game *g, char *line, int i)
-{
-	g->map.map[i] = line;
-}
-
-int	calculate_map_len(int i, t_game *g)
-{
-	g->map.map_h = g->file.nb_of_lines - i;
+	j = 0;
+	while (lines[i + j] && lines[i + j][0] != '\n')
+		j++;
+	g->map.map_h = j;
 	if (g->map.map_h <= 0)
 	{
 		ft_putstr_fd("Error. Map doesn't exist\n", 2);
@@ -46,9 +28,9 @@ int	calculate_map_len(int i, t_game *g)
 	return (0);
 }
 
-int	init_map(t_game *g, int i)
+int	init_map(char **lines, t_game *g, int i)
 {
-	if (calculate_map_len(i, g))
+	if (calculate_map_len(lines, i, g))
 		return (1);
 	g->map.map = ft_calloc(g->map.map_h + 1, sizeof (char *));
 	if (!g->map.map)
@@ -86,13 +68,13 @@ int	handle_file_content(t_game *g)
 	{
 		if (blank_line_detector(lines[i]) == TRUE)
 		{
-			printf("blank line detector triggered\n");
+			//printf("blank line detector triggered\n");
 			i++;
 			continue ;
 		}
 		else if (g->map.is_map_set == FALSE && texture_line_detector(lines[i]) == TRUE)
 		{
-			printf("texture line detector triggered\n");
+			//printf("texture line detector triggered\n");
 			if (validate_texture_line(lines[i], g))
 				return (1);
 			i++;
@@ -100,45 +82,51 @@ int	handle_file_content(t_game *g)
 		}
 		else if (g->map.is_map_set == FALSE && color_line_detector(lines[i]) == TRUE)
 		{
-			printf("color line detector triggered\n");
+			//printf("color line detector triggered\n");
 			if (validate_color_line(lines[i], g))
 				return (1);
 			i++;
 			continue ;
 		}
-		while (i < g->file.nb_of_lines && map_line_detector(lines[i]) == TRUE)
+		else if (i < g->file.nb_of_lines && map_line_detector(lines[i]) == TRUE)
 		{
-			printf("map line detector triggered\n");
-			/*TODO: parse the map and validate it*/
-			/*Store the map and check it after everyline has been collected*/
-			if (is_valid_map_line(lines[i]))
-			 	return (1);
-			// /*TODO: this function, after having initialized the map with the right number of lines*/
-			if (g->map.is_map_set == FALSE)
+			while (i < g->file.nb_of_lines && map_line_detector(lines[i]) == TRUE)
 			{
-				g->map.is_map_set = TRUE;
-				if (init_map(g, i))
-					return (1);
+				//printf("map line detector triggered\n");
+				/*TODO: parse the map and validate it*/
+				/*Store the map and check it after everyline has been collected*/
+				if (is_valid_map_line(lines[i]))
+				 	return (1);
+				// /*TODO: this function, after having initialized the map with the right number of lines*/
+				if (g->map.is_map_set == FALSE)
+				{
+					g->map.is_map_set = TRUE;
+					if (init_map(lines, g, i))
+						return (1);
+				}
+				store_map_line(g, lines[i], i_map);
+				i_map++;
+				i++;
+				continue ;
 			}
-			store_map_line(g, lines[i], i_map);
-			i_map++;
-			i++;
-			continue ;
+			if (i < g->file.nb_of_lines && blank_line_detector(lines[i]) == TRUE)
+			{
+				//printf("EOF found\n");
+				break ;
+			}
 		}
-		if (blank_line_detector(lines[i]) == TRUE)
+		else
 		{
-			printf("EOF found\n");
-			break ;
+			ft_putstr_fd("Error. Unrecognized line\n", 2);
+			return (1);
 		}
 		// 	printf("DEBUG: line %d\n", i);
-		//ft_putstr_fd("Error. Unrecognized line\n", 2);
-		//return (1);
 	}
 	
 	/*TODO: add validate_all_map_set*/
 	if (validate_header_set(&g->file))
 		return (1);
-	print_file(g);
+	//print_file(g);
 	ft_putstr_fd("OK, file is valid. Ready to launch !!\n", 1);
 	return (0);
 }

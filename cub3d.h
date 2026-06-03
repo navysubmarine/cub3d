@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:38 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/01 19:12:18 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/03 15:52:55 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,9 @@ int				blank_line_detector(char	*line);
 /*PARSING MAP*/
 int				is_valid_map_line(char	*line);
 int				map_line_detector(char *line);
+void			store_map_line(t_game *g, char *line, int i);
+/*PARSING HEADER*/
+int				validate_header_set(t_file *file);
 /*PARSING TEXTURE*/
 int				validate_texture_line(char	*line, t_game *g);
 int				texture_line_detector(char *line);
@@ -114,6 +117,7 @@ int				test_rgb_format(char *content);
 int				test_rgb_color(char	*id, char *content);
 int				store_rgb(int *values, char *content);
 int				color_line_detector(char *line);
+
 /*GET NEXT LINE*/
 char			*get_next_line(int fd);
 char			*call_and_check(int fd, char *buffer, char **stash);
