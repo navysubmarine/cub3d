@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:38 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/03 15:52:55 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/04 12:31:07 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ typedef struct s_img
 
 typedef struct s_player
 {
+	int			initial_x;
+	int			initial_y;
 	int			x;
 	int			y;
 }				t_player;
@@ -105,19 +107,23 @@ int				blank_line_detector(char	*line);
 int				is_valid_map_line(char	*line);
 int				map_line_detector(char *line);
 void			store_map_line(t_game *g, char *line, int i);
+int				calculate_map_len(char **lines, int i, t_game *g);
+int				init_map(char **lines, t_game *g, int i);
+char			**map_copy(char **map);
 /*PARSING HEADER*/
 int				validate_header_set(t_file *file);
 /*PARSING TEXTURE*/
 int				validate_texture_line(char	*line, t_game *g);
 int				texture_line_detector(char *line);
 int				test_tx_path(char *tx_type, char *path);
+void			init_tx_info_struct(t_game *g);
 /*PARSING COLORS*/
 int				validate_color_line(char *line, t_game *g);
 int				test_rgb_format(char *content);
 int				test_rgb_color(char	*id, char *content);
 int				store_rgb(int *values, char *content);
 int				color_line_detector(char *line);
-
+void			init_col_info_struct(t_game *g);
 /*GET NEXT LINE*/
 char			*get_next_line(int fd);
 char			*call_and_check(int fd, char *buffer, char **stash);

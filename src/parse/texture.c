@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 16:01:22 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/01 18:39:14 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/03 16:25:35 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,12 @@ int	test_tx_path(char *tx_type, char *path)
 	}
 	close (fd);
 	return (0);
+}
+
+void	init_tx_info_struct(t_game *g)
+{
+	g->textures[0] = (t_tx_info){"NO", "North", &g->file.path_no};
+	g->textures[1] = (t_tx_info){"SO", "South", &g->file.path_so};
+	g->textures[2] = (t_tx_info){"WE", "West", &g->file.path_we};
+	g->textures[3] = (t_tx_info){"EA", "East", &g->file.path_ea};
 }

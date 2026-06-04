@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 16:05:05 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/01 18:40:02 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/03 16:26:04 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,4 +131,12 @@ int	color_line_detector(char *line)
 		return (TRUE);
 	else
 		return (FALSE);
+}
+
+void	init_col_info_struct(t_game *g)
+{
+	g->colors[0] = (t_col_info)
+	{"F", "Floor", g->file.floor, &g->file.floor_set};
+	g->colors[1] = (t_col_info)
+	{"C", "Ceiling", g->file.ceiling, &g->file.ceiling_set};
 }

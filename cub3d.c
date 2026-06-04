@@ -6,54 +6,11 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:19 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/03 16:17:16 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/04 12:32:32 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-int	calculate_map_len(char **lines, int i, t_game *g)
-{
-	int	j;
-
-	j = 0;
-	while (lines[i + j] && lines[i + j][0] != '\n')
-		j++;
-	g->map.map_h = j;
-	if (g->map.map_h <= 0)
-	{
-		ft_putstr_fd("Error. Map doesn't exist\n", 2);
-		return (1);
-	}
-	return (0);
-}
-
-int	init_map(char **lines, t_game *g, int i)
-{
-	if (calculate_map_len(lines, i, g))
-		return (1);
-	g->map.map = ft_calloc(g->map.map_h + 1, sizeof (char *));
-	if (!g->map.map)
-	{
-		ft_putstr_fd("Error. Malloc map failed\n", 2);
-		return (1);
-	}
-	return (0);
-}
-
-void	init_tx_info_struct(t_game *g)
-{
-	g->textures[0] = (t_tx_info){"NO", "North", &g->file.path_no};
-	g->textures[1] = (t_tx_info){"SO", "South", &g->file.path_so};
-	g->textures[2] = (t_tx_info){"WE", "West", &g->file.path_we};
-	g->textures[3] = (t_tx_info){"EA", "East", &g->file.path_ea};
-}
-
-void	init_col_info_struct(t_game *g)
-{
-	g->colors[0] = (t_col_info){"F", "Floor", g->file.floor, &g->file.floor_set};
-	g->colors[1] = (t_col_info){"C", "Ceiling", g->file.ceiling, &g->file.ceiling_set};
-}
 
 int	handle_file_content(t_game *g)
 {
@@ -72,7 +29,8 @@ int	handle_file_content(t_game *g)
 			i++;
 			continue ;
 		}
-		else if (g->map.is_map_set == FALSE && texture_line_detector(lines[i]) == TRUE)
+		else if (g->map.is_map_set == FALSE
+			&& texture_line_detector(lines[i]) == TRUE)
 		{
 			//printf("texture line detector triggered\n");
 			if (validate_texture_line(lines[i], g))
@@ -80,7 +38,8 @@ int	handle_file_content(t_game *g)
 			i++;
 			continue ;
 		}
-		else if (g->map.is_map_set == FALSE && color_line_detector(lines[i]) == TRUE)
+		else if (g->map.is_map_set == FALSE
+			&& color_line_detector(lines[i]) == TRUE)
 		{
 			//printf("color line detector triggered\n");
 			if (validate_color_line(lines[i], g))
@@ -90,14 +49,12 @@ int	handle_file_content(t_game *g)
 		}
 		else if (i < g->file.nb_of_lines && map_line_detector(lines[i]) == TRUE)
 		{
-			while (i < g->file.nb_of_lines && map_line_detector(lines[i]) == TRUE)
+			while (i < g->file.nb_of_lines
+				&& map_line_detector(lines[i]) == TRUE)
 			{
 				//printf("map line detector triggered\n");
-				/*TODO: parse the map and validate it*/
-				/*Store the map and check it after everyline has been collected*/
 				if (is_valid_map_line(lines[i]))
-				 	return (1);
-				// /*TODO: this function, after having initialized the map with the right number of lines*/
+					return (1);
 				if (g->map.is_map_set == FALSE)
 				{
 					g->map.is_map_set = TRUE;
@@ -109,7 +66,8 @@ int	handle_file_content(t_game *g)
 				i++;
 				continue ;
 			}
-			if (i < g->file.nb_of_lines && blank_line_detector(lines[i]) == TRUE)
+			if (i < g->file.nb_of_lines
+				&& blank_line_detector(lines[i]) == TRUE)
 			{
 				//printf("EOF found\n");
 				break ;
@@ -131,6 +89,91 @@ int	handle_file_content(t_game *g)
 	return (0);
 }
 
+
+
+// int	is_this_line_only_ones(char *line)
+// {
+// 	int	i;
+
+// 	i = 0;
+
+// 	while (line[i])
+// 	{
+// 		if (line[i] != '1' && line[i] != ' ' && line[i] != '\t')
+// 			return (1);
+// 		while (line[i] == ' ' || line[i] == '\t')
+// 			i++;
+// 		while (line[i] == '1')
+// 			i++;
+// 	}
+// 	return (0);
+// }
+
+void	find_player(t_game *g, char **map)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	if (!map)
+		return ;
+	g->player.initial_x = -1;
+	g->player.initial_y = -1;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] == 'N' || map[i][j] )
+			{
+				g->player_x = j;
+				g->player_y = i;
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
+int	are_walls_enclosed(t_game *g, char **map)
+{
+	
+}
+
+/*what is the point to passing g ? and not the map ?*/
+int	is_there_one_player(char *line)
+{
+	
+}
+
+int	is_map_playable(t_game *g)
+{
+	int	i;
+	char	**copy;
+
+	i = 0;
+	copy = map_copy(g->map.map);
+	/*is there only one player and where is it*/
+	handle_player_pos();
+	if (are_walls_enclosed(g, copy))
+	{
+		printf("Error. Map walls are not closed\n", i);
+		return (1);
+	}
+	while (map[i])
+	{
+		
+		i++;
+	}
+	
+	/*TODO: 1) are the walls enclosed
+	2) is there exactly one player
+	3) Is the map empty or minimum size
+	4) No invalid chars
+	*/
+}
+
 int	handle_input(int argc, char **argv, t_game *g)
 {
 	if (argc != 2 || !ft_strchr_cub(argv[1]))
@@ -148,9 +191,8 @@ int	handle_input(int argc, char **argv, t_game *g)
 	{
 		return (1);
 	}
-	/*TODO: make this function*/
 	// if (is_map_playable(g))
-	// 	return (1);
+	//  	return (1);
 	return (0);
 }
 

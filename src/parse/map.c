@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 15:16:35 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/01 18:18:00 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/04 12:27:31 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,29 @@ int	map_line_detector(char *line)
 		return (TRUE);
 	else
 		return (FALSE);
+}
+
+char	**map_copy(char **map)
+{
+	char	**copy;
+	int		i;
+
+	if (!map)
+		return (NULL);
+	i = 0;
+	while (map[i])
+		i++;
+	copy = malloc(sizeof(*copy) * (i + 1));
+	if (!copy)
+		return (NULL);
+	i = 0;
+	while (map[i])
+	{
+		copy[i] = ft_strdup(map[i]);
+		if (!(copy[i]))
+			return (free_content(copy), NULL);
+		i++;
+	}
+	copy[i] = NULL;
+	return (copy);
 }
