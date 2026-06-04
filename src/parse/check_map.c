@@ -6,30 +6,13 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:47:36 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/03 16:24:52 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/04 16:28:52 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../cub3d.h"
 
 /*TODO: check the file content is valid*/
-
-int	blank_line_detector(char	*line)
-{
-	int	i;
-
-	i = 0;
-	if (line[0] == '\0' || line[0] == '\n')
-		return (TRUE);
-	while (line[i] == ' ' || line[i] == '\t')
-	{
-		i++;
-	}
-	if (line[i] == '\0' || line[i] == '\n')
-		return (TRUE);
-	else
-		return (FALSE);
-}
 
 int	calculate_map_len(char **lines, int i, t_game *g)
 {
@@ -57,5 +40,71 @@ int	init_map(char **lines, t_game *g, int i)
 		ft_putstr_fd("Error. Malloc map failed\n", 2);
 		return (1);
 	}
+	return (0);
+}
+
+void	find_player(t_game *g, char **map)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	g->player.initial_x = -1;
+	g->player.initial_y = -1;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] == 'N' || map[i][j] == 'S'
+				|| map[i][j] == 'W' || map[i][j] == 'E')
+			{
+				g->player.initial_x = j;
+				g->player.initial_y = i;
+				return ;
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
+int	is_there_one_player(char **map)
+{
+	int	i;
+	int	j;
+	int	count;
+
+	i = 0;
+	j = 0;
+	count = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] == 'N' || map[i][j] == 'S'
+				|| map[i][j] == 'W' || map[i][j] == 'E')
+				count ++;
+			j++;
+		}
+		i++;
+	}
+	if (count != 1)
+		return (1);
+	return (0);
+}
+
+int	handle_player_pos(t_game *g, char **map)
+{
+	if (is_there_one_player(map))
+	{
+		printf("Error. There is not exactly one player\n");
+		return (1);
+	}
+	find_player(g, map);
+	printf("X Player position = %d\n", g->player.initial_x);
+	printf("Y Player position = %d\n", g->player.initial_y);
 	return (0);
 }

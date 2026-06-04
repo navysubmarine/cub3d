@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:19 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/04 12:46:08 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/04 16:29:49 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,86 +109,17 @@ int	handle_file_content(t_game *g)
 // 	return (0);
 // }
 
-void	find_player(t_game *g, char **map)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	if (!map)
-		return ;
-	g->player.initial_x = -1;
-	g->player.initial_y = -1;
-	while (map[i])
-	{
-		j = 0;
-		while (map[i][j])
-		{
-			if (map[i][j] == 'N' || map[i][j] )
-			{
-				g->player_x = j;
-				g->player_y = i;
-			}
-			j++;
-		}
-		i++;
-	}
-}
-
 int	are_walls_enclosed(t_game *g, char **map)
 {
 	
 }
 
-int	where_is_the_player(t_game *g, char **map)
-{
-	
-}
-
-int	is_there_one_player(char **map)
-{
-	int	i;
-	int	j;
-	int	count;
-
-	i = 0;
-	j = 0;
-	count = 0;
-	while (map[i])
-	{
-		j = 0;
-		while (map[i][j])
-		{
-			if (map[i][j] == 'N' || map[i][j] == 'S'
-				|| map[i][j] == 'W' || map[i][j] == 'E')
-				count ++;
-			j++;
-		}
-		i++;
-	}
-	if (count != 1)
-		return (1);
-	return (0);
-}
-
-int	handle_player_pos(t_game *g, char **map)
-{
-	if (is_there_one_player(map))
-	{
-		printf("Error. There is not exactly one player\n");
-		return (1);
-	}
-	where_is_the_player(g, map);
-	return (0);	
-}
-
 int	is_map_playable(t_game *g)
 {
-	int	i;
+	//int	i;
 	char	**copy;
 
-	i = 0;
+	//i = 0;
 	copy = map_copy(g->map.map);
 	if (!copy)
 	{
@@ -198,17 +129,17 @@ int	is_map_playable(t_game *g)
 	/*is there only one player and where is it*/
 	if (handle_player_pos(g, copy))
 		return (1);
-	if (are_walls_enclosed(g, copy))
-	{
-		printf("Error. Map walls are not closed\n", i);
-		return (1);
-	}
-	while (map[i])
-	{
+	// if (are_walls_enclosed(g, copy))
+	// {
+	// 	printf("Error. Map walls are not closed\n", i);
+	// 	return (1);
+	// }
+	// while (map[i])
+	// {
 		
-		i++;
-	}
-	
+	// 	i++;
+	// }
+	return (0);
 	/*TODO: 1) are the walls enclosed
 	2) is there exactly one player
 	3) Is the map empty or minimum size
@@ -233,8 +164,8 @@ int	handle_input(int argc, char **argv, t_game *g)
 	{
 		return (1);
 	}
-	// if (is_map_playable(g))
-	//  	return (1);
+	if (is_map_playable(g))
+		return (1);
 	return (0);
 }
 
