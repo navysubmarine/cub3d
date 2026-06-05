@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:19 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/05 13:09:12 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/05 15:33:02 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,20 @@ int	handle_file_content(t_game *g)
 // 	are_walls_enclosed(map, x, y - 1, map_height);
 // }
 
+void	print_map(char **map, char *name)
+{
+	int	i;
+
+	i = 0;
+	printf("%s\n", name);
+	printf("_________________\n");
+	while (map[i])
+	{
+		printf("%s\n", map[i]);
+		i++;
+	}
+}
+
 int	is_map_playable(t_game *g)
 {
 	//int	i;
@@ -128,16 +142,23 @@ int	is_map_playable(t_game *g)
 
 	//i = 0;
 	copy = map_copy(g->map.map);
-	padded_copy = map_padded_copy(g->map.map, g);
 	if (!copy)
-	{
+	{		
 		ft_putstr_fd("Error. Map couldn't be copied\n", 2);
 		return (1);
 	}
+	print_map(copy, "copy");
+	padded_copy = map_padded_copy(g->map.map, g);
+	if (!padded_copy)
+	{		
+		ft_putstr_fd("Error. Map couldn't be copied\n", 2);
+		return (1);
+	}
+	print_map(padded_copy, "padded copy");
 	/*is there only one player and where is it*/
 	if (handle_player_pos(g, copy))
 		return (1);
-	
+	(void)padded_copy;
 	//are_walls_enclosed(copy, g->player.initial_x,
 	// 		g->player.initial_y, g->map.map_h)
 	// {
@@ -185,18 +206,17 @@ int	main(int argc, char **argv)
 	t_game	g;
 
 	ft_memset(&g, 0, sizeof(t_game));
-	/*we check if the input file is playable
-	+we store what we find in the struct*/
 	init_tx_info_struct(&g);
 	init_col_info_struct(&g);
 	g.map.is_map_set = FALSE;
 	if (handle_input(argc, argv, &g))
 		return (1);
-
-	//init_game(&g) || load_sprites(&g)
-	//	|| render_map(&g)
-	//	exit_game(&g, 1);
-	//mlx_hook(g.win, 2, 1L << 0, key_handler, &g);
-	//mlx_hook(g.win, 17, 0, exit_game, &g);
-	//mlx_loop(g.mlx);
 }
+	/*we check if the input file is playable
+	+we store what we find in the struct*/
+	// init_game(&g) || load_sprites(&g)
+	// 	|| render_map(&g)
+	// 	exit_game(&g, 1);
+	// mlx_hook(g.win, 2, 1L << 0, key_handler, &g);
+	// mlx_hook(g.win, 17, 0, exit_game, &g);
+	// mlx_loop(g.mlx);

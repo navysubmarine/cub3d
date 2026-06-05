@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:38 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/05 12:16:08 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/05 14:59:08 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,9 @@ int				map_line_detector(char *line);
 void			store_map_line(t_game *g, char *line, int i);
 int				calculate_map_len(char **lines, int i, t_game *g);
 int				init_map(char **lines, t_game *g, int i);
-char			**map_padded_copy(char **map, t_game *g)
+char			**map_padded_copy(char **map, t_game *g);
+char			**map_copy(char **map);
+int				handle_player_pos(t_game *g, char **map);
 /*PARSING HEADER*/
 int				validate_header_set(t_file *file);
 /*PARSING TEXTURE*/
@@ -135,9 +137,8 @@ char			*clear_stash(char *stash_array[FD_OPEN_MAX]);
 int				exit_game(t_game *g, int error);
 void			free_content(char **content);
 void			free_all(t_game *g);
-char			*clear_stash(char *stash_array[FD_OPEN_MAX]);
 /*PRINT*/
 void			print_file(t_game *g);
 /*UTILS*/
-char			*ft_strdup_padded(const char *s);
+char			*ft_strdup_padded(const char *s, int padded_line_len);
 #endif

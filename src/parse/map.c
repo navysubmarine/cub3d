@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 15:16:35 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/05 13:01:46 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/05 15:33:15 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ int	map_line_detector(char *line)
 
 int	find_longest_line_len(char **map)
 {
-	int	longest;
-	int	i;
+	size_t	longest;
+	int		i;
 
 	i = 0;
 	longest = ft_strlen(map[i]);
@@ -94,14 +94,11 @@ char	**map_padded_copy(char **map, t_game *g)
 
 	padded_map_h = g->map.map_h + 2;
 	padded_line_len = find_longest_line_len(map) + 2;
-	copy = malloc(sizeof(char **) * (padded_map_h + 1));
+	copy = malloc(sizeof(char **) * (padded_map_h + 2));
 	if (!copy)
 		return (NULL);
 	copy[0] = malloc(sizeof (char) * (padded_line_len + 1));
 	if (!copy[0])
-		return (free_content(copy), NULL);
-	copy[padded_map_h] = malloc(sizeof (char) * (padded_line_len + 1));
-	if (!copy[padded_map_h])
 		return (free_content(copy), NULL);
 	i_map = 0;
 	while (map[i_map])
@@ -111,9 +108,18 @@ char	**map_padded_copy(char **map, t_game *g)
 			return (free_content(copy), NULL);
 		i_map++;
 	}
+	printf("i_map after loop = %d\n", i_map);
+	printf("map_h = %d\n", g->map.map_h);
 	copy[0] = ft_memset(copy[0], '0', padded_line_len);
 	copy[0][padded_line_len] = '\0';
-	copy[padded_map_h] = ft_memset(copy[padded_map_h], '0', padded_line_len);
-	copy[padded_map_h][padded_line_len] = '\0';
+	copy[g->map.map_h + 1] = malloc(sizeof (char) * (padded_line_len + 1));
+	if (!copy[g->map.map_h + 1])
+		return (free_content(copy), NULL);
+	copy[g->map.map_h + 1] = ft_memset(copy[g->map.map_h + 1], '0', padded_line_len);
+	copy[g->map.map_h + 1][padded_line_len] = '\0';
+	copy[g->map.map_h + 2] = '\0';
+	printf("bottom row: %s\n", copy[g->map.map_h + 1]);
+	printf("sentinel: %p\n", copy[g->map.map_h + 2]);
+	printf("height= %d\n", g->map.map_h);
 	return (copy);
 }

@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:47:36 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/05 13:08:21 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/05 15:39:54 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	calculate_map_len(char **lines, int i, t_game *g)
 	int	j;
 
 	j = 0;
-	while (lines[i + j] && lines[i + j][0] != '\n')
+	while (lines[i + j] && lines[i + j][0] != '\n' && lines[i + j][0] != '\0')
 		j++;
 	g->map.map_h = j;
 	if (g->map.map_h <= 0)
@@ -32,6 +32,7 @@ int	calculate_map_len(char **lines, int i, t_game *g)
 
 int	init_map(char **lines, t_game *g, int i)
 {
+	printf("starting count from: %s\n", lines[i]);
 	if (calculate_map_len(lines, i, g))
 		return (1);
 	g->map.map = ft_calloc(g->map.map_h + 1, sizeof (char *));
