@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:19 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/04 16:37:59 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/05 12:09:37 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,6 @@ int	handle_file_content(t_game *g)
 	return (0);
 }
 
-
-
 // int	is_this_line_only_ones(char *line)
 // {
 // 	int	i;
@@ -109,15 +107,17 @@ int	handle_file_content(t_game *g)
 // 	return (0);
 // }
 
-int	are_walls_enclosed(char **map, int x, int y, int map_height)
+void	are_walls_enclosed(char **map, int x, int y, int map_height)
 {
 	if (y < 0 || y >= map_height || x < 0 || !map[y][x])
-		return (0);
+		return ;
 	if (map[y][x] == '1' || map[y][x] == 'V')
-		return (0);
+		return ;
 	map[y][x] = 'V';
-	
-	
+	are_walls_enclosed(map, x + 1, y, map_height);
+	are_walls_enclosed(map, x - 1, y, map_height);
+	are_walls_enclosed(map, x, y + 1, map_height);
+	are_walls_enclosed(map, x, y - 1, map_height);
 }
 
 int	is_map_playable(t_game *g)
@@ -126,7 +126,7 @@ int	is_map_playable(t_game *g)
 	char	**copy;
 
 	//i = 0;
-	copy = map_copy(g->map.map);
+	copy = map_padded_copy(g->map.map, g);
 	if (!copy)
 	{
 		ft_putstr_fd("Error. Map couldn't be copied\n", 2);
@@ -135,8 +135,8 @@ int	is_map_playable(t_game *g)
 	/*is there only one player and where is it*/
 	if (handle_player_pos(g, copy))
 		return (1);
-	if (are_walls_enclosed(copy, g->player.initial_x,
-			g->player.initial_y, g->map.map_h))
+	are_walls_enclosed(copy, g->player.initial_x,
+			g->player.initial_y, g->map.map_h)
 	{
 		printf("Error. Map walls are not closed\n", i);
 		return (1);

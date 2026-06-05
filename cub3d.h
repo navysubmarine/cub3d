@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:38 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/04 12:31:07 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/05 12:16:08 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef struct s_col_info
 	char		*id;
 	char		*word;
 	int			*field;
-	int		*is_set;
+	int			*is_set;
 }				t_col_info;
 
 typedef struct s_img
@@ -109,7 +109,7 @@ int				map_line_detector(char *line);
 void			store_map_line(t_game *g, char *line, int i);
 int				calculate_map_len(char **lines, int i, t_game *g);
 int				init_map(char **lines, t_game *g, int i);
-char			**map_copy(char **map);
+char			**map_padded_copy(char **map, t_game *g)
 /*PARSING HEADER*/
 int				validate_header_set(t_file *file);
 /*PARSING TEXTURE*/
@@ -138,4 +138,6 @@ void			free_all(t_game *g);
 char			*clear_stash(char *stash_array[FD_OPEN_MAX]);
 /*PRINT*/
 void			print_file(t_game *g);
+/*UTILS*/
+char			*ft_strdup_padded(const char *s);
 #endif

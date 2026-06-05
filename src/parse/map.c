@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 15:16:35 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/04 12:27:31 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/05 13:01:46 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,27 +45,75 @@ int	map_line_detector(char *line)
 		return (FALSE);
 }
 
-char	**map_copy(char **map)
+int	find_longest_line_len(char **map)
 {
-	char	**copy;
-	int		i;
+	int	longest;
+	int	i;
 
-	if (!map)
-		return (NULL);
 	i = 0;
-	while (map[i])
-		i++;
-	copy = malloc(sizeof(*copy) * (i + 1));
-	if (!copy)
-		return (NULL);
-	i = 0;
+	longest = ft_strlen(map[i]);
 	while (map[i])
 	{
-		copy[i] = ft_strdup(map[i]);
-		if (!(copy[i]))
-			return (free_content(copy), NULL);
+		if (longest < ft_strlen(map[i]))
+			longest = ft_strlen(map[i]);
 		i++;
 	}
-	copy[i] = NULL;
+	return (longest);
+}
+
+char	*ft_strdup_padded(const char *s, int padded_line_len)
+{
+	int		i;
+	char	*new;
+
+	new = malloc(sizeof(char) * (padded_line_len + 1));
+	if (new == NULL)
+		return (NULL);
+	new[0] = '0';
+	i = 0;
+	while (s[i])
+	{
+		new[i + 1] = s[i];
+		i++;
+	}
+	while (i < padded_line_len - 1)
+	{
+		new[i + 1] = '0';
+		i++;
+	}
+	new[i + 1] = '\0';
+	return (new);
+}
+
+char	**map_padded_copy(char **map, t_game *g)
+{
+	char	**copy;
+	int		padded_line_len;
+	int		padded_map_h;
+	int		i_map;
+
+	padded_map_h = g->map.map_h + 2;
+	padded_line_len = find_longest_line_len(map) + 2;
+	copy = malloc(sizeof(char **) * (padded_map_h + 1));
+	if (!copy)
+		return (NULL);
+	copy[0] = malloc(sizeof (char) * (padded_line_len + 1));
+	if (!copy[0])
+		return (free_content(copy), NULL);
+	copy[padded_map_h] = malloc(sizeof (char) * (padded_line_len + 1));
+	if (!copy[padded_map_h])
+		return (free_content(copy), NULL);
+	i_map = 0;
+	while (map[i_map])
+	{
+		copy[i_map + 1] = ft_strdup_padded(map[i_map], padded_line_len);
+		if (!(copy[i_map + 1]))
+			return (free_content(copy), NULL);
+		i_map++;
+	}
+	copy[0] = ft_memset(copy[0], '0', padded_line_len);
+	copy[0][padded_line_len] = '\0';
+	copy[padded_map_h] = ft_memset(copy[padded_map_h], '0', padded_line_len);
+	copy[padded_map_h][padded_line_len] = '\0';
 	return (copy);
 }
