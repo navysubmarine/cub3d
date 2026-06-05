@@ -6,11 +6,11 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 15:16:35 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/05 15:33:15 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/05 17:40:08 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../../cub3d.h"
 
 int	is_valid_map_line(char	*line)
 {
@@ -22,7 +22,7 @@ int	is_valid_map_line(char	*line)
 		if (line[i] != '0' && line[i] != '1'
 			&& line[i] != 'N' && line[i] != 'S'
 			&& line[i] != 'E' && line[i] != 'W'
-			&& line[i] != ' ' && line[i] != '\t')
+			&& line[i] != ' ')
 		{
 			ft_putstr_fd("Error. Invalid character in map line\n", 2);
 			return (1);
@@ -61,6 +61,31 @@ int	find_longest_line_len(char **map)
 	return (longest);
 }
 
+int	are_walls_enclosed(char **map, int x, int y, int nb_lines)
+{
+	if (y < 0 || y >=  nb_lines || x < 0 || x >= (int)ft_strlen(map[y]))
+		return (0);
+	if (map[y][x] == '\0' || map[y][x] == '1' || map[y][x] == 'V')
+		return (0);
+	if (map[y][x] == '0' || map[y][x] == 'N' || map[y][x] == 'S'
+		|| map[y][x] == 'E' || map[y][x] == 'W')
+	{
+		map[y][x] = 'V';
+		are_walls_enclosed(map, x + 1, y, nb_lines);
+		are_walls_enclosed(map, x - 1, y, nb_lines);
+		are_walls_enclosed(map, x, y + 1, nb_lines);
+		are_walls_enclosed(map, x, y - 1, nb_lines);
+		//print_map(map, "post unsuccessful flood_fill\n");
+		return (1);
+	}
+	map[y][x] = 'V';
+	are_walls_enclosed(map, x + 1, y, nb_lines);
+	are_walls_enclosed(map, x - 1, y, nb_lines);
+	are_walls_enclosed(map, x, y + 1, nb_lines);
+	are_walls_enclosed(map, x, y - 1, nb_lines);
+	return (0);
+}
+
 char	*ft_strdup_padded(const char *s, int padded_line_len)
 {
 	int		i;
@@ -69,7 +94,7 @@ char	*ft_strdup_padded(const char *s, int padded_line_len)
 	new = malloc(sizeof(char) * (padded_line_len + 1));
 	if (new == NULL)
 		return (NULL);
-	new[0] = '0';
+	new[0] = 'P';
 	i = 0;
 	while (s[i])
 	{
@@ -78,7 +103,7 @@ char	*ft_strdup_padded(const char *s, int padded_line_len)
 	}
 	while (i < padded_line_len - 1)
 	{
-		new[i + 1] = '0';
+		new[i + 1] = 'P';
 		i++;
 	}
 	new[i + 1] = '\0';
@@ -108,18 +133,13 @@ char	**map_padded_copy(char **map, t_game *g)
 			return (free_content(copy), NULL);
 		i_map++;
 	}
-	printf("i_map after loop = %d\n", i_map);
-	printf("map_h = %d\n", g->map.map_h);
-	copy[0] = ft_memset(copy[0], '0', padded_line_len);
+	copy[0] = ft_memset(copy[0], 'P', padded_line_len);
 	copy[0][padded_line_len] = '\0';
 	copy[g->map.map_h + 1] = malloc(sizeof (char) * (padded_line_len + 1));
 	if (!copy[g->map.map_h + 1])
 		return (free_content(copy), NULL);
-	copy[g->map.map_h + 1] = ft_memset(copy[g->map.map_h + 1], '0', padded_line_len);
+	copy[g->map.map_h + 1] = ft_memset(copy[g->map.map_h + 1], 'P', padded_line_len);
 	copy[g->map.map_h + 1][padded_line_len] = '\0';
 	copy[g->map.map_h + 2] = '\0';
-	printf("bottom row: %s\n", copy[g->map.map_h + 1]);
-	printf("sentinel: %p\n", copy[g->map.map_h + 2]);
-	printf("height= %d\n", g->map.map_h);
 	return (copy);
 }

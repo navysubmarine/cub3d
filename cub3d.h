@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:38 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/05 14:59:08 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/05 17:36:52 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ int				init_map(char **lines, t_game *g, int i);
 char			**map_padded_copy(char **map, t_game *g);
 char			**map_copy(char **map);
 int				handle_player_pos(t_game *g, char **map);
+int				are_walls_enclosed(char **map, int x, int y, int nb_lines);
 /*PARSING HEADER*/
 int				validate_header_set(t_file *file);
 /*PARSING TEXTURE*/
@@ -141,4 +142,5 @@ void			free_all(t_game *g);
 void			print_file(t_game *g);
 /*UTILS*/
 char			*ft_strdup_padded(const char *s, int padded_line_len);
+void			print_map(char **map, char *name);
 #endif

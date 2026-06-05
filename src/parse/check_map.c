@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:47:36 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/05 15:39:54 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/05 17:41:31 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	calculate_map_len(char **lines, int i, t_game *g)
 
 int	init_map(char **lines, t_game *g, int i)
 {
-	printf("starting count from: %s\n", lines[i]);
 	if (calculate_map_len(lines, i, g))
 		return (1);
 	g->map.map = ft_calloc(g->map.map_h + 1, sizeof (char *));
@@ -105,8 +104,8 @@ int	handle_player_pos(t_game *g, char **map)
 		return (1);
 	}
 	find_player(g, map);
-	printf("X Player position = %d\n", g->player.initial_x);
-	printf("Y Player position = %d\n", g->player.initial_y);
+	// printf("X Player position = %d\n", g->player.initial_x);
+	// printf("Y Player position = %d\n", g->player.initial_y);
 	return (0);
 }
 

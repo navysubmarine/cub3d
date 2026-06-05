@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:19 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/05 15:33:02 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/05 17:41:08 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,34 @@ void	print_map(char **map, char *name)
 	}
 }
 
+int	handle_map_spaces(char **copy)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (copy[i])
+	{
+		while (copy[i][j])
+		{
+			if (copy[i][j] == ' ')
+			{
+				if (copy[i][j - 1] && (copy[i][j - 1] == '0'
+					|| copy[i][j - 1] == 'N' || copy[i][j - 1] == 'S'
+					|| copy[i][j - 1] == 'W' || copy[i][j - 1] == 'E'))
+				{
+					ft_putstr_fd("Error. Non authorized whitespace\n", 2);
+					return (1);
+				}
+			}
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
 int	is_map_playable(t_game *g)
 {
 	//int	i;
@@ -143,28 +171,32 @@ int	is_map_playable(t_game *g)
 	//i = 0;
 	copy = map_copy(g->map.map);
 	if (!copy)
-	{		
+	{
 		ft_putstr_fd("Error. Map couldn't be copied\n", 2);
 		return (1);
 	}
-	print_map(copy, "copy");
+	//print_map(copy, "copy");
 	padded_copy = map_padded_copy(g->map.map, g);
 	if (!padded_copy)
-	{		
+	{
 		ft_putstr_fd("Error. Map couldn't be copied\n", 2);
 		return (1);
 	}
-	print_map(padded_copy, "padded copy");
+	//print_map(padded_copy, "padded copy");
+	// if (handle_map_spaces(copy))
+	// {
+	// 	ft_putstr_fd("Error. Hole inside the map\n", 2);
+	// 	return (1);
+	// }
 	/*is there only one player and where is it*/
 	if (handle_player_pos(g, copy))
 		return (1);
-	(void)padded_copy;
-	//are_walls_enclosed(copy, g->player.initial_x,
-	// 		g->player.initial_y, g->map.map_h)
-	// {
-	// 	printf("Error. Map walls are not closed\n", i);
-	// 	return (1);
-	// }
+	if (are_walls_enclosed(padded_copy, 0, 0, g->map.map_h + 2))
+	{
+		printf("Error. Map walls are not closed\n");
+		return (1);
+	}
+	printf("Congrats !! Your map has no holes\n");
 	// while (map[i])
 	// {
 		
