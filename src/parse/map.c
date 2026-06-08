@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 15:16:35 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/05 17:40:08 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/08 13:05:22 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,29 +61,27 @@ int	find_longest_line_len(char **map)
 	return (longest);
 }
 
-int	are_walls_enclosed(char **map, int x, int y, int nb_lines)
+void	are_walls_enclosed(t_map *map, int x, int y, int nb_lines)
 {
-	if (y < 0 || y >=  nb_lines || x < 0 || x >= (int)ft_strlen(map[y]))
-		return (0);
-	if (map[y][x] == '\0' || map[y][x] == '1' || map[y][x] == 'V')
-		return (0);
-	if (map[y][x] == '0' || map[y][x] == 'N' || map[y][x] == 'S'
-		|| map[y][x] == 'E' || map[y][x] == 'W')
+	if (y < 0 || y >= nb_lines || x < 0 || x >= (int)ft_strlen(map->padded_copy[y]))
+		return ;
+	if (map->padded_copy[y][x] == '\0' || map->padded_copy[y][x] == '1' || map->padded_copy[y][x] == 'V')
+		return ;
+	if (map->padded_copy[y][x] == '0' || map->padded_copy[y][x] == 'N' || map->padded_copy[y][x] == 'S'
+		|| map->padded_copy[y][x] == 'E' || map->padded_copy[y][x] == 'W')
 	{
-		map[y][x] = 'V';
-		are_walls_enclosed(map, x + 1, y, nb_lines);
-		are_walls_enclosed(map, x - 1, y, nb_lines);
-		are_walls_enclosed(map, x, y + 1, nb_lines);
-		are_walls_enclosed(map, x, y - 1, nb_lines);
+		map->valid = FALSE;
+		map->padded_copy[y][x] = 'V';
+		printf("Error. Map walls are not closed\n");
 		//print_map(map, "post unsuccessful flood_fill\n");
-		return (1);
+		return ;
 	}
-	map[y][x] = 'V';
+	map->padded_copy[y][x] = 'V';
 	are_walls_enclosed(map, x + 1, y, nb_lines);
 	are_walls_enclosed(map, x - 1, y, nb_lines);
 	are_walls_enclosed(map, x, y + 1, nb_lines);
 	are_walls_enclosed(map, x, y - 1, nb_lines);
-	return (0);
+	return ;
 }
 
 char	*ft_strdup_padded(const char *s, int padded_line_len)

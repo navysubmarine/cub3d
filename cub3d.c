@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:19 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/08 11:17:19 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/08 13:18:29 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,9 @@ int	handle_file_content(t_game *g)
 		}
 		// 	printf("DEBUG: line %d\n", i);
 	}
-	
 	/*TODO: add validate_all_map_set*/
-	if (validate_header_set(&g->file))
-		return (1);
 	//print_file(g);
-	ft_putstr_fd("OK, file is valid. Ready to launch !!\n", 1);
+	//ft_putstr_fd("OK, file is valid. Ready to launch !!\n", 1);
 	return (0);
 }
 
@@ -186,24 +183,36 @@ the padding or space*/
 // 	return (0);
 // }
 
+int	are_there_still_spaces(t_map *map)
+{
+	int	i;
+
+	i = 0;
+	while (map->padded_copy[i])
+	{
+		if (ft_strchr(map->padded_copy[i], ' '))
+		{
+			map->valid = FALSE;
+			return (1);
+		}
+		i++;
+	}
+	return (0);
+}
+
 int	is_map_playable(t_game *g)
 {
-	//int	i;
-	char	**copy;
-	char	**padded_copy;
-
-	//i = 0;
-	copy = map_copy(g->map.map);
-	if (!copy)
+	g->map.copy = map_copy(g->map.map);
+	if (!g->map.copy)
 	{
 		ft_putstr_fd("Error. Map couldn't be copied\n", 2);
 		return (1);
 	}
 	// print_map(copy, "copy");
-	padded_copy = map_padded_copy(g->map.map, g);
-	if (!padded_copy)
+	g->map.padded_copy = map_padded_copy(g->map.map, g);
+	if (!g->map.padded_copy)
 	{
-		ft_putstr_fd("Error. Map couldn't be copied\n", 2);
+		ft_putstr_fd("Error. Padded map couldn't be copied\n", 2);
 		return (1);
 	}
 	// print_map(padded_copy, "padded copy");
@@ -213,19 +222,14 @@ int	is_map_playable(t_game *g)
 	// 	return (1);
 	// }
 	/*is there only one player and where is it*/
-	if (handle_player_pos(g, copy))
+	if (handle_player_pos(g, g->map.copy))
 		return (1);
-	if (are_walls_enclosed(padded_copy, 0, 0, g->map.map_h + 2))
-	{
-		printf("Error. Map walls are not closed\n");
+	are_walls_enclosed(&g->map, 0, 0, g->map.map_h + 2);
+	are_there_still_spaces(&g->map);
+	if (g->map.valid == FALSE)
 		return (1);
-	}
-	printf("Congrats !! Your map has no holes\n");
-	// while (map[i])
-	// {
-		
-	// 	i++;
-	// }
+	else
+		printf("Congrats !! Your map has no holes\n");
 	return (0);
 	/*TODO: 1) are the walls enclosed
 	2) is there exactly one player
@@ -248,6 +252,10 @@ int	handle_input(int argc, char **argv, t_game *g)
 		return (1);
 	}
 	if (handle_file_content(g))
+	{
+		return (1);
+	}
+	if (validate_header_set(&g->file))
 	{
 		return (1);
 	}

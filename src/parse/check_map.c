@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:47:36 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/05 17:41:31 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/08 12:50:01 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	init_map(char **lines, t_game *g, int i)
 		ft_putstr_fd("Error. Malloc map failed\n", 2);
 		return (1);
 	}
+	g->map.valid = TRUE;
 	return (0);
 }
 
@@ -96,6 +97,38 @@ int	is_there_one_player(char **map)
 	return (0);
 }
 
+int	is_player_on_edge(t_game *g, char **map)
+{
+	int		x;
+	int		y;
+
+	x = g->player.initial_x;
+	y = g->player.initial_y;
+	if (x == 0 || y == 0 || y == g->map.map_h - 1)
+	{
+		return (1);
+	}
+	if (map[y][x - 1] == ' ')
+	{
+		return (1);
+	}
+	if (map[y][x + 1] == ' ' || map[y][x + 1] == '\0')
+	{
+		return (1);
+	}
+	if (x >= (int)ft_strlen(map[y - 1]) || map[y - 1][x] == ' '
+		|| map[y - 1][x] == '\0')
+	{
+		return (1);
+	}
+	if (x >= (int)ft_strlen(map[y + 1])
+		|| map[y + 1][x] == ' ' || map[y + 1][x] == '\0')
+	{
+		return (1);
+	}
+	return (0);
+}
+
 int	handle_player_pos(t_game *g, char **map)
 {
 	if (is_there_one_player(map))
@@ -104,6 +137,11 @@ int	handle_player_pos(t_game *g, char **map)
 		return (1);
 	}
 	find_player(g, map);
+	if (is_player_on_edge(g, map))
+	{
+		printf("Error. The player is on the edge\n");
+		return (1);
+	}
 	// printf("X Player position = %d\n", g->player.initial_x);
 	// printf("Y Player position = %d\n", g->player.initial_y);
 	return (0);

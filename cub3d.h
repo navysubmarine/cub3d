@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:38 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/05 17:36:52 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/08 12:59:47 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,11 @@ typedef struct s_file
 typedef struct s_map
 {
 	char		**map;
+	char		**copy;
+	char		**padded_copy;
 	int			map_h;
 	bool		is_map_set;
+	bool		valid;
 }				t_map;
 
 typedef struct s_game
@@ -112,7 +115,7 @@ int				init_map(char **lines, t_game *g, int i);
 char			**map_padded_copy(char **map, t_game *g);
 char			**map_copy(char **map);
 int				handle_player_pos(t_game *g, char **map);
-int				are_walls_enclosed(char **map, int x, int y, int nb_lines);
+void			are_walls_enclosed(t_map *map, int x, int y, int nb_lines);
 /*PARSING HEADER*/
 int				validate_header_set(t_file *file);
 /*PARSING TEXTURE*/
