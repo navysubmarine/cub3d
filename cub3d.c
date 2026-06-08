@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:19 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/05 17:41:08 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/08 11:17:19 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,33 +134,57 @@ void	print_map(char **map, char *name)
 	}
 }
 
-int	handle_map_spaces(char **copy)
-{
-	int	i;
-	int	j;
+/*TODO: rather do a floodfill from inside which should never touch
+the padding or space*/
+// int	handle_map_spaces(char **copy)
+// {
+// 	int	i;
+// 	int	j;
 
-	i = 0;
-	j = 0;
-	while (copy[i])
-	{
-		while (copy[i][j])
-		{
-			if (copy[i][j] == ' ')
-			{
-				if (copy[i][j - 1] && (copy[i][j - 1] == '0'
-					|| copy[i][j - 1] == 'N' || copy[i][j - 1] == 'S'
-					|| copy[i][j - 1] == 'W' || copy[i][j - 1] == 'E'))
-				{
-					ft_putstr_fd("Error. Non authorized whitespace\n", 2);
-					return (1);
-				}
-			}
-			j++;
-		}
-		i++;
-	}
-	return (0);
-}
+// 	i = 0;
+// 	j = 0;
+// 	while (copy[i])
+// 	{
+// 		while (copy[i][j])
+// 		{
+// 			j = 0;
+// 			if (copy[i][j] == ' ')
+// 			{
+// 				if (copy[i][j - 1] && (copy[i][j - 1] == '0'
+// 					|| copy[i][j - 1] == 'N' || copy[i][j - 1] == 'S'
+// 					|| copy[i][j - 1] == 'W' || copy[i][j - 1] == 'E'))
+// 				{
+// 					ft_putstr_fd("Error. Non authorized whitespace\n", 2);
+// 					return (1);
+// 				}
+// 				if (copy[i][j + 1] && (copy[i][j + 1] == '0'
+// 					|| copy[i][j + 1] == 'N' || copy[i][j + 1] == 'S'
+// 					|| copy[i][j + 1] == 'W' || copy[i][j + 1] == 'E'))
+// 				{
+// 					ft_putstr_fd("Error. Non authorized whitespace\n", 2);
+// 					return (1);
+// 				}
+// 				if (copy[i + 1][j] && (copy[i + 1][j] == '0'
+// 					|| copy[i + 1][j] == 'N' || copy[i + 1][j] == 'S'
+// 					|| copy[i + 1][j] == 'W' || copy[i + 1][j] == 'E'))
+// 				{
+// 					ft_putstr_fd("Error. Non authorized whitespace\n", 2);
+// 					return (1);
+// 				}
+// 				if (copy[i - 1][j] && (copy[i - 1][j] == '0'
+// 					|| copy[i - 1][j] == 'N' || copy[i - 1][j] == 'S'
+// 					|| copy[i - 1][j] == 'W' || copy[i - 1][j] == 'E'))
+// 				{
+// 					ft_putstr_fd("Error. Non authorized whitespace\n", 2);
+// 					return (1);
+// 				}
+// 			}
+// 			j++;
+// 		}
+// 		i++;
+// 	}
+// 	return (0);
+// }
 
 int	is_map_playable(t_game *g)
 {
@@ -175,14 +199,14 @@ int	is_map_playable(t_game *g)
 		ft_putstr_fd("Error. Map couldn't be copied\n", 2);
 		return (1);
 	}
-	//print_map(copy, "copy");
+	// print_map(copy, "copy");
 	padded_copy = map_padded_copy(g->map.map, g);
 	if (!padded_copy)
 	{
 		ft_putstr_fd("Error. Map couldn't be copied\n", 2);
 		return (1);
 	}
-	//print_map(padded_copy, "padded copy");
+	// print_map(padded_copy, "padded copy");
 	// if (handle_map_spaces(copy))
 	// {
 	// 	ft_putstr_fd("Error. Hole inside the map\n", 2);
