@@ -6,11 +6,11 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 16:05:05 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/09 14:44:42 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/09 15:42:17 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../../cub3d.h"
 
 int	test_rgb_format(char *content)
 {

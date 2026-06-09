@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:38 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/09 15:21:37 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/09 15:45:31 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # endif
 
 # include "../libft/libft.h"
-# include "minilibx/mlx.h"
+//# include "minilibx/mlx.h"
 # include <fcntl.h>
 # include <limits.h>
 # include <stdbool.h>
@@ -108,7 +108,6 @@ char			*find_content(char *line, char *id);
 int				assign_field_once(char **struct_path, char *line);
 int				count_lines(int fd);
 char			**store_content(char *file, int nb_of_lines);
-int				validate_header_set(t_file *file);
 int				blank_line_detector(char	*line);
 /*PARSING MAP*/
 int				is_valid_map_line(char	*line);
@@ -123,6 +122,7 @@ void			are_walls_enclosed(t_map *map, int x, int y, int nb_lines);
 int				is_map_playable(t_game *g);
 int				are_there_still_spaces(t_map *map);
 int				handle_map(int *i, int *i_map, t_game *g, char **lines);
+int				find_longest_line_len(char **map);
 /*PARSING HEADER*/
 int				validate_header_set(t_file *file);
 /*PARSING TEXTURE*/

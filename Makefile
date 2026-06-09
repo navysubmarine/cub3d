@@ -6,7 +6,8 @@ SOURCES = cub3d.c \
           src/utils/get_next_line.c src/utils/ft_split.c \
 		  src/utils/print.c src/parse/parse.c src/parse/check_map.c src/parse/colors.c \
 		  src/parse/utils_file.c src/parse/map.c src/parse/store.c src/exit/exit.c \
-		  src/parse/check_header.c src/parse/texture.c src/parse/utils_map.c src/parse/init_structs.c
+		  src/parse/texture.c src/parse/utils_map.c src/parse/init_structs.c \
+		  src/parse/map_copy.c src/parse/header.c
 
 OBJETS  = $(SOURCES:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 14:50:58 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/09 15:22:21 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/09 15:26:18 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,48 +38,41 @@ int	handle_file_content(t_game *g)
 {
 	int		i;
 	int		i_map;
-	char	**lines;
 	int		ret_map;
 
 	i = 0;
 	i_map = 0;
 	ret_map = 0;
-	lines = g->file.content;
 	while (i < g->file.nb_of_lines)
 	{
-		if (blank_line_detector(lines[i]) == TRUE)
+		if (blank_line_detector(g->file.content[i]) == TRUE)
 			i++;
 		else if (g->map.is_map_set == FALSE
-			&& texture_line_detector(lines[i]) == TRUE)
+			&& texture_line_detector(g->file.content[i]) == TRUE)
 		{
-			if (validate_texture_line(lines[i], g))
+			if (validate_texture_line(g->file.content[i], g))
 				return (1);
 			i++;
 		}
 		else if (g->map.is_map_set == FALSE
-			&& color_line_detector(lines[i]) == TRUE)
+			&& color_line_detector(g->file.content[i]) == TRUE)
 		{
-			if (validate_color_line(lines[i], g))
+			if (validate_color_line(g->file.content[i], g))
 				return (1);
 			i++;
 		}
-		else if (i < g->file.nb_of_lines && map_line_detector(lines[i]) == TRUE)
+		else if (i < g->file.nb_of_lines
+			&& map_line_detector(g->file.content[i]) == TRUE)
 		{
-			ret_map = handle_map(&i, &i_map, g, lines);
+			ret_map = handle_map(&i, &i_map, g, g->file.content);
 			if (ret_map == 1)
 				return (1);
 			else if (ret_map == 2)
 				break ;
 		}
 		else
-		{
-			ft_putstr_fd("Error. Unrecognized line\n", 2);
-			return (1);
-		}
-		// 	printf("DEBUG: line %d\n", i);
+			return (ft_putstr_fd("Error. Unrecognized line\n", 2), 1);
 	}
-	//print_file(g);
-	//ft_putstr_fd("OK, file is valid. Ready to launch !!\n", 1);
 	return (0);
 }
 

@@ -6,11 +6,11 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 16:01:22 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/09 14:44:36 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/09 15:43:04 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../../cub3d.h"
 
 int	validate_texture_line(char	*line, t_game *g)
 {
@@ -84,11 +84,3 @@ int	test_tx_path(char *tx_type, char *path)
 	close (fd);
 	return (0);
 }
-
-// void	init_tx_info_struct(t_game *g)
-// {
-// 	g->textures[0] = (t_tx_info){"NO", "North", &g->file.path_no};
-// 	g->textures[1] = (t_tx_info){"SO", "South", &g->file.path_so};
-// 	g->textures[2] = (t_tx_info){"WE", "West", &g->file.path_we};
-// 	g->textures[3] = (t_tx_info){"EA", "East", &g->file.path_ea};
-// }

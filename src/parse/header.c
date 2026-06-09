@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_header.c                                     :+:      :+:    :+:   */
+/*   header.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/03 15:49:37 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/03 15:52:36 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/09 15:37:52 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,4 @@ int	validate_header_set(t_file *file)
 	if (file->ceiling_set == FALSE)
 		return (ft_putstr_fd("Error. Missing ceiling color\n", 2), 1);
 	return (0);
-}
-
-void	store_map_line(t_game *g, char *line, int i)
-{
-	g->map.map[i] = line;
 }

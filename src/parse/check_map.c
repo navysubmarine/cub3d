@@ -6,43 +6,13 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:47:36 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/09 14:53:50 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/09 15:37:13 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../cub3d.h"
 
 /*TODO: check the file content is valid*/
-
-int	calculate_map_len(char **lines, int i, t_game *g)
-{
-	int	j;
-
-	j = 0;
-	while (lines[i + j] && lines[i + j][0] != '\n' && lines[i + j][0] != '\0')
-		j++;
-	g->map.map_h = j;
-	if (g->map.map_h <= 0)
-	{
-		ft_putstr_fd("Error. Map doesn't exist\n", 2);
-		return (1);
-	}
-	return (0);
-}
-
-int	init_map(char **lines, t_game *g, int i)
-{
-	if (calculate_map_len(lines, i, g))
-		return (1);
-	g->map.map = ft_calloc(g->map.map_h + 1, sizeof (char *));
-	if (!g->map.map)
-	{
-		ft_putstr_fd("Error. Malloc map failed\n", 2);
-		return (1);
-	}
-	g->map.valid = TRUE;
-	return (0);
-}
 
 void	find_player(t_game *g, char **map)
 {
@@ -145,31 +115,6 @@ int	handle_player_pos(t_game *g, char **map)
 	// printf("X Player position = %d\n", g->player.initial_x);
 	// printf("Y Player position = %d\n", g->player.initial_y);
 	return (0);
-}
-
-char	**map_copy(char **map)
-{
-	char	**copy;
-	int		i;
-
-	if (!map)
-		return (NULL);
-	i = 0;
-	while (map[i])
-		i++;
-	copy = malloc(sizeof(*copy) * (i + 1));
-	if (!copy)
-		return (NULL);
-	i = 0;
-	while (map[i])
-	{
-		copy[i] = ft_strdup(map[i]);
-		if (!(copy[i]))
-			return (free_content(copy), NULL);
-		i++;
-	}
-	copy[i] = NULL;
-	return (copy);
 }
 
 int	is_map_playable(t_game *g)

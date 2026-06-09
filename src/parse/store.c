@@ -6,11 +6,11 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 15:09:39 by marthoma          #+#    #+#             */
-/*   Updated: 2026/05/27 15:09:52 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/09 15:42:27 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../../cub3d.h"
 
 char	**store_content(char *file, int nb_of_lines)
 {
