@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 15:35:33 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/09 15:42:03 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/09 17:31:24 by bdemouge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../cub3d.h"
+#include "cub3d.h"
 
 void	print_file(t_game *g)
 {

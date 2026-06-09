@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 15:19:04 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/09 15:00:10 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/09 17:31:24 by bdemouge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../cub3d.h"
+#include "cub3d.h"
 
 int	handle_file(t_game *g, char *filename)
 {

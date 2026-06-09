@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 16:27:31 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/09 15:37:56 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/09 17:31:24 by bdemouge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../cub3d.h"
+#include "cub3d.h"
 
 void	print_map(char **map, char *name)
 {

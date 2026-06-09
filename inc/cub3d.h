@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:38 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/09 15:45:31 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/09 17:34:33 by bdemouge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 #  define FD_OPEN_MAX 1024
 # endif
 
-# include "../libft/libft.h"
-//# include "minilibx/mlx.h"
+# include "libft.h"
+# include "mlx.h"
 # include <fcntl.h>
 # include <limits.h>
 # include <stdbool.h>
