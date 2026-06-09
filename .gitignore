@@ -27,6 +27,7 @@
 *.so
 *.so.*
 *.dylib
+cub3d
 
 # Executables
 *.exe
@@ -53,3 +54,9 @@ dkms.conf
 
 # debug information files
 *.dwo
+
+# minilibx
+minilibx
+
+# build
+.build
