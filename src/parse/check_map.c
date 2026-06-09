@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:47:36 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/08 12:50:01 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/09 14:53:50 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,4 +170,48 @@ char	**map_copy(char **map)
 	}
 	copy[i] = NULL;
 	return (copy);
+}
+
+int	is_map_playable(t_game *g)
+{
+	g->map.copy = map_copy(g->map.map);
+	if (!g->map.copy)
+	{
+		ft_putstr_fd("Error. Map couldn't be copied\n", 2);
+		return (1);
+	}
+	// print_map(copy, "copy");
+	g->map.padded_copy = map_padded_copy(g->map.map, g);
+	if (!g->map.padded_copy)
+	{
+		ft_putstr_fd("Error. Padded map couldn't be copied\n", 2);
+		return (1);
+	}
+	// print_map(padded_copy, "padded copy");
+	if (handle_player_pos(g, g->map.copy))
+		return (1);
+	are_walls_enclosed(&g->map, 0, 0, g->map.map_h + 2);
+	are_there_still_spaces(&g->map);
+	if (g->map.valid == FALSE)
+		return (1);
+	else
+		printf("Congrats !! Your map has no holes\n");
+	return (0);
+}
+
+int	are_there_still_spaces(t_map *map)
+{
+	int	i;
+
+	i = 0;
+	while (map->padded_copy[i])
+	{
+		if (ft_strchr(map->padded_copy[i], ' '))
+		{
+			map->valid = FALSE;
+			return (1);
+		}
+		i++;
+	}
+	return (0);
 }

@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils2.c                                           :+:      :+:    :+:   */
+/*   utils_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 16:27:31 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/04 16:27:54 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/09 15:00:51 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../cub3d.h"
 
-int	blank_line_detector(char	*line)
+void	print_map(char **map, char *name)
 {
 	int	i;
 
 	i = 0;
-	if (line[0] == '\0' || line[0] == '\n')
-		return (TRUE);
-	while (line[i] == ' ' || line[i] == '\t')
+	printf("%s\n", name);
+	printf("_________________\n");
+	while (map[i])
 	{
+		printf("%s\n", map[i]);
 		i++;
 	}
-	if (line[i] == '\0' || line[i] == '\n')
-		return (TRUE);
-	else
-		return (FALSE);
 }

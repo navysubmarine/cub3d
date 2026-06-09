@@ -1,16 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 15:19:04 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/05 17:27:52 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/09 15:00:10 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../cub3d.h"
+
+int	handle_file(t_game *g, char *filename)
+{
+	int	fd;
+
+	fd = open(filename, O_RDONLY);
+	if (fd < 0)
+		return (1);
+	g->file.nb_of_lines = count_lines(fd);
+	close (fd);
+	g->file.content = store_content(filename, g->file.nb_of_lines);
+	if (!g->file.content)
+		return (1);
+	return (0);
+}
 
 int	ft_strchr_cub(const char *s)
 {
@@ -25,21 +40,6 @@ int	ft_strchr_cub(const char *s)
 		return (0);
 	if (s[i - 4] == '.' && s[i - 3] == 'c' && s[i - 2] == 'u' && s[i
 			- 1] == 'b')
-		return (1);
-	return (0);
-}
-
-int	handle_file(t_game *g, char *filename)
-{
-	int	fd;
-
-	fd = open(filename, O_RDONLY);
-	if (fd < 0)
-		return (1);
-	g->file.nb_of_lines = count_lines(fd);
-	close (fd);
-	g->file.content = store_content(filename, g->file.nb_of_lines);
-	if (!g->file.content)
 		return (1);
 	return (0);
 }

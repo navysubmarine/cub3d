@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 15:16:35 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/08 13:05:22 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/09 15:21:50 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,4 +140,31 @@ char	**map_padded_copy(char **map, t_game *g)
 	copy[g->map.map_h + 1][padded_line_len] = '\0';
 	copy[g->map.map_h + 2] = '\0';
 	return (copy);
+}
+
+int	handle_map(int *i, int *i_map, t_game *g, char **lines)
+{
+	while (*i < g->file.nb_of_lines
+		&& map_line_detector(lines[*i]) == TRUE)
+	{
+		if (is_valid_map_line(lines[*i]))
+			return (1);
+		if (g->map.is_map_set == FALSE)
+		{
+			g->map.is_map_set = TRUE;
+			if (init_map(lines, g, *i))
+				return (1);
+		}
+		store_map_line(g, lines[*i], *i_map);
+		(*i_map)++;
+		(*i)++;
+		continue ;
+	}
+	if (*i < g->file.nb_of_lines
+		&& blank_line_detector(lines[*i]) == TRUE)
+	{
+		//printf("EOF found\n");
+		return (2);
+	}
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:38 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/08 12:59:47 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/09 15:21:37 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,16 @@ typedef struct s_col_info
 	int			*is_set;
 }				t_col_info;
 
+typedef struct s_map
+{
+	char		**map;
+	char		**copy;
+	char		**padded_copy;
+	int			map_h;
+	bool		is_map_set;
+	bool		valid;
+}				t_map;
+
 typedef struct s_img
 {
 	int			i;
@@ -75,16 +85,6 @@ typedef struct s_file
 	int			ceiling_set;
 }				t_file;
 
-typedef struct s_map
-{
-	char		**map;
-	char		**copy;
-	char		**padded_copy;
-	int			map_h;
-	bool		is_map_set;
-	bool		valid;
-}				t_map;
-
 typedef struct s_game
 {
 	void		*mlx;
@@ -97,7 +97,11 @@ typedef struct s_game
 	t_col_info	colors[2];
 }				t_game;
 
+/*INIT STRUCTS*/
+void			init_structs(t_game *g);
 /****PARSING INPUT FILE****/
+int				parse_input(int argc, char **argv, t_game *g);
+int				handle_file_content(t_game *g);
 int				ft_strchr_cub(const char *s);
 int				handle_file(t_game *g, char *filename);
 char			*find_content(char *line, char *id);
@@ -116,20 +120,21 @@ char			**map_padded_copy(char **map, t_game *g);
 char			**map_copy(char **map);
 int				handle_player_pos(t_game *g, char **map);
 void			are_walls_enclosed(t_map *map, int x, int y, int nb_lines);
+int				is_map_playable(t_game *g);
+int				are_there_still_spaces(t_map *map);
+int				handle_map(int *i, int *i_map, t_game *g, char **lines);
 /*PARSING HEADER*/
 int				validate_header_set(t_file *file);
 /*PARSING TEXTURE*/
 int				validate_texture_line(char	*line, t_game *g);
 int				texture_line_detector(char *line);
 int				test_tx_path(char *tx_type, char *path);
-void			init_tx_info_struct(t_game *g);
 /*PARSING COLORS*/
 int				validate_color_line(char *line, t_game *g);
 int				test_rgb_format(char *content);
 int				test_rgb_color(char	*id, char *content);
 int				store_rgb(int *values, char *content);
 int				color_line_detector(char *line);
-void			init_col_info_struct(t_game *g);
 /*GET NEXT LINE*/
 char			*get_next_line(int fd);
 char			*call_and_check(int fd, char *buffer, char **stash);
