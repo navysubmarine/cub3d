@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 15:16:35 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/10 18:57:20 by bdemouge         ###   ########.fr       */
+/*   Updated: 2026/06/10 19:12:03 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ void	are_walls_enclosed(t_map *map, int x, int y, int nb_lines)
 		map->valid = FALSE;
 		map->padded_copy[y][x] = 'V';
 		printf("Error. Map walls are not closed\n");
-		// print_map(map, "post unsuccessful flood_fill\n");
 		return ;
 	}
 	map->padded_copy[y][x] = 'V';
@@ -104,7 +103,6 @@ int	handle_map(int *i, int *i_map, t_game *g, char **lines)
 	}
 	if (*i < g->file.nb_of_lines && blank_line_detector(lines[*i]) == TRUE)
 	{
-		// printf("EOF found\n");
 		return (2);
 	}
 	return (0);
