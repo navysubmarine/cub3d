@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structure.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 18:01:54 by bdemouge          #+#    #+#             */
-/*   Updated: 2026/06/10 16:16:27 by bdemouge         ###   ########.fr       */
+/*   Updated: 2026/06/10 19:05:27 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,14 @@ typedef struct s_file
 	int			ceiling[3];
 	int			ceiling_set;
 }				t_file;
+
+typedef struct s_parse_context
+{
+	int			i;
+	int			i_map;
+	int			ret_map;
+	int			nb_l;
+}				t_parse_context;
 
 typedef struct s_game
 {
