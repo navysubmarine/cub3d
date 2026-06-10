@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:38 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/10 16:26:19 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/10 18:07:20 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,13 +97,13 @@ typedef struct s_game
 	t_col_info	colors[2];
 }				t_game;
 
-typedef struct s_parse_file_content
+typedef struct s_parse_context
 {
 	int			i;
 	int			i_map;
 	int			ret_map;
 	int			nb_l;
-}				t_parse_file_content;
+}				t_parse_context;
 
 /*INIT STRUCTS*/
 void			init_structs(t_game *g);
