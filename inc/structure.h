@@ -6,23 +6,33 @@
 /*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 18:01:54 by bdemouge          #+#    #+#             */
-/*   Updated: 2026/06/09 18:02:24 by bdemouge         ###   ########.fr       */
+/*   Updated: 2026/06/10 16:16:27 by bdemouge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTURE_H
 # define STRUCTURE_H
 
+/*===== ENUM =====*/
+enum e_textureid
+{
+	NO = 0,
+	SO = 1,
+	WE = 2,
+	EA = 3
+};
+
+
 typedef struct s_tx_info
 {
-	char		*id;
-	char		*word;
+	char		*id; // SO, NO, EA, WE a supprimer
+	char		*word; 
 	char		**field;
 }				t_tx_info;
 
 typedef struct s_col_info
 {
-	char		*id;
+	char		*id; // F, C
 	char		*word;
 	int			*field;
 	int			*is_set;
@@ -38,11 +48,6 @@ typedef struct s_map
 	bool		valid;
 }				t_map;
 
-typedef struct s_img
-{
-	int			i;
-}				t_img;
-
 typedef struct s_player
 {
 	int			initial_x;
@@ -55,7 +60,7 @@ typedef struct s_file
 {
 	int			nb_of_lines;
 	char		**content;
-	char		*path_no;
+	char		*path_no; 
 	char		*path_so;
 	char		*path_we;
 	char		*path_ea;
@@ -69,7 +74,14 @@ typedef struct s_game
 {
 	void		*mlx;
 	void		*win;
-	t_img		img;
+	void		*img;
+	char		*addr;
+	int			bpp;
+	int			line_length;
+	int			endian;
+
+	int			win_height;
+	int			win_width;
 	t_map		map;
 	t_file		file;
 	t_player	player;
