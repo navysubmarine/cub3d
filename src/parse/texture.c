@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 16:01:22 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/09 15:43:04 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/10 16:09:29 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	validate_texture_line(char	*line, t_game *g)
 }
 
 /*0=yes it's a texture line, 1=no*/
-int	texture_line_detector(char *line)
+int	tx_detector(char *line)
 {
 	int	i;
 

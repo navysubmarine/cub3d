@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 15:16:35 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/10 15:43:22 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/10 16:22:11 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	is_valid_map_line(char *line)
 	return (0);
 }
 
-int	map_line_detector(char *line)
+int	map_detector(char *line)
 {
 	int	i;
 
@@ -87,7 +87,7 @@ void	are_walls_enclosed(t_map *map, int x, int y, int nb_lines)
 
 int	handle_map(int *i, int *i_map, t_game *g, char **lines)
 {
-	while (*i < g->file.nb_of_lines && map_line_detector(lines[*i]) == TRUE)
+	while (*i < g->file.nb_of_lines && map_detector(lines[*i]) == TRUE)
 	{
 		if (is_valid_map_line(lines[*i]))
 			return (1);

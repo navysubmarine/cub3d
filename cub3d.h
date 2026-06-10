@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:38 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/09 15:45:31 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/10 16:26:19 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ typedef struct s_map
 	char		**copy;
 	char		**padded_copy;
 	int			map_h;
-	bool		is_map_set;
-	bool		valid;
+	int			is_map_set;
+	int			valid;
 }				t_map;
 
 typedef struct s_img
@@ -97,6 +97,14 @@ typedef struct s_game
 	t_col_info	colors[2];
 }				t_game;
 
+typedef struct s_parse_file_content
+{
+	int			i;
+	int			i_map;
+	int			ret_map;
+	int			nb_l;
+}				t_parse_file_content;
+
 /*INIT STRUCTS*/
 void			init_structs(t_game *g);
 /****PARSING INPUT FILE****/
@@ -108,10 +116,10 @@ char			*find_content(char *line, char *id);
 int				assign_field_once(char **struct_path, char *line);
 int				count_lines(int fd);
 char			**store_content(char *file, int nb_of_lines);
-int				blank_line_detector(char	*line);
+int				blank_line_detector(char *line);
 /*PARSING MAP*/
-int				is_valid_map_line(char	*line);
-int				map_line_detector(char *line);
+int				is_valid_map_line(char *line);
+int				map_detector(char *line);
 void			store_map_line(t_game *g, char *line, int i);
 int				calculate_map_len(char **lines, int i, t_game *g);
 int				init_map(char **lines, t_game *g, int i);
@@ -126,15 +134,15 @@ int				find_longest_line_len(char **map);
 /*PARSING HEADER*/
 int				validate_header_set(t_file *file);
 /*PARSING TEXTURE*/
-int				validate_texture_line(char	*line, t_game *g);
-int				texture_line_detector(char *line);
+int				validate_texture_line(char *line, t_game *g);
+int				tx_detector(char *line);
 int				test_tx_path(char *tx_type, char *path);
 /*PARSING COLORS*/
 int				validate_color_line(char *line, t_game *g);
 int				test_rgb_format(char *content);
-int				test_rgb_color(char	*id, char *content);
+int				test_rgb_color(char *id, char *content);
 int				store_rgb(int *values, char *content);
-int				color_line_detector(char *line);
+int				col_detector(char *line);
 /*GET NEXT LINE*/
 char			*get_next_line(int fd);
 char			*call_and_check(int fd, char *buffer, char **stash);

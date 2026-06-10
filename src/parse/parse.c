@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 14:50:58 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/10 15:43:38 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/10 16:26:49 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,40 +34,43 @@ int	parse_input(int argc, char **argv, t_game *g)
 	return (0);
 }
 
+void	init_file_content_struct(t_parse_file_content *data, t_game *g)
+{
+	data->i = 0;
+	data->i_map = 0;
+	data->ret_map = 0;
+	data->nb_l = g->file.nb_of_lines;
+}
+
 int	handle_file_content(t_game *g)
 {
-	int		i;
-	int		i_map;
-	int		ret_map;
+	t_parse_file_content	p;
+	int						map_set;
 
-	i = 0;
-	i_map = 0;
-	ret_map = 0;
-	while (i < g->file.nb_of_lines)
+	init_file_content_struct(&p, g);
+	map_set = g->map.is_map_set;
+	while (p.i < p.nb_l)
 	{
-		if (blank_line_detector(g->file.content[i]) == TRUE)
-			i++;
-		else if (g->map.is_map_set == FALSE
-			&& texture_line_detector(g->file.content[i]) == TRUE)
+		if (blank_line_detector(g->file.content[p.i]) == TRUE)
+			p.i++;
+		else if (map_set == FALSE && tx_detector(g->file.content[p.i]) == TRUE)
 		{
-			if (validate_texture_line(g->file.content[i], g))
+			if (validate_texture_line(g->file.content[p.i], g))
 				return (1);
-			i++;
+			p.i++;
 		}
-		else if (g->map.is_map_set == FALSE
-			&& color_line_detector(g->file.content[i]) == TRUE)
+		else if (map_set == FALSE && col_detector(g->file.content[p.i]) == TRUE)
 		{
-			if (validate_color_line(g->file.content[i], g))
+			if (validate_color_line(g->file.content[p.i], g))
 				return (1);
-			i++;
+			p.i++;
 		}
-		else if (i < g->file.nb_of_lines
-			&& map_line_detector(g->file.content[i]) == TRUE)
+		else if (p.i < p.nb_l && map_detector(g->file.content[p.i]) == TRUE)
 		{
-			ret_map = handle_map(&i, &i_map, g, g->file.content);
-			if (ret_map == 1)
+			p.ret_map = handle_map(&p.i, &p.i_map, g, g->file.content);
+			if (p.ret_map == 1)
 				return (1);
-			else if (ret_map == 2)
+			else if (p.ret_map == 2)
 				break ;
 		}
 		else
@@ -76,7 +79,7 @@ int	handle_file_content(t_game *g)
 	return (0);
 }
 
-int	blank_line_detector(char	*line)
+int	blank_line_detector(char *line)
 {
 	int	i;
 

@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 16:05:05 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/09 15:42:17 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/10 16:11:07 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ int	validate_color_line(char *line, t_game *g)
 }
 
 /*0=yes it's a color line, 1=no*/
-int	color_line_detector(char *line)
+int	col_detector(char *line)
 {
 	int	i;
 
