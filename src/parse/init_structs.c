@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init_structs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 14:19:14 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/09 14:49:01 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/10 15:56:31 by bdemouge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../cub3d.h"
+#include "cub3d.h"
 
 static void	init_file_info_struct(t_game *g)
 {
@@ -40,5 +40,10 @@ void	init_structs(t_game *g)
 	init_tx_info_struct(g);
 	init_col_info_struct(g);
 	init_file_info_struct(g);
+	g->mlx = mlx_init();
+	mlx_get_screen_size(g->mlx, &g->win_width, &g->win_height);
+	g->win = mlx_new_window(g->mlx, g->win_width, g->win_height, "cub3d");
+	g->img = mlx_new_image(g->mlx, g->win_width, g->win_height);
+	g->addr = mlx_get_data_addr(g->img, &g->bpp, &g->line_length, &g->endian);
 	g->map.is_map_set = FALSE;
 }

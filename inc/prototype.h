@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   prototype.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:38 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/10 18:07:20 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/10 18:54:02 by bdemouge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ typedef struct s_map
 	char		**copy;
 	char		**padded_copy;
 	int			map_h;
-	int			is_map_set;
-	int			valid;
+	bool		is_map_set;
+	bool		valid;
 }				t_map;
 
 typedef struct s_img
@@ -96,14 +96,6 @@ typedef struct s_game
 	t_tx_info	textures[4];
 	t_col_info	colors[2];
 }				t_game;
-
-typedef struct s_parse_context
-{
-	int			i;
-	int			i_map;
-	int			ret_map;
-	int			nb_l;
-}				t_parse_context;
 
 /*INIT STRUCTS*/
 void			init_structs(t_game *g);
@@ -159,4 +151,17 @@ void			print_file(t_game *g);
 /*UTILS*/
 char			*ft_strdup_padded(const char *s, int padded_line_len);
 void			print_map(char **map, char *name);
+
+/*PROTOTYPES BASTIEN*/
+// void			safe_free(void *ptr);
+// void			exit_prog(t_data *game, int retval);
+// char			**get_map(void);
+// int				key_press(int keycode, void *ply);
+// int				key_release(int keycode, void *ply);
+// void			move_player(t_data *game);
+// void			init_player(float x, float y, float angle, t_player *player);
+// bool			touch(float x, float y, t_data *game);
+// void			put_pixel(int x, int y, int color, t_data *game);
+// void			raycasting(t_data *game);
+
 #endif

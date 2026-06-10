@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   store.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 15:09:39 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/10 15:41:16 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/10 18:57:40 by bdemouge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../cub3d.h"
+#include "cub3d.h"
 
 char	**store_content(char *file, int nb_of_lines)
 {
