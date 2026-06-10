@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 15:19:04 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/09 15:00:10 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/10 15:44:10 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ char	*find_content(char *line, char *id)
 	return (&line[i]);
 }
 
-
 int	assign_field_once(char **struct_path, char *line)
 {
 	if (*struct_path)
@@ -90,6 +89,5 @@ int	count_lines(int fd)
 		count++;
 		free(line);
 	}
-	// printf("nb_of_lines = %d\n", count);
 	return (count);
 }

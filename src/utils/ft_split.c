@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 12:54:48 by marthoma          #+#    #+#             */
-/*   Updated: 2026/05/26 13:26:48 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/10 15:45:52 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static char	**fill_str(char const *s, char c,
 				if (new_str == NULL)
 					return (libere_toi_petit_malloc(tab_str, i_tab));
 				tab_str[i_tab++] = new_str;
-			}				
+			}
 		}
 	}
 	return (tab_str);

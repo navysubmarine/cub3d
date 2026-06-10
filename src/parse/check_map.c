@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:47:36 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/09 15:37:13 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/10 15:40:38 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,27 +75,17 @@ int	is_player_on_edge(t_game *g, char **map)
 	x = g->player.initial_x;
 	y = g->player.initial_y;
 	if (x == 0 || y == 0 || y == g->map.map_h - 1)
-	{
 		return (1);
-	}
 	if (map[y][x - 1] == ' ')
-	{
 		return (1);
-	}
 	if (map[y][x + 1] == ' ' || map[y][x + 1] == '\0')
-	{
 		return (1);
-	}
 	if (x >= (int)ft_strlen(map[y - 1]) || map[y - 1][x] == ' '
 		|| map[y - 1][x] == '\0')
-	{
 		return (1);
-	}
 	if (x >= (int)ft_strlen(map[y + 1])
 		|| map[y + 1][x] == ' ' || map[y + 1][x] == '\0')
-	{
 		return (1);
-	}
 	return (0);
 }
 
