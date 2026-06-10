@@ -6,96 +6,96 @@
 /*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:38 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/10 18:54:02 by bdemouge         ###   ########.fr       */
+/*   Updated: 2026/06/10 19:03:51 by bdemouge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef PROTOTYPE_H
+# define PROTOTYPE_H
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1000
-# endif
+// # ifndef BUFFER_SIZE
+// #  define BUFFER_SIZE 1000
+// # endif
 
-# ifndef FD_OPEN_MAX
-#  define FD_OPEN_MAX 1024
-# endif
+// # ifndef FD_OPEN_MAX
+// #  define FD_OPEN_MAX 1024
+// # endif
 
-# include "../libft/libft.h"
-//# include "minilibx/mlx.h"
-# include <fcntl.h>
-# include <limits.h>
-# include <stdbool.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
+// # include "../libft/libft.h"
+// //# include "minilibx/mlx.h"
+// # include <fcntl.h>
+// # include <limits.h>
+// # include <stdbool.h>
+// # include <stdio.h>
+// # include <stdlib.h>
+// # include <unistd.h>
 
-# define TRUE 1
-# define FALSE 0
+// # define TRUE 1
+// # define FALSE 0
 
-typedef struct s_tx_info
-{
-	char		*id;
-	char		*word;
-	char		**field;
-}				t_tx_info;
+// typedef struct s_tx_info
+// {
+// 	char		*id;
+// 	char		*word;
+// 	char		**field;
+// }				t_tx_info;
 
-typedef struct s_col_info
-{
-	char		*id;
-	char		*word;
-	int			*field;
-	int			*is_set;
-}				t_col_info;
+// typedef struct s_col_info
+// {
+// 	char		*id;
+// 	char		*word;
+// 	int			*field;
+// 	int			*is_set;
+// }				t_col_info;
 
-typedef struct s_map
-{
-	char		**map;
-	char		**copy;
-	char		**padded_copy;
-	int			map_h;
-	bool		is_map_set;
-	bool		valid;
-}				t_map;
+// typedef struct s_map
+// {
+// 	char		**map;
+// 	char		**copy;
+// 	char		**padded_copy;
+// 	int			map_h;
+// 	bool		is_map_set;
+// 	bool		valid;
+// }				t_map;
 
-typedef struct s_img
-{
-	int			i;
-}				t_img;
+// typedef struct s_img
+// {
+// 	int			i;
+// }				t_img;
 
-typedef struct s_player
-{
-	int			initial_x;
-	int			initial_y;
-	int			x;
-	int			y;
-}				t_player;
+// typedef struct s_player
+// {
+// 	int			initial_x;
+// 	int			initial_y;
+// 	int			x;
+// 	int			y;
+// }				t_player;
 
-typedef struct s_file
-{
-	int			nb_of_lines;
-	char		**content;
-	char		*path_no;
-	char		*path_so;
-	char		*path_we;
-	char		*path_ea;
-	int			floor[3];
-	int			floor_set;
-	int			ceiling[3];
-	int			ceiling_set;
-}				t_file;
+// typedef struct s_file
+// {
+// 	int			nb_of_lines;
+// 	char		**content;
+// 	char		*path_no;
+// 	char		*path_so;
+// 	char		*path_we;
+// 	char		*path_ea;
+// 	int			floor[3];
+// 	int			floor_set;
+// 	int			ceiling[3];
+// 	int			ceiling_set;
+// }				t_file;
 
-typedef struct s_game
-{
-	void		*mlx;
-	void		*win;
-	t_img		img;
-	t_map		map;
-	t_file		file;
-	t_player	player;
-	t_tx_info	textures[4];
-	t_col_info	colors[2];
-}				t_game;
+// typedef struct s_game
+// {
+// 	void		*mlx;
+// 	void		*win;
+// 	t_img		img;
+// 	t_map		map;
+// 	t_file		file;
+// 	t_player	player;
+// 	t_tx_info	textures[4];
+// 	t_col_info	colors[2];
+// }				t_game;
 
 /*INIT STRUCTS*/
 void			init_structs(t_game *g);
