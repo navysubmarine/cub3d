@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 15:36:49 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/10 15:44:37 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/10 17:55:52 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,37 +61,50 @@ char	*ft_strdup_padded(const char *s, int padded_line_len)
 	return (new);
 }
 
+static char	*make_padding_row(int len)
+{
+	char	*row;
+
+	row = malloc(sizeof(char) * (len + 1));
+	if (!row)
+		return (NULL);
+	ft_memset(row, 'P', len);
+	row[len] = '\0';
+	return (row);
+}
+
+static int	set_padding_row(char **copy, int idx, int len)
+{
+	copy[idx] = make_padding_row(len);
+	if (!copy[idx])
+		return (free_content(copy), 1);
+	return (0);
+}
+
 char	**map_padded_copy(char **map, t_game *g)
 {
 	char	**copy;
-	int		padded_line_len;
-	int		padded_map_h;
-	int		i_map;
+	int		padded_len;
+	int		padded_h;
+	int		i;
 
-	padded_map_h = g->map.map_h + 2;
-	padded_line_len = find_longest_line_len(map) + 2;
-	copy = malloc(sizeof(char **) * (padded_map_h + 2));
+	padded_h = g->map.map_h + 2;
+	padded_len = find_longest_line_len(map) + 2;
+	copy = malloc(sizeof(char *) * (padded_h + 1));
 	if (!copy)
 		return (NULL);
-	copy[0] = malloc(sizeof (char) * (padded_line_len + 1));
-	if (!copy[0])
-		return (free_content(copy), NULL);
-	i_map = 0;
-	while (map[i_map])
+	if (set_padding_row(copy, 0, padded_len))
+		return (NULL);
+	i = 0;
+	while (map[i])
 	{
-		copy[i_map + 1] = ft_strdup_padded(map[i_map], padded_line_len);
-		if (!(copy[i_map + 1]))
+		copy[i + 1] = ft_strdup_padded(map[i], padded_len);
+		if (!copy[i + 1])
 			return (free_content(copy), NULL);
-		i_map++;
+		i++;
 	}
-	copy[0] = ft_memset(copy[0], 'P', padded_line_len);
-	copy[0][padded_line_len] = '\0';
-	copy[g->map.map_h + 1] = malloc(sizeof (char) * (padded_line_len + 1));
-	if (!copy[g->map.map_h + 1])
-		return (free_content(copy), NULL);
-	copy[g->map.map_h + 1]
-		= ft_memset(copy[g->map.map_h + 1], 'P', padded_line_len);
-	copy[g->map.map_h + 1][padded_line_len] = '\0';
-	copy[g->map.map_h + 2] = '\0';
+	if (set_padding_row(copy, padded_h - 1, padded_len))
+		return (NULL);
+	copy[padded_h] = NULL;
 	return (copy);
 }
