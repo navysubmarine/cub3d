@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/11 14:58:17 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/11 15:08:14 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/11 15:53:22 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,24 +84,24 @@ void	are_walls_enclosed(t_map *map, int x, int y, int nb_lines)
 	return ;
 }
 
-int	handle_map(int *i, int *i_map, t_game *g, char **lines)
+int	handle_map(int *i, int *i_map, t_parse *p, char **lines)
 {
-	while (*i < g->file.nb_of_lines && map_detector(lines[*i]) == TRUE)
+	while (*i < p->file.nb_of_lines && map_detector(lines[*i]) == TRUE)
 	{
 		if (is_valid_map_line(lines[*i]))
 			return (1);
-		if (g->map.is_map_set == FALSE)
+		if (p->map.is_map_set == FALSE)
 		{
-			g->map.is_map_set = TRUE;
-			if (init_map(lines, g, *i))
+			p->map.is_map_set = TRUE;
+			if (init_map(lines, p, *i))
 				return (1);
 		}
-		store_map_line(g, lines[*i], *i_map);
+		store_map_line(p, lines[*i], *i_map);
 		(*i_map)++;
 		(*i)++;
 		continue ;
 	}
-	if (*i < g->file.nb_of_lines && blank_line_detector(lines[*i]) == TRUE)
+	if (*i < p->file.nb_of_lines && blank_line_detector(lines[*i]) == TRUE)
 	{
 		return (2);
 	}

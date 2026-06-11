@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 16:05:05 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/11 14:52:25 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/11 15:52:16 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	store_rgb(int *values, char *content)
 	return (0);
 }
 
-int	validate_color_line(char *line, t_game *g)
+int	validate_color_line(char *line, t_parse *p)
 {
 	char	*content;
 	int		i;
@@ -102,14 +102,14 @@ int	validate_color_line(char *line, t_game *g)
 		i++;
 	while (j < 2)
 	{
-		if (ft_strncmp(line + i, g->colors[j].id, 1) == 0
+		if (ft_strncmp(line + i, p->colors[j].id, 1) == 0
 			&& (line[i + 1]) != '\0')
 		{
-			content = find_content(line + i, g->colors[j].id);
-			if (test_rgb_color(g->colors[j].word, content)
-				|| store_rgb(g->colors[j].field, content))
+			content = find_content(line + i, p->colors[j].id);
+			if (test_rgb_color(p->colors[j].word, content)
+				|| store_rgb(p->colors[j].field, content))
 				return (1);
-			*g->colors[j].is_set = TRUE;
+			*p->colors[j].is_set = TRUE;
 			return (0);
 		}
 		j++;

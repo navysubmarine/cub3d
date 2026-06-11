@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_structs.c                                     :+:      :+:    :+:   */
+/*   init_game_struct.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,46 +12,51 @@
 
 #include "cub3d.h"
 
-static void	init_file_info_struct(t_game *g)
+static void	init_file_info_struct(t_parse *p)
 {
-	g->file.floor_set = FALSE;
-	g->file.ceiling_set = FALSE;
+	p->file.floor_set = FALSE;
+	p->file.ceiling_set = FALSE;
 }
 
-static void	init_tx_info_struct(t_game *g)
+static void	init_tx_info_struct(t_parse *p)
 {
-	g->textures[0] = (t_tx_info){"NO", "North", &g->file.path_no};
-	g->textures[1] = (t_tx_info){"SO", "South", &g->file.path_so};
-	g->textures[2] = (t_tx_info){"WE", "West", &g->file.path_we};
-	g->textures[3] = (t_tx_info){"EA", "East", &g->file.path_ea};
+	p->textures[0] = (t_tx_info){"NO", "North", &p->file.path_no};
+	p->textures[1] = (t_tx_info){"SO", "South", &p->file.path_so};
+	p->textures[2] = (t_tx_info){"WE", "West", &p->file.path_we};
+	p->textures[3] = (t_tx_info){"EA", "East", &p->file.path_ea};
 }
 
-static void	init_col_info_struct(t_game *g)
+static void	init_col_info_struct(t_parse *p)
 {
-	g->colors[0] = (t_col_info)
-	{"F", "Floor", g->file.floor, &g->file.floor_set};
-	g->colors[1] = (t_col_info)
-	{"C", "Ceiling", g->file.ceiling, &g->file.ceiling_set};
+	p->colors[0] = (t_col_info)
+	{"F", "Floor", p->file.floor, &p->file.floor_set};
+	p->colors[1] = (t_col_info)
+	{"C", "Ceiling", p->file.ceiling, &p->file.ceiling_set};
 }
 
-void	init_context_struct(t_parse_context *data, t_game *g)
+void	init_context_struct(t_parse_context *data, t_parse *p)
 {
 	data->i = 0;
 	data->i_map = 0;
 	data->ret_map = 0;
-	data->nb_l = g->file.nb_of_lines;
+	data->nb_l = p->file.nb_of_lines;
 }
 
-void	init_structs(t_game *g)
+void	init_parsing_struct(t_parse *p)
 {
-	ft_memset(g, 0, sizeof(t_game));
-	init_tx_info_struct(g);
-	init_col_info_struct(g);
-	init_file_info_struct(g);
-	g->mlx = mlx_init();
-	mlx_get_screen_size(g->mlx, &g->win_width, &g->win_height);
-	g->win = mlx_new_window(g->mlx, g->win_width, g->win_height, "cub3d");
-	g->img = mlx_new_image(g->mlx, g->win_width, g->win_height);
-	g->addr = mlx_get_data_addr(g->img, &g->bpp, &g->line_length, &g->endian);
-	g->map.is_map_set = FALSE;
+	init_tx_info_struct(p);
+	init_col_info_struct(p);
+	init_file_info_struct(p);
+	p->map.is_map_set = FALSE;
+}
+
+void	init_game_struct(t_game *p)
+{
+	ft_memset(p, 0, sizeof(t_game));
+	init_parsing_struct(&p->p);
+	p->mlx = mlx_init();
+	mlx_get_screen_size(p->mlx, &p->win_width, &p->win_height);
+	p->win = mlx_new_window(p->mlx, p->win_width, p->win_height, "cub3d");
+	p->img = mlx_new_image(p->mlx, p->win_width, p->win_height);
+	p->addr = mlx_get_data_addr(p->img, &p->bpp, &p->line_length, &p->endian);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_copy.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 15:36:49 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/10 18:57:12 by bdemouge         ###   ########.fr       */
+/*   Updated: 2026/06/11 15:51:24 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,14 +81,14 @@ static int	set_padding_row(char **copy, int idx, int len)
 	return (0);
 }
 
-char	**map_padded_copy(char **map, t_game *g)
+char	**map_padded_copy(char **map, t_parse *p)
 {
 	char	**copy;
 	int		padded_len;
 	int		padded_h;
 	int		i;
 
-	padded_h = g->map.map_h + 2;
+	padded_h = p->map.map_h + 2;
 	padded_len = find_longest_line_len(map) + 2;
 	copy = malloc(sizeof(char *) * (padded_h + 1));
 	if (!copy)

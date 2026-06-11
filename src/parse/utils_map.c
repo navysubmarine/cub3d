@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 16:27:31 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/11 15:08:25 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/11 15:49:25 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,15 @@ void	print_map(char **map, char *name)
 	}
 }
 
-int	calculate_map_len(char **lines, int i, t_game *g)
+int	calculate_map_len(char **lines, int i, t_parse *p)
 {
 	int	j;
 
 	j = 0;
 	while (lines[i + j] && lines[i + j][0] != '\n' && lines[i + j][0] != '\0')
 		j++;
-	g->map.map_h = j;
-	if (g->map.map_h <= 0)
+	p->map.map_h = j;
+	if (p->map.map_h <= 0)
 	{
 		ft_putstr_fd("Error. Map doesn't exist\n", 2);
 		return (1);
@@ -42,34 +42,34 @@ int	calculate_map_len(char **lines, int i, t_game *g)
 	return (0);
 }
 
-int	init_map(char **lines, t_game *g, int i)
+int	init_map(char **lines, t_parse *p, int i)
 {
-	if (calculate_map_len(lines, i, g))
+	if (calculate_map_len(lines, i, p))
 		return (1);
-	g->map.map = ft_calloc(g->map.map_h + 1, sizeof (char *));
-	if (!g->map.map)
+	p->map.map = ft_calloc(p->map.map_h + 1, sizeof (char *));
+	if (!p->map.map)
 	{
 		ft_putstr_fd("Error. Malloc map failed\n", 2);
 		return (1);
 	}
-	g->map.valid = TRUE;
+	p->map.valid = TRUE;
 	return (0);
 }
 
-void	store_map_line(t_game *g, char *line, int i)
+void	store_map_line(t_parse *p, char *line, int i)
 {
-	g->map.map[i] = line;
+	p->map.map[i] = line;
 }
 
-void	find_player(t_game *g, char **map)
+void	find_player(t_parse *p, char **map)
 {
 	int	i;
 	int	j;
 
 	i = 0;
 	j = 0;
-	g->player.initial_x = -1;
-	g->player.initial_y = -1;
+	p->player.initial_x = -1;
+	p->player.initial_y = -1;
 	while (map[i])
 	{
 		j = 0;
@@ -78,8 +78,8 @@ void	find_player(t_game *g, char **map)
 			if (map[i][j] == 'N' || map[i][j] == 'S'
 				|| map[i][j] == 'W' || map[i][j] == 'E')
 			{
-				g->player.initial_x = j;
-				g->player.initial_y = i;
+				p->player.initial_x = j;
+				p->player.initial_y = i;
 				return ;
 			}
 			j++;

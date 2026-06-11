@@ -6,13 +6,13 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 16:01:22 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/11 14:52:07 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/11 15:58:33 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	validate_texture_line(char	*line, t_game *g)
+int	validate_texture_line(char	*line, t_parse *p)
 {
 	int		i;
 	int		j;
@@ -24,13 +24,13 @@ int	validate_texture_line(char	*line, t_game *g)
 		i++;
 	while (j < 4)
 	{
-		if (ft_strncmp(line + i, g->textures[j].id, 2) == 0
+		if (ft_strncmp(line + i, p->textures[j].id, 2) == 0
 			&& line[2 + i] != '\0')
 		{
-			content = find_content(line + i, g->textures[j].id);
-			if (test_tx_path(g->textures[j].word, content))
+			content = find_content(line + i, p->textures[j].id);
+			if (test_tx_path(p->textures[j].word, content))
 				return (1);
-			if (assign_field_once(g->textures[j].field, content))
+			if (assign_field_once(p->textures[j].field, content))
 				return (1);
 			return (0);
 		}

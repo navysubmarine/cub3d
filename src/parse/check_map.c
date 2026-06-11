@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:47:36 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/11 14:54:35 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/11 15:46:23 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,14 @@ int	is_there_one_player(char **map)
 	return (0);
 }
 
-int	is_player_on_edge(t_game *g, char **map)
+int	is_player_on_edge(t_parse *p, char **map)
 {
 	int		x;
 	int		y;
 
-	x = g->player.initial_x;
-	y = g->player.initial_y;
-	if (x == 0 || y == 0 || y == g->map.map_h - 1)
+	x = p->player.initial_x;
+	y = p->player.initial_y;
+	if (x == 0 || y == 0 || y == p->map.map_h - 1)
 		return (1);
 	if (map[y][x - 1] == ' ')
 		return (1);
@@ -62,15 +62,15 @@ int	is_player_on_edge(t_game *g, char **map)
 	return (0);
 }
 
-int	handle_player_pos(t_game *g, char **map)
+int	handle_player_pos(t_parse *p, char **map)
 {
 	if (is_there_one_player(map))
 	{
 		printf("Error. There is not exactly one player\n");
 		return (1);
 	}
-	find_player(g, map);
-	if (is_player_on_edge(g, map))
+	find_player(p, map);
+	if (is_player_on_edge(p, map))
 	{
 		printf("Error. The player is on the edge\n");
 		return (1);
@@ -78,25 +78,25 @@ int	handle_player_pos(t_game *g, char **map)
 	return (0);
 }
 
-int	is_map_playable(t_game *g)
+int	is_map_playable(t_parse *p)
 {
-	g->map.copy = map_copy(g->map.map);
-	if (!g->map.copy)
+	p->map.copy = map_copy(p->map.map);
+	if (!p->map.copy)
 	{
 		ft_putstr_fd("Error. Map couldn't be copied\n", 2);
 		return (1);
 	}
-	g->map.padded_copy = map_padded_copy(g->map.map, g);
-	if (!g->map.padded_copy)
+	p->map.padded_copy = map_padded_copy(p->map.map, p);
+	if (!p->map.padded_copy)
 	{
 		ft_putstr_fd("Error. Padded map couldn't be copied\n", 2);
 		return (1);
 	}
-	if (handle_player_pos(g, g->map.copy))
+	if (handle_player_pos(p, p->map.copy))
 		return (1);
-	are_walls_enclosed(&g->map, 0, 0, g->map.map_h + 2);
-	are_there_still_spaces(&g->map);
-	if (g->map.valid == FALSE)
+	are_walls_enclosed(&p->map, 0, 0, p->map.map_h + 2);
+	are_there_still_spaces(&p->map);
+	if (p->map.valid == FALSE)
 		return (1);
 	else
 		printf("Congrats !! Your map has no holes\n");
