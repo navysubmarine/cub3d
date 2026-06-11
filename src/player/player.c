@@ -1,15 +1,15 @@
 #include "cub3d.h"
 
-void	init_player(float x, float y, float angle, t_player *player)
-{
-	player->x = x;
-	player->y = y;
-	player->angle = angle;
-	player->backward = false;
-	player->forward = false;
-	player->right = false;
-	player->left = false;
-}
+// void	init_player(float x, float y, float angle, t_player *player)
+// {
+// 	player->x = x;
+// 	player->y = y;
+// 	player->angle = angle;
+// 	player->backward = false;
+// 	player->forward = false;
+// 	player->right = false;
+// 	player->left = false;
+// }
 
 static void	rotate_player(t_player *player)
 {
@@ -24,53 +24,55 @@ static void	rotate_player(t_player *player)
 }
 
 static void	move_forward_backward(float cos_angle, float sin_angle,
-		t_player *player, t_data *data)
+		t_player *player, t_game *g)
 {
 	if (player->forward == true)
 	{
-		if (!touch(player->x + cos_angle * SPEED, player->y, data))
+		if (!touch(player->x + cos_angle * SPEED, player->y, g))
 			player->x += cos_angle * SPEED;
-		if (!touch(player->x, player->y + sin_angle * SPEED, data))
+		if (!touch(player->x, player->y + sin_angle * SPEED, g))
 			player->y += sin_angle * SPEED;
 	}
 	if (player->backward == true)
 	{
-		if (!touch(player->x - cos_angle * SPEED, player->y, data))
+		if (!touch(player->x - cos_angle * SPEED, player->y, g))
 			player->x -= cos_angle * SPEED;
-		if (!touch(player->x, player->y - sin_angle * SPEED, data))
+		if (!touch(player->x, player->y - sin_angle * SPEED, g))
 			player->y -= sin_angle * SPEED;
 	}
 }
 
 static void move_right_left(float cos_angle, float sin_angle,
-		t_player *player, t_data *data)
+		t_player *player, t_game *g)
 {
 	if (player->left == true)
 	{
-		if (!touch(player->x + sin_angle * SPEED, player->y, data))
+		if (!touch(player->x + sin_angle * SPEED, player->y, g))
 			player->x += sin_angle * SPEED;
-		if (!touch(player->x, player->y - cos_angle * SPEED, data))
+		if (!touch(player->x, player->y - cos_angle * SPEED, g))
 			player->y -= cos_angle * SPEED;
 	}
 	if (player->right == true)
 	{
-		if (!touch(player->x - sin_angle * SPEED, player->y, data))
+		if (!touch(player->x - sin_angle * SPEED, player->y, g))
 			player->x -= sin_angle * SPEED;
-		if (!touch(player->x, player->y + cos_angle * SPEED, data))
+		if (!touch(player->x, player->y + cos_angle * SPEED, g))
 			player->y += cos_angle * SPEED;
 	}
 }
 
-void	move_player(t_data *data)
+void	move_player(t_game *g)
 {
 	float		cos_angle;
 	float		sin_angle;
 	t_player	*player;
 
-	player = &data->player;
+	player = &g->player;
+	if (player->exit == true)
+		exit_game(g, 0);
 	rotate_player(player);
 	cos_angle = cos(player->angle);
 	sin_angle = sin(player->angle);
-	move_forward_backward(cos_angle, sin_angle, player, data);
-	move_right_left(cos_angle, sin_angle, player, data);
+	move_forward_backward(cos_angle, sin_angle, player, g);
+	move_right_left(cos_angle, sin_angle, player, g);
 }

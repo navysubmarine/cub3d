@@ -5,7 +5,6 @@ float get_distance(float r_x, float r_y, float r_angle, t_player *player)
 	float dx;
 	float dy;
 	float dist;
-	//(void)r_angle;
 
 	dx = player->x - r_x;
 	dy = player->y - r_y;
@@ -16,23 +15,23 @@ float get_distance(float r_x, float r_y, float r_angle, t_player *player)
 
 
 
-void draw_wall(int i, float x, float y, float angle, t_data *data)
+void draw_wall(int i, float x, float y, float angle, t_game *g)
 {
 	float wall_height;
 	int start_y;
 	int end_y;
 	
-	wall_height = (BLOCK_SIZE * data->height) / get_distance(x, y, angle, &data->player);
-	start_y = (data->height / 2) - (wall_height / 2);
-	end_y = (data->height / 2) + (wall_height / 2);
+	wall_height = (BLOCK_SIZE * g->win_height) / get_distance(x, y, angle, &g->player);
+	start_y = (g->win_height / 2) - (wall_height / 2);
+	end_y = (g->win_height / 2) + (wall_height / 2);
 	while(start_y < end_y)
 	{
-		put_pixel(i, start_y, 0xFF, data);
+		put_pixel(i, start_y, 0xFF, g);
 		start_y++;
 	}
  }
 
-void	ray(int i, float angle, t_player *player, t_data *data)
+void	ray(int i, float angle, t_player *player, t_game *g)
 {
 	float	cos_angle;
 	float	sin_angle;
@@ -43,33 +42,31 @@ void	ray(int i, float angle, t_player *player, t_data *data)
 	sin_angle = sin(angle);
 	x = player->x;
 	y = player->y;
-	while (x < data->width && y < data->height && x >= 0 && y >= 0 && !touch(x,
-			y, data))
+	while (x < g->win_width && y < g->win_height && x >= 0 && y >= 0 && !touch(x,
+			y, g))
 	{
 		x += cos_angle;
 		y += sin_angle;
-		if (touch(x, y,data))
+		if (touch(x, y,g))
 		{
-			draw_wall(i, x, y, angle, data);
+			draw_wall(i, x, y, angle, g);
 		}
 	}
 }
 
-#include <stdio.h>
-
-void raycasting(t_data *data)
+void raycasting(t_game *g)
 {
 	float start_angle;
 	int x;
 	t_player *player;
 
-	player = &data->player;
+	player = &g->player;
 	start_angle = player->angle - FOV / 2;
 	x = 0;
 	while (start_angle < player->angle + FOV / 2)
 	{
-		ray(x, start_angle, player, data);
-		start_angle += FOV / data->width;
+		ray(x, start_angle, player, g);
+		start_angle += FOV / g->win_width;
 		x++;
 	}
 }

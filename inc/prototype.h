@@ -6,7 +6,7 @@
 /*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:38 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/11 14:52:35 by bdemouge         ###   ########.fr       */
+/*   Updated: 2026/06/11 16:16:23 by bdemouge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,20 @@ int		end(t_game *g);
 int		exit_game(t_game *g, int status);
 void	free_content(char **content);
 void	free_all(t_game *g);
-void    safe_free(void *ptr);
+void	safe_free(void *ptr);
 /*PRINT*/
 void	print_file(t_game *g);
 /*UTILS*/
 char	*ft_strdup_padded(const char *s, int padded_line_len);
 void	print_map(char **map, char *name);
+/*PLAYER*/
+void	move_player(t_game *g);
+/*RENDER*/
+int		key_press(int keycode, void *ply);
+int		key_release(int keycode, void *ply);
+void	raycasting(t_game *g);
+int		draw_loop(void *param);
+bool	touch(float x, float y, t_game *g);
+void	put_pixel(int x, int y, int color, t_game *g);
 
 #endif

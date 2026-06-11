@@ -6,7 +6,7 @@
 /*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 15:10:36 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/11 15:13:15 by bdemouge         ###   ########.fr       */
+/*   Updated: 2026/06/11 16:17:46 by bdemouge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,34 +70,34 @@ int exit_game(t_game *g, int status)
 		mlx_destroy_display(g->mlx);
 		safe_free(g->mlx);
 	}
-	free_content(g->map.map);
-	free_content(g->map.copy);
-	free_content(g->map.padded_copy);
-	free_content(g->file.content);
-	safe_free(g->file.path_no);
-	safe_free(g->file.path_so);
-	safe_free(g->file.path_we);
-	safe_free(g->file.path_ea);
-	safe_free(g->textures[0].id);
-	safe_free(g->textures[0].word);
-	free_content(g->textures[0].field);
-	safe_free(g->textures[1].id);
-	safe_free(g->textures[1].word);
-	free_content(g->textures[1].field);
-	safe_free(g->textures[2].id);
-	safe_free(g->textures[2].word);
-	free_content(g->textures[2].field);
-	safe_free(g->textures[3].id);
-	safe_free(g->textures[3].word);
-	free_content(g->textures[3].field);
-	safe_free(g->colors[0].id);
-	safe_free(g->colors[0].word);
-	safe_free(g->colors[0].field);
-	safe_free(g->colors[0].is_set);
-	safe_free(g->colors[1].id);
-	safe_free(g->colors[1].word);
-	safe_free(g->colors[1].field);
-	safe_free(g->colors[1].is_set);
+	// free_content(g->map.map);
+	// free_content(g->map.copy);
+	// free_content(g->map.padded_copy);
+	// free_content(g->file.content);
+	// safe_free(g->file.path_no);
+	// safe_free(g->file.path_so);
+	// safe_free(g->file.path_we);
+	// safe_free(g->file.path_ea);
+	// safe_free(g->textures[0].id);
+	// safe_free(g->textures[0].word);
+	// free_content(g->textures[0].field);
+	// safe_free(g->textures[1].id);
+	// safe_free(g->textures[1].word);
+	// free_content(g->textures[1].field);
+	// safe_free(g->textures[2].id);
+	// safe_free(g->textures[2].word);
+	// free_content(g->textures[2].field);
+	// safe_free(g->textures[3].id);
+	// safe_free(g->textures[3].word);
+	// free_content(g->textures[3].field);
+	// safe_free(g->colors[0].id);
+	// safe_free(g->colors[0].word);
+	// safe_free(g->colors[0].field);
+	// safe_free(g->colors[0].is_set);
+	// safe_free(g->colors[1].id);
+	// safe_free(g->colors[1].word);
+	// safe_free(g->colors[1].field);
+	// safe_free(g->colors[1].is_set);
 	exit(status);
 	return (1);	
 }

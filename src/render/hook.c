@@ -17,6 +17,8 @@ int	key_press(int keycode, void *ply)
 		player->left_rotate = true;
 	if (keycode == RIGHT)
 		player->right_rotate = true;
+	if (keycode == ESC)
+		player->exit = true;
     return (0);
 }
 
@@ -37,5 +39,7 @@ int	key_release(int keycode, void *ply)
 		player->left_rotate = false;
 	if (keycode == RIGHT)
 		player->right_rotate = false;
+	if (keycode == ESC)
+		player->exit = false;
     return (0);
 }

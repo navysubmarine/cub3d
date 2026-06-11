@@ -6,7 +6,7 @@
 /*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 18:01:54 by bdemouge          #+#    #+#             */
-/*   Updated: 2026/06/11 15:27:17 by bdemouge         ###   ########.fr       */
+/*   Updated: 2026/06/11 15:41:42 by bdemouge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ enum e_textureid
 	WE = 2,
 	EA = 3
 };
-
 
 typedef struct s_tx_info
 {
@@ -52,8 +51,17 @@ typedef struct s_player
 {
 	int			initial_x;
 	int			initial_y;
-	int			x;
-	int			y;
+	float 		x;
+	float 		y;
+	float 		angle;
+	
+	bool		forward;
+ 	bool		backward;
+ 	bool		right;
+ 	bool		left;
+ 	bool		right_rotate;
+ 	bool		left_rotate;
+	bool 		exit;
 }				t_player;
 
 typedef struct s_file
@@ -102,37 +110,5 @@ typedef struct s_game
 	t_tx_info	textures[4];
 	t_col_info	colors[2];
 }				t_game;
-
-// STRUCTURES BASTIEN
-
-// typedef struct s_player
-// {
-// 	float		x;
-// 	float		y;
-// 	float		angle;
-
-// 	bool		forward;
-// 	bool		backward;
-// 	bool		right;
-// 	bool		left;
-// 	bool		right_rotate;
-// 	bool		left_rotate;
-// }				t_player;
-
-// typedef struct s_data
-// {
-// 	void		*mlx;
-// 	void		*win;
-// 	void		*img;
-// 	char		*addr;
-// 	int			bpp;
-// 	int			line_length;
-// 	int			endian;
-
-// 	int			height;
-// 	int			width;
-// 	t_player	player;
-// 	char		**map;
-// }				t_data;
 
 #endif

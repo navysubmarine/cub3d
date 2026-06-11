@@ -11,6 +11,8 @@ CFILES	= 	$(addprefix exit/, exit.c )\
 			$(addprefix parse/, check_map.c colors.c header.c \
 			map_copy.c map.c parse.c store.c texture.c utils_file.c \
 			utils_map.c )\
+			$(addprefix player/, player.c )\
+			$(addprefix render/, hook.c raycasting.c render.c )\
 			$(addprefix utils/, print.c )\
 			cub3d.c
 SRC_DIR = src
