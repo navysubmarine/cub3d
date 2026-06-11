@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:38 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/11 14:53:19 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/11 15:13:04 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@
 
 /*INIT STRUCTS*/
 void			init_structs(t_game *g);
+void	        init_context_struct(t_parse_context *data, t_game *g);
 /****PARSING****/
 int				parse_input(int argc, char **argv, t_game *g);
 int				ft_strchr_cub(const char *s);
@@ -111,6 +112,7 @@ int				assign_field_once(char **struct_path, char *line);
 int				count_lines(int fd);
 char			**store_content(char *file, int nb_of_lines);
 int				validate_header_set(t_file *file);
+int				blank_line_detector(char *line);
 /*MAP*/
 int				is_valid_map_line(char *line);
 int				map_detector(char *line);
@@ -125,6 +127,7 @@ int				is_map_playable(t_game *g);
 int				are_there_still_spaces(t_map *map);
 int				handle_map(int *i, int *i_map, t_game *g, char **lines);
 int				find_longest_line_len(char **map);
+void			find_player(t_game *g, char **map);
 /*TEXTURE*/
 int				validate_texture_line(char *line, t_game *g);
 int				tx_detector(char *line);

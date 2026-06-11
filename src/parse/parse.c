@@ -6,13 +6,13 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 14:50:58 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/11 14:51:29 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/11 15:12:41 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int	blank_line_detector(char *line)
+int	blank_line_detector(char *line)
 {
 	int	i;
 

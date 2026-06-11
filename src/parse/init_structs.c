@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 14:19:14 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/11 14:47:20 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/11 15:09:49 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	init_col_info_struct(t_game *g)
 	{"C", "Ceiling", g->file.ceiling, &g->file.ceiling_set};
 }
 
-static void	init_context_struct(t_parse_context *data, t_game *g)
+void	init_context_struct(t_parse_context *data, t_game *g)
 {
 	data->i = 0;
 	data->i_map = 0;
