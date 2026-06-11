@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/27 15:16:35 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/10 19:12:03 by marthoma         ###   ########.fr       */
+/*   Created: 2026/06/11 14:58:17 by marthoma          #+#    #+#             */
+/*   Updated: 2026/06/11 14:58:20 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,3 +107,30 @@ int	handle_map(int *i, int *i_map, t_game *g, char **lines)
 	}
 	return (0);
 }
+
+// void	find_player(t_game *g, char **map)
+// {
+// 	int	i;
+// 	int	j;
+
+// 	i = 0;
+// 	j = 0;
+// 	g->player.initial_x = -1;
+// 	g->player.initial_y = -1;
+// 	while (map[i])
+// 	{
+// 		j = 0;
+// 		while (map[i][j])
+// 		{
+// 			if (map[i][j] == 'N' || map[i][j] == 'S'
+// 				|| map[i][j] == 'W' || map[i][j] == 'E')
+// 			{
+// 				g->player.initial_x = j;
+// 				g->player.initial_y = i;
+// 				return ;
+// 			}
+// 			j++;
+// 		}
+// 		i++;
+// 	}
+// }

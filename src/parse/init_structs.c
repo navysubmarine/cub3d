@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_structs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 14:19:14 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/10 15:56:31 by bdemouge         ###   ########.fr       */
+/*   Updated: 2026/06/11 14:47:20 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,14 @@ static void	init_col_info_struct(t_game *g)
 	{"F", "Floor", g->file.floor, &g->file.floor_set};
 	g->colors[1] = (t_col_info)
 	{"C", "Ceiling", g->file.ceiling, &g->file.ceiling_set};
+}
+
+static void	init_context_struct(t_parse_context *data, t_game *g)
+{
+	data->i = 0;
+	data->i_map = 0;
+	data->ret_map = 0;
+	data->nb_l = g->file.nb_of_lines;
 }
 
 void	init_structs(t_game *g)

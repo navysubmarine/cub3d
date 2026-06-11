@@ -3,14 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 14:50:58 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/10 18:57:27 by bdemouge         ###   ########.fr       */
+/*   Updated: 2026/06/11 14:51:29 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static int	blank_line_detector(char *line)
+{
+	int	i;
+
+	i = 0;
+	if (line[0] == '\0' || line[0] == '\n')
+		return (TRUE);
+	while (line[i] == ' ' || line[i] == '\t')
+	{
+		i++;
+	}
+	if (line[i] == '\0' || line[i] == '\n')
+		return (TRUE);
+	else
+		return (FALSE);
+}
 
 int	parse_input(int argc, char **argv, t_game *g)
 {
@@ -34,7 +51,7 @@ int	parse_input(int argc, char **argv, t_game *g)
 	return (0);
 }
 
-static int	handle_line(t_parse_context *p, t_game *g)
+int	handle_line(t_parse_context *p, t_game *g)
 {
 	if (blank_line_detector(g->file.content[p->i]) == TRUE)
 	{
@@ -48,14 +65,6 @@ static int	handle_line(t_parse_context *p, t_game *g)
 	if (map_detector(g->file.content[p->i]) == TRUE)
 		return (handle_map(&p->i, &p->i_map, g, g->file.content));
 	return (ft_putstr_fd("Error. Unrecognized line\n", 2), 1);
-}
-
-static void	init_context_struct(t_parse_context *data, t_game *g)
-{
-	data->i = 0;
-	data->i_map = 0;
-	data->ret_map = 0;
-	data->nb_l = g->file.nb_of_lines;
 }
 
 int	handle_file_content(t_game *g)
@@ -73,19 +82,19 @@ int	handle_file_content(t_game *g)
 	return (0);
 }
 
-int	blank_line_detector(char *line)
+int	validate_header_set(t_file *file)
 {
-	int	i;
-
-	i = 0;
-	if (line[0] == '\0' || line[0] == '\n')
-		return (TRUE);
-	while (line[i] == ' ' || line[i] == '\t')
-	{
-		i++;
-	}
-	if (line[i] == '\0' || line[i] == '\n')
-		return (TRUE);
-	else
-		return (FALSE);
+	if (!file->path_no)
+		return (ft_putstr_fd("Error. Missing north texture\n", 2), 1);
+	if (!file->path_so)
+		return (ft_putstr_fd("Error. Missing south texture\n", 2), 1);
+	if (!file->path_we)
+		return (ft_putstr_fd("Error. Missing west texture\n", 2), 1);
+	if (!file->path_ea)
+		return (ft_putstr_fd("Error. Missing east texture\n", 2), 1);
+	if (file->floor_set == FALSE)
+		return (ft_putstr_fd("Error. Missing floor color\n", 2), 1);
+	if (file->ceiling_set == FALSE)
+		return (ft_putstr_fd("Error. Missing ceiling color\n", 2), 1);
+	return (0);
 }

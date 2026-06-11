@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prototype.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:38 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/10 19:03:51 by bdemouge         ###   ########.fr       */
+/*   Updated: 2026/06/11 14:53:19 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,17 +99,19 @@
 
 /*INIT STRUCTS*/
 void			init_structs(t_game *g);
-/****PARSING INPUT FILE****/
+/****PARSING****/
 int				parse_input(int argc, char **argv, t_game *g);
-int				handle_file_content(t_game *g);
 int				ft_strchr_cub(const char *s);
 int				handle_file(t_game *g, char *filename);
+int				handle_file_content(t_game *g);
+int				handle_line(t_parse_context *p, t_game *g);
+
 char			*find_content(char *line, char *id);
 int				assign_field_once(char **struct_path, char *line);
 int				count_lines(int fd);
 char			**store_content(char *file, int nb_of_lines);
-int				blank_line_detector(char *line);
-/*PARSING MAP*/
+int				validate_header_set(t_file *file);
+/*MAP*/
 int				is_valid_map_line(char *line);
 int				map_detector(char *line);
 void			store_map_line(t_game *g, char *line, int i);
@@ -123,13 +125,11 @@ int				is_map_playable(t_game *g);
 int				are_there_still_spaces(t_map *map);
 int				handle_map(int *i, int *i_map, t_game *g, char **lines);
 int				find_longest_line_len(char **map);
-/*PARSING HEADER*/
-int				validate_header_set(t_file *file);
-/*PARSING TEXTURE*/
+/*TEXTURE*/
 int				validate_texture_line(char *line, t_game *g);
 int				tx_detector(char *line);
 int				test_tx_path(char *tx_type, char *path);
-/*PARSING COLORS*/
+/*COLORS*/
 int				validate_color_line(char *line, t_game *g);
 int				test_rgb_format(char *content);
 int				test_rgb_color(char *id, char *content);
@@ -145,12 +145,12 @@ char			*clear_stash(char *stash_array[FD_OPEN_MAX]);
 /*EXIT*/
 int				exit_game(t_game *g, int error);
 void			free_content(char **content);
-void			free_all(t_game *g);
+//void			free_all(t_game *g);
 /*PRINT*/
 void			print_file(t_game *g);
+void			print_map(char **map, char *name);
 /*UTILS*/
 char			*ft_strdup_padded(const char *s, int padded_line_len);
-void			print_map(char **map, char *name);
 
 /*PROTOTYPES BASTIEN*/
 // void			safe_free(void *ptr);

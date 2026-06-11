@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 16:05:05 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/10 18:57:00 by bdemouge         ###   ########.fr       */
+/*   Updated: 2026/06/11 14:52:25 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,6 @@ int	validate_color_line(char *line, t_game *g)
 	return (1);
 }
 
-/*0=yes it's a color line, 1=no*/
 int	col_detector(char *line)
 {
 	int	i;
@@ -132,11 +131,3 @@ int	col_detector(char *line)
 	else
 		return (FALSE);
 }
-
-// void	init_col_info_struct(t_game *g)
-// {
-// 	g->colors[0] = (t_col_info)
-// 	{"F", "Floor", g->file.floor, &g->file.floor_set};
-// 	g->colors[1] = (t_col_info)
-// 	{"C", "Ceiling", g->file.ceiling, &g->file.ceiling_set};
-// }

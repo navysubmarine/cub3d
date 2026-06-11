@@ -3,43 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:47:36 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/10 18:56:52 by bdemouge         ###   ########.fr       */
+/*   Updated: 2026/06/11 14:54:35 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 /*TODO: check the file content is valid*/
-
-void	find_player(t_game *g, char **map)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	g->player.initial_x = -1;
-	g->player.initial_y = -1;
-	while (map[i])
-	{
-		j = 0;
-		while (map[i][j])
-		{
-			if (map[i][j] == 'N' || map[i][j] == 'S'
-				|| map[i][j] == 'W' || map[i][j] == 'E')
-			{
-				g->player.initial_x = j;
-				g->player.initial_y = i;
-				return ;
-			}
-			j++;
-		}
-		i++;
-	}
-}
 
 int	is_there_one_player(char **map)
 {
