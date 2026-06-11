@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:19 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/10 18:56:37 by bdemouge         ###   ########.fr       */
+/*   Updated: 2026/06/11 12:32:07 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	main(int argc, char **argv)
 	init_structs(&g);
 	if (parse_input(argc, argv, &g))
 		return (1);
-	mlx_loop(g.mlx);
+	//mlx_loop(g.mlx);
 	return (0);
 }
 	// init_game(&g) || load_sprites(&g)
