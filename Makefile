@@ -7,17 +7,18 @@ LFLAGS = -lX11 -lXext -lm
 
 # Sources
 CFILES	= 	$(addprefix exit/, exit.c )\
+			$(addprefix init/, init_structs.c )\
 			$(addprefix parse/, check_map.c colors.c header.c \
-			init_structs.c map_copy.c map.c parse.c store.c \
-			texture.c utils_file.c utils_map.c )\
-			$(addprefix utils/, ft_split.c get_next_line.c print.c )\
+			map_copy.c map.c parse.c store.c texture.c utils_file.c \
+			utils_map.c )\
+			$(addprefix utils/, print.c )\
 			cub3d.c
 SRC_DIR = src
 SRC = $(addprefix $(SRC_DIR)/, $(CFILES))
 
 # Header directories
 INCDIR =	inc \
-			$(LIBFT_DIR) \
+			$(LIBFT_DIR)/includes \
 			$(MLX_DIR)
 
 # Build directory

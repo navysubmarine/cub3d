@@ -6,7 +6,7 @@
 /*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 15:19:04 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/10 18:57:48 by bdemouge         ###   ########.fr       */
+/*   Updated: 2026/06/11 14:48:33 by bdemouge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	count_lines(int fd)
 			break ;
 		}
 		count++;
-		free(line);
+		safe_free(line);
 	}
 	return (count);
 }

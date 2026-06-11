@@ -6,7 +6,7 @@
 /*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:19 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/10 18:56:37 by bdemouge         ###   ########.fr       */
+/*   Updated: 2026/06/11 14:44:35 by bdemouge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	main(int argc, char **argv)
 	init_structs(&g);
 	if (parse_input(argc, argv, &g))
 		return (1);
+	mlx_hook(g.win, 17, 0, (int (*)())(void *)end, &g);
 	mlx_loop(g.mlx);
 	return (0);
 }

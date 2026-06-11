@@ -6,20 +6,12 @@
 /*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 18:02:04 by bdemouge          #+#    #+#             */
-/*   Updated: 2026/06/09 18:06:51 by bdemouge         ###   ########.fr       */
+/*   Updated: 2026/06/11 14:50:34 by bdemouge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MACRO_H
 # define MACRO_H
-
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1000
-# endif
-
-# ifndef FD_OPEN_MAX
-#  define FD_OPEN_MAX 1024
-# endif
 
 # define W 119
 # define A 97

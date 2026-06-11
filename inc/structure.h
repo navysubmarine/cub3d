@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structure.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 18:01:54 by bdemouge          #+#    #+#             */
-/*   Updated: 2026/06/10 19:05:27 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/11 15:27:17 by bdemouge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,27 +25,27 @@ enum e_textureid
 
 typedef struct s_tx_info
 {
-	char		*id; // SO, NO, EA, WE a supprimer
-	char		*word; 
-	char		**field;
+	char		*id; // SO, NO, EA, WE parsing
+	char		*word; // parsing
+	char		**field; // parsing
 }				t_tx_info;
 
 typedef struct s_col_info
 {
-	char		*id; // F, C
-	char		*word;
-	int			*field;
-	int			*is_set;
+	char		*id; // F, C parsing
+	char		*word; // parsing
+	int			*field; // parsing
+	int			*is_set; // parsing
 }				t_col_info;
 
 typedef struct s_map
 {
 	char		**map;
-	char		**copy;
-	char		**padded_copy;
-	int			map_h;
-	bool		is_map_set;
-	bool		valid;
+	char		**copy; // parsing
+	char		**padded_copy; // parsing
+	int			map_h; // parsing
+	bool		is_map_set; // parsing
+	bool		valid; // parsing
 }				t_map;
 
 typedef struct s_player
@@ -58,24 +58,24 @@ typedef struct s_player
 
 typedef struct s_file
 {
-	int			nb_of_lines;
-	char		**content;
-	char		*path_no; 
-	char		*path_so;
-	char		*path_we;
-	char		*path_ea;
-	int			floor[3];
-	int			floor_set;
-	int			ceiling[3];
-	int			ceiling_set;
+	int			nb_of_lines; // parsing
+	char		**content; // parsing
+	char		*path_no; // parsing
+	char		*path_so; // parsing
+	char		*path_we; // parsing
+	char		*path_ea; // parsing
+	int			floor[3]; // parsing
+	int			floor_set; // parsing
+	int			ceiling[3]; // parsing
+	int			ceiling_set; // parsing
 }				t_file;
 
 typedef struct s_parse_context
 {
-	int			i;
-	int			i_map;
-	int			ret_map;
-	int			nb_l;
+	int			i; // parsing
+	int			i_map; // parsing
+	int			ret_map; // parsing
+	int			nb_l; // parsing
 }				t_parse_context;
 
 typedef struct s_game
@@ -90,6 +90,12 @@ typedef struct s_game
 
 	int			win_height;
 	int			win_width;
+	// int floor;
+	// int ceiling;
+	// void *text_no;
+	// void *test_so;
+	// void *text_ea;
+	// void *test_we;
 	t_map		map;
 	t_file		file;
 	t_player	player;
