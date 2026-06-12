@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:38 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/12 15:14:11 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/12 15:24:38 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int		exit_game(t_game *g, int status);
 void	free_content(char **content);
 void	free_all(t_game *g);
 void	safe_free(void *ptr);
+void	free_parse(t_parse *p);
 /*PRINT*/
 void	print_parse(t_game *g);
 void	print_map(char **map, char *name);

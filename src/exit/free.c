@@ -6,11 +6,20 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/12 12:10:38 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/12 14:33:56 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/12 15:25:49 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void safe_free(void *ptr)
+{
+	if (ptr)
+	{
+		free(ptr);
+		ptr = NULL;
+	}
+}
 
 void	free_content(char **content)
 {
@@ -21,10 +30,10 @@ void	free_content(char **content)
 	i = 0;
 	while (content[i])
 	{
-		free(content[i]);
+		safe_free(content[i]);
 		i++;
 	}
-	free(content);
+	safe_free(content);
 }
 
 void	free_parse(t_parse *p)

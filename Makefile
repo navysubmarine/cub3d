@@ -14,7 +14,7 @@ fsan: re
 CFILES	= 	$(addprefix exit/, exit.c free.c )\
 			$(addprefix init/, init_structs.c )\
 			$(addprefix parse/, check_map.c colors.c \
-			init_structs.c map_copy.c map.c parse.c store.c \
+			map_copy.c map.c parse.c store.c \
 			texture.c utils_file.c utils_map.c )\
 			$(addprefix utils/, print.c )\
 			$(addprefix player/, player.c )\

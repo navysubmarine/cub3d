@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 15:10:36 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/12 15:18:41 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/12 15:25:46 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,7 @@ int	exit_game(t_game *g, int error)
 // 	return (0);
 // }
 
-void safe_free(void *ptr)
-{
-	if (ptr)
-	{
-		free(ptr);
-		ptr = NULL;
-	}
-}
+
 
 int end(t_game *g)
 {
@@ -100,21 +93,6 @@ int exit_game(t_game *g, int status)
 	// safe_free(g->colors[1].is_set);
 	exit(status);
 	return (1);	
-}
-
-void	free_content(char **content)
-{
-	int	i;
-
-	if (!content)
-		return ;
-	i = 0;
-	while (content[i])
-	{
-		safe_free(content[i]);
-		i++;
-	}
-	safe_free(content);
 }
 
 // char	*clear_stash(char *stash_array[FD_OPEN_MAX])

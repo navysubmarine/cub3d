@@ -7,7 +7,7 @@ bool	touch(float x, float y, t_game *g)
 
 	real_x = x / BLOCK_SIZE;
 	real_y = y / BLOCK_SIZE;
-	if (g->map.map[real_y][real_x] == '1')
+	if (g->map[real_y][real_x] == '1')
 		return (true);
 	return (false);
 }

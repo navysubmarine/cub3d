@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 18:01:54 by bdemouge          #+#    #+#             */
-/*   Updated: 2026/06/12 15:17:17 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/12 15:23:27 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ typedef struct s_game
 	char			*path_ea_tx;
 	char			**map;
 	t_parse			p;
+	t_player		player;
 }					t_game;
 
 #endif
