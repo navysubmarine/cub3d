@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/12 12:10:38 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/12 15:53:48 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/12 16:01:18 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,11 @@ void	free_parse(t_parse *p)
 	i = 0;
 	while (i < 4)
 	{
-		free(p->textures[i].path);
+		safe_free(p->textures[i].path);
 		p->textures[i].path = NULL;
 		i++;
 	}
 	free_content(p->map.map);
-	p->map.map = NULL;
 	free_content(p->map.copy);
-	p->map.copy = NULL;
 	free_content(p->map.padded_copy);
-	p->map.padded_copy = NULL;
 }

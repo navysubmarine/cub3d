@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 18:01:54 by bdemouge          #+#    #+#             */
-/*   Updated: 2026/06/12 15:23:27 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/12 16:11:36 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,10 @@ typedef struct s_map
 
 typedef struct s_player
 {
-	int			initial_x;
-	int			initial_y;
 	float 		x;
 	float 		y;
 	float 		angle;
-	
+
 	bool		forward;
  	bool		backward;
  	bool		right;

@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 14:50:58 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/12 15:29:48 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/12 16:21:54 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,9 @@ void	init_game_info(t_game *g)
 	g->path_we_tx = g->p.textures[WE].path;
 	g->path_ea_tx = g->p.textures[EA].path;
 	g->map = g->p.map.map;
+	g->player.x = g->p.player.x;
+	g->player.y = g->p.player.y;
+	g->player.angle = g->p.player.angle;
 }
 
 int	parse_input(int argc, char **argv, t_game *g)

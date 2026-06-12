@@ -30,7 +30,7 @@ void	exit_prog(t_data *data, int retval)
 	if (data->mlx)
 	{
 		mlx_destroy_display(data->mlx);
-		free(data->mlx);
+		safe_free(data->mlx);
 	}
 	if (data->map)
 		free_split(data->map);

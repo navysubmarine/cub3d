@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 15:35:33 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/12 15:22:48 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/12 16:18:31 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ void	print_parse(t_game *g)
 	printf("is_map_set: %d\n", map->is_map_set);
 	printf("valid: %d\n", map->valid);
 	printf("--- player ---\n");
-	printf("initial position: (%d, %d)\n", player->initial_x,
-		player->initial_y);
+	printf("initial position: (%f, %f)\n", player->x,
+		player->y);
 	printf("current position: (%f, %f)\n", player->x, player->y);
 	printf("--- map content (%d lines) ---\n", map->map_h);
 	while (map->map && i < map->map_h)

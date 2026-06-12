@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 16:27:31 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/12 14:25:14 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/12 16:21:15 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,18 +68,39 @@ void	find_player(t_parse *p, char **map)
 
 	i = 0;
 	j = 0;
-	p->player.initial_x = -1;
-	p->player.initial_y = -1;
+	p->player.x = -1;
+	p->player.y = -1;
 	while (map[i])
 	{
 		j = 0;
 		while (map[i][j])
 		{
-			if (map[i][j] == 'N' || map[i][j] == 'S'
-				|| map[i][j] == 'W' || map[i][j] == 'E')
+			if (map[i][j] == 'N')
 			{
-				p->player.initial_x = j;
-				p->player.initial_y = i;
+				p->player.x = j;
+				p->player.y = i;
+				p->player.angle = NO;
+				return ;
+			}
+			if (map[i][j] == 'S')
+			{
+				p->player.x = j;
+				p->player.y = i;
+				p->player.angle = SO;
+				return ;
+			}
+			if (map[i][j] == 'E')
+			{
+				p->player.x = j;
+				p->player.y = i;
+				p->player.angle = EA;
+				return ;
+			}
+			if (map[i][j] == 'W')
+			{
+				p->player.x = j;
+				p->player.y = i;
+				p->player.angle = WE;
 				return ;
 			}
 			j++;
