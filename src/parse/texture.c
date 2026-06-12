@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 16:01:22 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/12 11:57:30 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/12 14:18:20 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int	test_tx_path(char *tx_type, char *path)
 		return (1);
 	fd = open(trimmed, O_RDONLY);
 	free(trimmed);
+	trimmed =  NULL;
 	if (fd < 0)
 	{
 		printf("Error. %s texture has invalid pathname\n", tx_type);

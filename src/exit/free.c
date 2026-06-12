@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/12 12:10:38 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/12 12:43:21 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/12 14:33:56 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,18 @@ void	free_content(char **content)
 	free(content);
 }
 
-
 void	free_parse(t_parse *p)
 {
-	int	i;
+	int i;
 
 	free_content(p->content);
 	p->content = NULL;
-
 	i = 0;
 	while (i < 4)
 	{
+		printf("DEBUG free texture[%d].path = %p : %s\n", i,
+			(void *)p->textures[i].path,
+			p->textures[i].path ? p->textures[i].path : "(null)");
 		free(p->textures[i].path);
 		p->textures[i].path = NULL;
 		i++;

@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 16:27:31 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/11 15:49:25 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/12 14:25:14 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	init_map(char **lines, t_parse *p, int i)
 
 void	store_map_line(t_parse *p, char *line, int i)
 {
-	p->map.map[i] = line;
+	p->map.map[i] = ft_strdup(line);
 }
 
 void	find_player(t_parse *p, char **map)

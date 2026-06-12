@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   store.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 15:09:39 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/10 18:57:40 by bdemouge         ###   ########.fr       */
+/*   Updated: 2026/06/12 14:20:50 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ char	**store_content(char *file, int nb_of_lines)
 		return (NULL);
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
-		return (free(content), NULL);
+		return (free(content), content = NULL, NULL);
 	while (i < nb_of_lines)
 	{
 		content[i] = get_next_line(fd);
 		if (!content[i])
-			return (free_content(content), close(fd), NULL);
+			return (free_content(content), content = NULL, close(fd), NULL);
 		eol = ft_strchr(content[i], '\n');
 		if (eol)
 			*eol = '\0';

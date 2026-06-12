@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 16:05:05 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/12 11:51:44 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/12 14:17:55 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,18 @@ int	test_rgb_color(char	*id, char *content)
 	{
 		if (ft_atoi(tab[i]) > 255 || ft_atoi(tab[i]) < 0)
 			return (ft_putstr_fd("Error. RGB number is out of bound\n", 2),
-				free_content(tab), 1);
+				free_content(tab), tab = NULL, 1);
 		i++;
 	}
 	if (i != 3)
 	{
 		ft_putstr_fd("Error. RGB number must have three elements\n", 2);
 		free_content(tab);
+		tab = NULL;
 		return (1);
 	}
 	free_content(tab);
+	tab = NULL;
 	return (0);
 }
 
@@ -87,6 +89,7 @@ int	store_rgb(int *values, char *content)
 		i++;
 	}
 	free_content(tab);
+	tab = NULL;
 	return (0);
 }
 

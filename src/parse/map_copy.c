@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 15:36:49 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/11 15:51:24 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/12 14:14:08 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	**map_copy(char **map)
 	{
 		copy[i] = ft_strdup(map[i]);
 		if (!(copy[i]))
-			return (free_content(copy), NULL);
+			return (free_content(copy), copy = NULL, NULL);
 		i++;
 	}
 	copy[i] = NULL;
@@ -77,7 +77,7 @@ static int	set_padding_row(char **copy, int idx, int len)
 {
 	copy[idx] = make_padding_row(len);
 	if (!copy[idx])
-		return (free_content(copy), 1);
+		return (free_content(copy), copy = NULL, 1);
 	return (0);
 }
 
@@ -100,7 +100,7 @@ char	**map_padded_copy(char **map, t_parse *p)
 	{
 		copy[i + 1] = ft_strdup_padded(map[i], padded_len);
 		if (!copy[i + 1])
-			return (free_content(copy), NULL);
+			return (free_content(copy), copy = NULL, NULL);
 		i++;
 	}
 	if (set_padding_row(copy, padded_h - 1, padded_len))
