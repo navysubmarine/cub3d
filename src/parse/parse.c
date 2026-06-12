@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 14:50:58 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/11 16:24:24 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/12 11:58:27 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,23 @@ int	blank_line_detector(char *line)
 		return (FALSE);
 }
 
-int    rgb_to_int(int r, int g, int b)
+int	rgb_to_int(int r, int g, int b)
 {
-    int    color;
+	int	color;
 
-    color = r << 16;
-    color += g << 8;
-    color += b;
-    return (color);
+	color = r << 16;
+	color += g << 8;
+	color += b;
+	return (color);
 }
 
 void	init_game_info(t_game *g)
 {
-	g->floor = rgb_to_int(g->p.colors[0].field[0], g->p.colors[0].field[1], g->p.colors[0].field[2]);
+	g->floor = rgb_to_int(g->p.colors[0].rgb[0], g->p.colors[0].rgb[1],
+			g->p.colors[0].rgb[2]);
+	g->ceiling = rgb_to_int(g->p.colors[1].rgb[0], g->p.colors[1].rgb[1],
+			g->p.colors[1].rgb[2]);
+	//g->path_no_tx = g->p->textures[0]->path;
 }
 
 int	parse_input(int argc, char **argv, t_game *g)
@@ -59,7 +63,8 @@ int	parse_input(int argc, char **argv, t_game *g)
 	}
 	if (handle_file_content(&g->p))
 		return (1);
-	if (validate_header_set(&g->p.file))
+	//print_parse(g);
+	if (validate_header_set(&g->p))
 		return (1);
 	if (is_map_playable(&g->p))
 		return (1);
@@ -70,17 +75,17 @@ int	parse_input(int argc, char **argv, t_game *g)
 
 int	handle_line(t_parse_context *c, t_parse *p)
 {
-	if (blank_line_detector(p->file.content[c->i]) == TRUE)
+	if (blank_line_detector(p->content[c->i]) == TRUE)
 	{
 		c->i++;
 		return (0);
 	}
-	if (!p->map.is_map_set && tx_detector(p->file.content[c->i]) == TRUE)
-		return (validate_texture_line(p->file.content[c->i++], p));
-	if (!p->map.is_map_set && col_detector(p->file.content[c->i]) == TRUE)
-		return (validate_color_line(p->file.content[c->i++], p));
-	if (map_detector(p->file.content[c->i]) == TRUE)
-		return (handle_map(&c->i, &c->i_map, p, p->file.content));
+	if (!p->map.is_map_set && tx_detector(p->content[c->i]) == TRUE)
+		return (validate_texture_line(p->content[c->i++], p));
+	if (!p->map.is_map_set && col_detector(p->content[c->i]) == TRUE)
+		return (validate_color_line(p->content[c->i++], p));
+	if (map_detector(p->content[c->i]) == TRUE)
+		return (handle_map(&c->i, &c->i_map, p, p->content));
 	return (ft_putstr_fd("Error. Unrecognized line\n", 2), 1);
 }
 
@@ -99,19 +104,19 @@ int	handle_file_content(t_parse *p)
 	return (0);
 }
 
-int	validate_header_set(t_file *file)
+int	validate_header_set(t_parse *p)
 {
-	if (!file->path_no)
+	if (!p->textures[NO].is_set)
 		return (ft_putstr_fd("Error. Missing north texture\n", 2), 1);
-	if (!file->path_so)
+	if (!p->textures[SO].is_set)
 		return (ft_putstr_fd("Error. Missing south texture\n", 2), 1);
-	if (!file->path_we)
+	if (!p->textures[WE].is_set)
 		return (ft_putstr_fd("Error. Missing west texture\n", 2), 1);
-	if (!file->path_ea)
+	if (!p->textures[EA].is_set)
 		return (ft_putstr_fd("Error. Missing east texture\n", 2), 1);
-	if (file->floor_set == FALSE)
+	if (p->colors[0].is_set == FALSE)
 		return (ft_putstr_fd("Error. Missing floor color\n", 2), 1);
-	if (file->ceiling_set == FALSE)
+	if (p->colors[1].is_set == FALSE)
 		return (ft_putstr_fd("Error. Missing ceiling color\n", 2), 1);
 	return (0);
 }

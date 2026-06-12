@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 16:05:05 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/11 15:52:16 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/12 11:51:44 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,9 +107,9 @@ int	validate_color_line(char *line, t_parse *p)
 		{
 			content = find_content(line + i, p->colors[j].id);
 			if (test_rgb_color(p->colors[j].word, content)
-				|| store_rgb(p->colors[j].field, content))
+				|| store_rgb(p->colors[j].rgb, content))
 				return (1);
-			*p->colors[j].is_set = TRUE;
+			p->colors[j].is_set = TRUE;
 			return (0);
 		}
 		j++;

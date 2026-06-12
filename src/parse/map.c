@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/11 14:58:17 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/11 15:53:22 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/12 11:43:59 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	are_walls_enclosed(t_map *map, int x, int y, int nb_lines)
 
 int	handle_map(int *i, int *i_map, t_parse *p, char **lines)
 {
-	while (*i < p->file.nb_of_lines && map_detector(lines[*i]) == TRUE)
+	while (*i < p->nb_of_lines && map_detector(lines[*i]) == TRUE)
 	{
 		if (is_valid_map_line(lines[*i]))
 			return (1);
@@ -101,7 +101,7 @@ int	handle_map(int *i, int *i_map, t_parse *p, char **lines)
 		(*i)++;
 		continue ;
 	}
-	if (*i < p->file.nb_of_lines && blank_line_detector(lines[*i]) == TRUE)
+	if (*i < p->nb_of_lines && blank_line_detector(lines[*i]) == TRUE)
 	{
 		return (2);
 	}

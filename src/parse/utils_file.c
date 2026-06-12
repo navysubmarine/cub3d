@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 15:19:04 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/11 16:01:14 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/12 11:58:44 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ int	handle_file(t_parse *p, char *filename)
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		return (1);
-	p->file.nb_of_lines = count_lines(fd);
+	p->nb_of_lines = count_lines(fd);
 	close (fd);
-	p->file.content = store_content(filename, p->file.nb_of_lines);
-	if (!p->file.content)
+	p->content = store_content(filename, p->nb_of_lines);
+	if (!p->content)
 		return (1);
 	return (0);
 }

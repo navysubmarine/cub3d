@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 18:01:54 by bdemouge          #+#    #+#             */
-/*   Updated: 2026/06/11 16:16:51 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/12 11:48:50 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,16 @@ typedef struct s_tx_info
 {
 	char 			*id; // SO, NO, EA, WE a supprimer
 	char			*word;
-	char			**field;
+	char			*path;
+	int				is_set;
 }					t_tx_info;
 
 typedef struct s_col_info
 {
 	char 			*id; // F, C
 	char			*word;
-	int				*field;
-	int				*is_set;
+	int				rgb[3];
+	int				is_set;
 }					t_col_info;
 
 typedef struct s_map
@@ -55,19 +56,15 @@ typedef struct s_player
 	int				y;
 }					t_player;
 
-typedef struct s_file
-{
-	int				nb_of_lines;
-	char			**content;
-	char			*path_no;
-	char			*path_so;
-	char			*path_we;
-	char			*path_ea;
-	int				floor[3];
-	int				floor_set;
-	int				ceiling[3];
-	int				ceiling_set;
-}					t_file;
+// typedef struct s_file
+// {
+// 	// int				nb_of_lines;
+// 	// char			**content;
+// 	// int				floor[3];
+// 	// int				floor_set;
+// 	// int				ceiling[3];
+// 	// int				ceiling_set;
+// }					t_file;
 
 typedef struct s_parse_context
 {
@@ -79,11 +76,13 @@ typedef struct s_parse_context
 
 typedef struct s_parse
 {
+	int				nb_of_lines;
+	char			**content;
 	t_map			map;
-	t_file			file;
+	//t_file			file;
 	t_player		player;
-	t_tx_info		textures[5];
-	t_col_info		colors[3];
+	t_tx_info		textures[4];
+	t_col_info		colors[2];
 }					t_parse;
 
 typedef struct s_game
