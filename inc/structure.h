@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 18:01:54 by bdemouge          #+#    #+#             */
-/*   Updated: 2026/06/12 11:59:53 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/12 15:17:17 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,21 +40,30 @@ typedef struct s_col_info
 
 typedef struct s_map
 {
-	char			**map;
-	char			**copy;
-	char			**padded_copy;
-	int				map_h;
-	bool			is_map_set;
-	bool			valid;
-}					t_map;
+	char		**map;
+	char		**copy; // parsing
+	char		**padded_copy; // parsing
+	int			map_h; // parsing
+	bool		is_map_set; // parsing
+	bool		valid; // parsing
+}				t_map;
 
 typedef struct s_player
 {
-	int				initial_x;
-	int				initial_y;
-	int				x;
-	int				y;
-}					t_player;
+	int			initial_x;
+	int			initial_y;
+	float 		x;
+	float 		y;
+	float 		angle;
+	
+	bool		forward;
+ 	bool		backward;
+ 	bool		right;
+ 	bool		left;
+ 	bool		right_rotate;
+ 	bool		left_rotate;
+	bool 		exit;
+}				t_player;
 
 typedef struct s_parse_context
 {
@@ -95,37 +104,5 @@ typedef struct s_game
 	char			**map;
 	t_parse			p;
 }					t_game;
-
-// STRUCTURES BASTIEN
-
-// typedef struct s_player
-// {
-// 	float		x;
-// 	float		y;
-// 	float		angle;
-
-// 	bool		forward;
-// 	bool		backward;
-// 	bool		right;
-// 	bool		left;
-// 	bool		right_rotate;
-// 	bool		left_rotate;
-// }				t_player;
-
-// typedef struct s_data
-// {
-// 	void		*mlx;
-// 	void		*win;
-// 	void		*img;
-// 	char		*addr;
-// 	int			bpp;
-// 	int			line_length;
-// 	int			endian;
-
-// 	int			height;
-// 	int			width;
-// 	t_player	player;
-// 	char		**map;
-// }				t_data;
 
 #endif

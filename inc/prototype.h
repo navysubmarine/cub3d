@@ -6,96 +6,12 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:38 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/12 12:11:11 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/12 15:14:11 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PROTOTYPE_H
 # define PROTOTYPE_H
-
-// # ifndef BUFFER_SIZE
-// #  define BUFFER_SIZE 1000
-// # endif
-
-// # ifndef FD_OPEN_MAX
-// #  define FD_OPEN_MAX 1024
-// # endif
-
-// # include "../libft/libft.h"
-// //# include "minilibx/mlx.h"
-// # include <fcntl.h>
-// # include <limits.h>
-// # include <stdbool.h>
-// # include <stdio.h>
-// # include <stdlib.h>
-// # include <unistd.h>
-
-// # define TRUE 1
-// # define FALSE 0
-
-// typedef struct s_tx_info
-// {
-// 	char		*id;
-// 	char		*word;
-// 	char		**path;
-// }				t_tx_info;
-
-// typedef struct s_col_info
-// {
-// 	char		*id;
-// 	char		*word;
-// 	int			*path;
-// 	int			*is_set;
-// }				t_col_info;
-
-// typedef struct s_map
-// {
-// 	char		**map;
-// 	char		**copy;
-// 	char		**padded_copy;
-// 	int			map_h;
-// 	bool		is_map_set;
-// 	bool		valid;
-// }				t_map;
-
-// typedef struct s_img
-// {
-// 	int			i;
-// }				t_img;
-
-// typedef struct s_player
-// {
-// 	int			initial_x;
-// 	int			initial_y;
-// 	int			x;
-// 	int			y;
-// }				t_player;
-
-// typedef struct s_file
-// {
-// 	int			nb_of_lines;
-// 	char		**content;
-// 	char		*path_no;
-// 	char		*path_so;
-// 	char		*path_we;
-// 	char		*path_ea;
-// 	int			floor[3];
-// 	int			floor_set;
-// 	int			ceiling[3];
-// 	int			ceiling_set;
-// }				t_file;
-
-// typedef struct s_game
-// {
-// 	void		*mlx;
-// 	void		*win;
-// 	t_img		img;
-// 	t_map		map;
-// 	t_file		file;
-// 	t_player	player;
-// 	t_tx_info	textures[4];
-// 	t_col_info	colors[2];
-// }				t_game;
 
 /*INIT STRUCTS*/
 void	init_game_struct(t_game *g);
@@ -137,36 +53,28 @@ int		test_rgb_format(char *content);
 int		test_rgb_color(char *id, char *content);
 int		store_rgb(int *values, char *content);
 int		col_detector(char *line);
-/*GET NEXT LINE*/
-char	*get_next_line(int fd);
-char	*call_and_check(int fd, char *buffer, char **stash);
-int		read_and_fill_stash(int fd, char *buffer, char **stash);
-char	*update_stash(char **stash);
-char	*set_line(char *stash);
-char	*clear_stash(char *stash_array[FD_OPEN_MAX]);
 /*EXIT*/
-int		exit_game(t_game *g, int error);
+int		end(t_game *g);
+int		exit_game(t_game *g, int status);
 void	free_content(char **content);
-void	free_parse(t_parse *p);
-// void			free_all(t_game *g);
+void	free_all(t_game *g);
+void	safe_free(void *ptr);
 /*PRINT*/
 void	print_parse(t_game *g);
 void	print_map(char **map, char *name);
 void	print_game(t_game *g);
 /*UTILS*/
-char	*ft_strdup_padded(const char *s, int padded_line_len);
-int		count_lines(int fd);
-
-/*PROTOTYPES BASTIEN*/
-// void			safe_free(void *ptr);
-// void			exit_prog(t_data *game, int retval);
-// char			**get_map(void);
-// int				key_press(int keycode, void *ply);
-// int				key_release(int keycode, void *ply);
-// void			move_player(t_data *game);
-// void			init_player(float x, float y, float angle, t_player *player);
-// bool			touch(float x, float y, t_data *game);
-// void			put_pixel(int x, int y, int color, t_data *game);
-// void			raycasting(t_data *game);
+char			*ft_strdup_padded(const char *s, int padded_line_len);
+void			print_map(char **map, char *name);
+int		        count_lines(int fd);
+/*PLAYER*/
+void	move_player(t_game *g);
+/*RENDER*/
+int		key_press(int keycode, void *ply);
+int		key_release(int keycode, void *ply);
+void	raycasting(t_game *g);
+int		draw_loop(void *param);
+bool	touch(float x, float y, t_game *g);
+void	put_pixel(int x, int y, int color, t_game *g);
 
 #endif

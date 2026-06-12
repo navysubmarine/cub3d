@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 15:19:04 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/12 11:58:44 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/12 15:20:06 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	count_lines(int fd)
 			break ;
 		}
 		count++;
-		free(line);
+		safe_free(line);
 	}
 	return (count);
 }
