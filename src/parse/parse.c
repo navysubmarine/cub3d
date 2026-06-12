@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 14:50:58 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/12 16:21:54 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/12 17:34:33 by bdemouge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ void	init_game_info(t_game *g)
 	g->path_we_tx = g->p.textures[WE].path;
 	g->path_ea_tx = g->p.textures[EA].path;
 	g->map = g->p.map.map;
-	g->player.x = g->p.player.x;
-	g->player.y = g->p.player.y;
+	g->player.x = g->p.player.x * BLOCK_SIZE + BLOCK_SIZE / 2;
+	g->player.y = g->p.player.y * BLOCK_SIZE + BLOCK_SIZE / 2;
 	g->player.angle = g->p.player.angle;
 }
 

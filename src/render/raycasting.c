@@ -37,20 +37,22 @@ void	ray(int i, float angle, t_player *player, t_game *g)
 	float	sin_angle;
 	float	x;
 	float	y;
+	float   ray_size;
+	float	ray_u;
 
 	cos_angle = cos(angle);
 	sin_angle = sin(angle);
 	x = player->x;
 	y = player->y;
-	while (x < g->win_width && y < g->win_height && x >= 0 && y >= 0 && !touch(x,
-			y, g))
+	ray_u = sqrt(cos_angle * cos_angle + sin_angle * sin_angle);
+	ray_size = 0;
+	while (ray_size < RAY_SIZE && !touch(x, y, g))
 	{
 		x += cos_angle;
 		y += sin_angle;
-		if (touch(x, y,g))
-		{
+		ray_size += ray_u;
+		if (touch(x, y, g))
 			draw_wall(i, x, y, angle, g);
-		}
 	}
 }
 
