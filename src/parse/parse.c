@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 14:50:58 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/12 11:58:27 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/12 12:05:37 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,11 @@ void	init_game_info(t_game *g)
 			g->p.colors[0].rgb[2]);
 	g->ceiling = rgb_to_int(g->p.colors[1].rgb[0], g->p.colors[1].rgb[1],
 			g->p.colors[1].rgb[2]);
-	//g->path_no_tx = g->p->textures[0]->path;
+	g->path_no_tx = g->p.textures[NO].path;
+	g->path_so_tx = g->p.textures[SO].path;
+	g->path_we_tx = g->p.textures[WE].path;
+	g->path_ea_tx = g->p.textures[EA].path;
+	g->map = g->p.map.map;
 }
 
 int	parse_input(int argc, char **argv, t_game *g)
@@ -68,8 +72,8 @@ int	parse_input(int argc, char **argv, t_game *g)
 		return (1);
 	if (is_map_playable(&g->p))
 		return (1);
-	// if (init_game_info(g))
-	// 	return (1);
+	init_game_info(g);
+	print_game(g);
 	return (0);
 }
 

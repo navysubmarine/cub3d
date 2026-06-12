@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 18:01:54 by bdemouge          #+#    #+#             */
-/*   Updated: 2026/06/12 11:48:50 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/12 11:59:53 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_tx_info
 
 typedef struct s_col_info
 {
-	char 			*id; // F, C
+	char			*id; // F, C
 	char			*word;
 	int				rgb[3];
 	int				is_set;
@@ -56,16 +56,6 @@ typedef struct s_player
 	int				y;
 }					t_player;
 
-// typedef struct s_file
-// {
-// 	// int				nb_of_lines;
-// 	// char			**content;
-// 	// int				floor[3];
-// 	// int				floor_set;
-// 	// int				ceiling[3];
-// 	// int				ceiling_set;
-// }					t_file;
-
 typedef struct s_parse_context
 {
 	int				i;
@@ -79,7 +69,6 @@ typedef struct s_parse
 	int				nb_of_lines;
 	char			**content;
 	t_map			map;
-	//t_file			file;
 	t_player		player;
 	t_tx_info		textures[4];
 	t_col_info		colors[2];

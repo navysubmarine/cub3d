@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:38 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/12 11:50:47 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/12 12:05:48 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,7 @@ void	free_content(char **content);
 /*PRINT*/
 void	print_parse(t_game *g);
 void	print_map(char **map, char *name);
+void	print_game(t_game *g);
 /*UTILS*/
 char	*ft_strdup_padded(const char *s, int padded_line_len);
 int		count_lines(int fd);
