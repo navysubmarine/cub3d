@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:38 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/12 12:05:48 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/12 12:11:11 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,7 @@ char	*clear_stash(char *stash_array[FD_OPEN_MAX]);
 /*EXIT*/
 int		exit_game(t_game *g, int error);
 void	free_content(char **content);
+void	free_parse(t_parse *p);
 // void			free_all(t_game *g);
 /*PRINT*/
 void	print_parse(t_game *g);

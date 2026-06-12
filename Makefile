@@ -2,11 +2,16 @@ NAME = cub3d
 
 # Compilation
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -MMD -MP $(addprefix -I,$(INCDIR))
+CFLAGS = -Wall -Wextra -Werror -MMD -MP -g3 $(addprefix -I,$(INCDIR))
 LFLAGS = -lX11 -lXext -lm
+SFLAGS = -fsanitize=address
+
+fsan: CFLAGS += $(SFLAGS)
+fsan: LFLAGS += $(SFLAGS)
+fsan: re
 
 # Sources
-CFILES	= 	$(addprefix exit/, exit.c )\
+CFILES	= 	$(addprefix exit/, exit.c  free.c)\
 			$(addprefix parse/, check_map.c colors.c \
 			init_structs.c map_copy.c map.c parse.c store.c \
 			texture.c utils_file.c utils_map.c )\

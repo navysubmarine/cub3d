@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 15:10:36 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/10 18:53:19 by bdemouge         ###   ########.fr       */
+/*   Updated: 2026/06/12 12:12:18 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,6 @@ int	exit_game(t_game *g, int error)
 	write(2, "\n(◡◕⏖◕)ᑐ🝐 ⠁⭒*.✩.*⭒⠁\n", 44);
 	exit(EXIT_SUCCESS);
 	return (0);
-}
-
-void	free_content(char **content)
-{
-	int	i;
-
-	if (!content)
-		return ;
-	i = 0;
-	while (content[i])
-	{
-		free(content[i]);
-		i++;
-	}
-	free(content);
 }
 
 char	*clear_stash(char *stash_array[FD_OPEN_MAX])

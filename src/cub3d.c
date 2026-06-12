@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:19 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/11 16:06:31 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/12 12:40:04 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	main(int argc, char **argv)
 	init_game_struct(&g);
 	if (parse_input(argc, argv, &g))
 		return (1);
-	
+	free_parse(&g.p);
 	//mlx_loop(g.mlx);
 	return (0);
 }
