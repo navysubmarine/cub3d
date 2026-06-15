@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 15:10:36 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/12 15:25:46 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/15 15:21:55 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,20 @@ int end(t_game *g)
 	return (1);
 }
 
+// void	destroy_image()
+
 int exit_game(t_game *g, int status)
 {
 	if (g->win)
 		mlx_destroy_window(g->mlx, g->win);
-	if (g->img)
-		mlx_destroy_image(g->mlx, g->img);
+	if (g->i.n_wall)
+		mlx_destroy_image(g->mlx, g->i.n_wall);
+	if (g->i.s_wall)
+		mlx_destroy_image(g->mlx, g->i.s_wall);
+	if (g->i.e_wall)
+		mlx_destroy_image(g->mlx, g->i.e_wall);
+	if (g->i.w_wall)
+		mlx_destroy_image(g->mlx, g->i.w_wall);
 	if (g->mlx)
 	{
 		mlx_destroy_display(g->mlx);
@@ -118,27 +126,27 @@ static void	free_images(t_game *g)
 	if (!g || !g->mlx)
 		return ;
 	if (g->img.wallside)
-		mlx_destroy_image(g->mlx, g->img.wallside);
+		mlx_destroy_image(g->mlx, g->i.wallside);
 	if (g->img.wallupdown)
-		mlx_destroy_image(g->mlx, g->img.wallupdown);
+		mlx_destroy_image(g->mlx, g->i.wallupdown);
 	if (g->img.leftbotcorner)
-		mlx_destroy_image(g->mlx, g->img.leftbotcorner);
+		mlx_destroy_image(g->mlx, g->i.leftbotcorner);
 	if (g->img.rightbotcorner)
-		mlx_destroy_image(g->mlx, g->img.rightbotcorner);
+		mlx_destroy_image(g->mlx, g->i.rightbotcorner);
 	if (g->img.lefttopcorner)
-		mlx_destroy_image(g->mlx, g->img.lefttopcorner);
+		mlx_destroy_image(g->mlx, g->i.lefttopcorner);
 	if (g->img.righttopcorner)
-		mlx_destroy_image(g->mlx, g->img.righttopcorner);
+		mlx_destroy_image(g->mlx, g->i.righttopcorner);
 	if (g->img.floor)
-		mlx_destroy_image(g->mlx, g->img.floor);
+		mlx_destroy_image(g->mlx, g->i.floor);
 	if (g->img.player_moon)
-		mlx_destroy_image(g->mlx, g->img.player_moon);
+		mlx_destroy_image(g->mlx, g->i.player_moon);
 	if (g->img.player)
-		mlx_destroy_image(g->mlx, g->img.player);
+		mlx_destroy_image(g->mlx, g->i.player);
 	if (g->img.collect)
-		mlx_destroy_image(g->mlx, g->img.collect);
+		mlx_destroy_image(g->mlx, g->i.collect);
 	if (g->img.exit)
-		mlx_destroy_image(g->mlx, g->img.exit);
+		mlx_destroy_image(g->mlx, g->i.exit);
 }
 */
 /*
