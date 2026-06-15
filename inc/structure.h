@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 18:01:54 by bdemouge          #+#    #+#             */
-/*   Updated: 2026/06/15 18:59:16 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/15 19:02:14 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,25 +83,18 @@ typedef struct s_parse
 
 typedef struct s_img
 {
-	void			*n_wall;
-	void			*s_wall;
-	void			*w_wall;
-	void			*e_wall;
-}					t_img;
-
-typedef struct s_img
-{
 	void		*n_wall;
 	void		*s_wall;
 	void		*w_wall;
 	void		*e_wall;
 }				t_img;
 
+
 typedef struct s_game
 {
 	void		*mlx;
 	void		*win;
-	t_img		img;
+	void		*img;
 	char		*addr;
 	int			bpp;
 	int			line_length;
@@ -109,6 +102,17 @@ typedef struct s_game
 	int			win_height;
 	int			win_width;
 
+	int			floor;
+	int			ceiling;
+	char		*path_no_tx;
+	char		*path_so_tx;
+	char		*path_we_tx;
+	char		*path_ea_tx;
+	char		**map;
+	t_parse		p;
+	t_player	player;
+	t_img		i;
+}				t_game;
 	int			floor;
 	int			ceiling;
 	char		*path_no_tx;
