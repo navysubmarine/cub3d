@@ -26,12 +26,12 @@ void draw_wall(int i, float x, float y, float angle, t_game *g)
 	color = 0;
 	if ((int)x % BLOCK_SIZE == 0)
 		color = 0x0000FF;
-	// else if ((int)y % BLOCK_SIZE == 0 && (int)x % BLOCK_SIZE)
-	// 	color = 0x00FF00;
-	// else if ((int)x % BLOCK_SIZE != 0 && (int)y % BLOCK_SIZE != 0)
-	// 	color = 0xFF0000;
-	// else if ((int)y % BLOCK_SIZE && (int)x % BLOCK_SIZE == 0)
-		// color = 0xFFFFFF;
+	else if ((int)y % BLOCK_SIZE == 0 && (int)x % BLOCK_SIZE)
+		color = 0x00FF00;
+	else if ((int)x % BLOCK_SIZE != 0 && (int)y % BLOCK_SIZE != 0)
+		color = 0xFF0000;
+	else if ((int)y % BLOCK_SIZE && (int)x % BLOCK_SIZE == 0)
+		color = 0xFFFFFF;
 	while(start_y < end_y)
 	{
 		put_pixel(i, start_y, color, g);

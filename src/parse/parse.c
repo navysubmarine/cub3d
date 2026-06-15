@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 14:50:58 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/12 17:34:33 by bdemouge         ###   ########.fr       */
+/*   Updated: 2026/06/15 18:37:03 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ void	init_game_info(t_game *g)
 	g->player.angle = g->p.player.angle;
 }
 
-int	parse_input(int argc, char **argv, t_game *g)
+int	parse_input(char **argv, t_game *g)
 {
-	if (argc != 2 || !ft_strchr_cub(argv[1]))
+	if (!ft_strchr_cub(argv[1]))
 	{
 		ft_putstr_fd("Error. Correct input format : ./cub3d <filename>.cub\n",
 			2);

@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:38 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/12 15:24:38 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/15 18:37:17 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 void	init_game_struct(t_game *g);
 void	init_context_struct(t_parse_context *data, t_parse *p);
 /****PARSING****/
-int		parse_input(int argc, char **argv, t_game *g);
+int		parse_input(char **argv, t_game *g);
 int		ft_strchr_cub(const char *s);
 int		handle_file(t_parse *p, char *filename);
 int		handle_file_content(t_parse *p);
