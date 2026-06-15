@@ -13,8 +13,6 @@ float get_distance(float r_x, float r_y, float r_angle, t_player *player)
 	return (dist);
 }
 
-
-
 void draw_wall(int i, float x, float y, float angle, t_game *g)
 {
 	float wall_height;
