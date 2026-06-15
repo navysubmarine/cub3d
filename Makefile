@@ -78,7 +78,7 @@ fclean: clean
 
 re: fclean all
 
-good: all clean
+# good: all clean
 
 test: all
 	@echo "┌──────────────────────────────────────┐"

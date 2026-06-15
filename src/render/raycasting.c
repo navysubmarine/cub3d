@@ -23,15 +23,15 @@ void draw_wall(int i, float x, float y, float angle, t_game *g)
 	wall_height = (BLOCK_SIZE * g->win_height) / get_distance(x, y, angle, &g->player);
 	start_y = (g->win_height / 2) - (wall_height / 2);
 	end_y = (g->win_height / 2) + (wall_height / 2);
-	color = 0;
-	if ((int)x % BLOCK_SIZE == 0)
-		color = 0x0000FF;
-	else if ((int)y % BLOCK_SIZE == 0 && (int)x % BLOCK_SIZE)
-		color = 0x00FF00;
-	else if ((int)x % BLOCK_SIZE != 0 && (int)y % BLOCK_SIZE != 0)
-		color = 0xFF0000;
-	else if ((int)y % BLOCK_SIZE && (int)x % BLOCK_SIZE == 0)
-		color = 0xFFFFFF;
+	color = BLUE;
+	// if ((int)x % BLOCK_SIZE == 0 && (int)y % BLOCK_SIZE == 0)
+	// 	color = BLUE;
+	// else if ((int)y % BLOCK_SIZE == 0 && (int)x % BLOCK_SIZE)
+	// 	color = YELLOW;
+	// else if ((int)y % BLOCK_SIZE && (int)x % BLOCK_SIZE == 0)
+	// 	color = PINK;
+	// else
+	// 	color = RED;
 	while(start_y < end_y)
 	{
 		put_pixel(i, start_y, color, g);

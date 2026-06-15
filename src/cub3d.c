@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:19 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/15 18:37:10 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/15 18:42:01 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	main(int argc, char **argv)
 {
 	t_game	g;
 
-	if (argc != 2 )
+	if (argc != 2)
 	{
 		ft_putstr_fd("Error. Correct input format : ./cub3d <filename>.cub\n",
 			2);
