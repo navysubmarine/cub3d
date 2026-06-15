@@ -6,7 +6,7 @@
 /*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 16:27:31 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/12 17:33:29 by bdemouge         ###   ########.fr       */
+/*   Updated: 2026/06/15 16:07:25 by bdemouge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,28 +79,28 @@ void	find_player(t_parse *p, char **map)
 			{
 				p->player.x = j;
 				p->player.y = i;
-				p->player.angle = NO;
+				p->player.angle = NORTH;
 				return ;
 			}
 			if (map[i][j] == 'S')
 			{
 				p->player.x = j;
 				p->player.y = i;
-				p->player.angle = SO;
+				p->player.angle = SOUTH;
 				return ;
 			}
 			if (map[i][j] == 'E')
 			{
 				p->player.x = j;
 				p->player.y = i;
-				p->player.angle = EA;
+				p->player.angle = EAST;
 				return ;
 			}
 			if (map[i][j] == 'W')
 			{
 				p->player.x = j;
 				p->player.y = i;
-				p->player.angle = WE;
+				p->player.angle = WEST;
 				return ;
 			}
 			j++;

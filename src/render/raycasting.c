@@ -18,13 +18,23 @@ void draw_wall(int i, float x, float y, float angle, t_game *g)
 	float wall_height;
 	int start_y;
 	int end_y;
+	int color;
 	
 	wall_height = (BLOCK_SIZE * g->win_height) / get_distance(x, y, angle, &g->player);
 	start_y = (g->win_height / 2) - (wall_height / 2);
 	end_y = (g->win_height / 2) + (wall_height / 2);
+	color = 0;
+	if ((int)x % BLOCK_SIZE == 0)
+		color = 0x0000FF;
+	// else if ((int)y % BLOCK_SIZE == 0 && (int)x % BLOCK_SIZE)
+	// 	color = 0x00FF00;
+	// else if ((int)x % BLOCK_SIZE != 0 && (int)y % BLOCK_SIZE != 0)
+	// 	color = 0xFF0000;
+	// else if ((int)y % BLOCK_SIZE && (int)x % BLOCK_SIZE == 0)
+		// color = 0xFFFFFF;
 	while(start_y < end_y)
 	{
-		put_pixel(i, start_y, 0xFF, g);
+		put_pixel(i, start_y, color, g);
 		start_y++;
 	}
  }
@@ -44,7 +54,7 @@ void	ray(int i, float angle, t_player *player, t_game *g)
 	y = player->y;
 	ray_u = sqrt(cos_angle * cos_angle + sin_angle * sin_angle);
 	ray_size = 0;
-	while (ray_size < RAY_SIZE && !touch(x, y, g))
+	while (!touch(x, y, g))
 	{
 		x += cos_angle;
 		y += sin_angle;
