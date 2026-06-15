@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 18:01:54 by bdemouge          #+#    #+#             */
-/*   Updated: 2026/06/15 15:24:38 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/15 18:59:16 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,14 @@ typedef struct s_parse
 
 typedef struct s_img
 {
+	void			*n_wall;
+	void			*s_wall;
+	void			*w_wall;
+	void			*e_wall;
+}					t_img;
+
+typedef struct s_img
+{
 	void		*n_wall;
 	void		*s_wall;
 	void		*w_wall;
@@ -93,7 +101,7 @@ typedef struct s_game
 {
 	void		*mlx;
 	void		*win;
-	void		*img;
+	t_img		img;
 	char		*addr;
 	int			bpp;
 	int			line_length;
