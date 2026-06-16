@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:19 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/15 18:42:01 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/16 17:51:25 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,10 @@ int	main(int argc, char **argv)
 {
 	t_game	g;
 
-	if (argc != 2)
-	{
-		ft_putstr_fd("Error. Correct input format : ./cub3d <filename>.cub\n",
-			2);
-		return (1);
-	}
 	init_game_struct(&g);
-	if (parse_input(argv, &g))
+	if (parse_input(argc, argv, &g))
 		return (free_parse(&g.p), 1);
+	init_mlx_struct(&g);
 	printf("x = %f\n", g.player.x);
 	printf("y = %f\n", g.player.y);
 	printf("angle = %f\n", g.player.angle);

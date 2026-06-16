@@ -50,13 +50,17 @@ void	init_parsing_struct(t_parse *p)
 	p->map.is_map_set = FALSE;
 }
 
-void	init_game_struct(t_game *g)
+void	init_mlx_struct(t_game *g)
 {
-	ft_memset(g, 0, sizeof(t_game));
-	init_parsing_struct(&g->p);
 	g->mlx = mlx_init();
 	mlx_get_screen_size(g->mlx, &g->win_width, &g->win_height);
 	g->win = mlx_new_window(g->mlx, g->win_width, g->win_height, "cub3d");
 	g->img = mlx_new_image(g->mlx, g->win_width, g->win_height);
 	g->addr = mlx_get_data_addr(g->img, &g->bpp, &g->line_length, &g->endian);
+}
+
+void	init_game_struct(t_game *g)
+{
+	ft_memset(g, 0, sizeof(t_game));
+	init_parsing_struct(&g->p);
 }
