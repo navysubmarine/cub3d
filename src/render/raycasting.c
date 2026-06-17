@@ -13,7 +13,8 @@ float	get_distance(float r_x, float r_y, float r_angle, t_player *player)
 	return (dist);
 }
 
-void	draw_wall(int i, float x, float y, float angle, t_game *g, int wall_type)
+void	draw_wall(int i, float x, float y, float angle, t_game *g,
+		t_textureid wall_type)
 {
 	float	wall_height;
 	int		start_y;
@@ -40,66 +41,75 @@ void	draw_wall(int i, float x, float y, float angle, t_game *g, int wall_type)
 	}
 }
 
-float	distance_from_nearest_grid_line(float x)
+// float	distance_from_nearest_grid_line(float x)
+// {
+// 	float	distance_from_prev;
+// 	float	distance_from_next;
+
+// 	distance_from_prev = x - (int)(x / BLOCK_SIZE) * BLOCK_SIZE;
+// 	distance_from_next = BLOCK_SIZE - distance_from_prev;
+// 	if (distance_from_prev < distance_from_next)
+// 		return (distance_from_prev);
+// 	return (distance_from_next);
+// }
+
+int	find_which_type_of_wall_was_found(float x, float y, float prev_x,
+		float prev_y, float cos_angle, float sin_angle)
 {
-	float	distance_from_prev;
-	float	distance_from_next;
+	int	x_before;
+	int x_after;
+	int y_before;
+	int	y_after;
 
-	distance_from_prev = x - (int)(x / BLOCK_SIZE) * BLOCK_SIZE;
-	distance_from_next = BLOCK_SIZE - distance_from_prev;
-	if (distance_from_prev < distance_from_next)
-		return (distance_from_prev);
-	return (distance_from_next);
-
-}
-
-int	find_which_type_of_wall_was_found(float x, float y, float cos_angle,
-		float sin_angle)
-{
-	float	distance_y;
-	float	distance_x;
-
-	distance_y = distance_from_nearest_grid_line(y);
-	distance_x = distance_from_nearest_grid_line(x);
-	if (distance_y < distance_x)
-	{
-		if (sin_angle > 0)
-			return (SO);
-		return (NO);
-	}
-	else
+	x_before = (int)(prev_x / BLOCK_SIZE);
+	x_after = (int)(x / BLOCK_SIZE);
+	y_before = (int)(prev_y / BLOCK_SIZE);
+	y_after = (int)(y / BLOCK_SIZE);
+	if (x_before != x_after)
 	{
 		if (cos_angle > 0)
 			return (EA);
 		return (WE);
 	}
+	else if (y_before != y_after)
+	{
+		if (sin_angle > 0)
+			return (SO);
+		return (NO);
+	}
+	/*TODO: error case*/
+	return (NO);
 }
 
 void	ray(int i, float angle, t_player *player, t_game *g)
 {
-	float	cos_angle;
-	float	sin_angle;
-	float	x;
-	float	y;
-	float	ray_size;
-	float	ray_u;
-	int		wall_type;
+	float		cos_angle;
+	float		sin_angle;
+	float		x;
+	float		y;
+	float		prev_x;
+	float		prev_y;
+	t_textureid	wall_type;
 
+	// float	ray_size;
+	// float	ray_u;
 	cos_angle = cos(angle);
 	sin_angle = sin(angle);
 	x = player->x;
 	y = player->y;
-	ray_u = sqrt(cos_angle * cos_angle + sin_angle * sin_angle);
-	ray_size = 0;
+	// ray_u = sqrt(cos_angle * cos_angle + sin_angle * sin_angle);
+	// ray_size = 0;
 	while (!touch(x, y, g))
 	{
+		prev_x = x;
+		prev_y = y;
 		x += cos_angle;
 		y += sin_angle;
-		ray_size += ray_u;
+		// ray_size += ray_u;
 		if (touch(x, y, g))
 		{
-			wall_type = find_which_type_of_wall_was_found(x, y, cos_angle,
-					sin_angle);
+			wall_type = find_which_type_of_wall_was_found(x, y, prev_x, prev_y,
+					cos_angle, sin_angle);
 			draw_wall(i, x, y, angle, g, wall_type);
 		}
 	}

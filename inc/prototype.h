@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:38 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/16 17:52:15 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/17 17:53:24 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,6 @@ void	raycasting(t_game *g);
 int		draw_loop(void *param);
 bool	touch(float x, float y, t_game *g);
 void	put_pixel(int x, int y, int color, t_game *g);
+void	draw_wall(int i, float x, float y, float angle, t_game *g, t_textureid wall_type);
 
 #endif

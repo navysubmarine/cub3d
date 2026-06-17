@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 18:01:54 by bdemouge          #+#    #+#             */
-/*   Updated: 2026/06/16 12:11:44 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/17 18:01:54 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,14 @@
 # define STRUCTURE_H
 
 /*===== ENUM =====*/
-enum			e_textureid
+typedef enum			e_textureid
 {
 	NO = 0,
 	SO = 1,
 	WE = 2,
-	EA = 3
-};
+	EA = 3,
+	ERROR = 4
+}			t_textureid;
 
 typedef struct s_tx_info
 {
