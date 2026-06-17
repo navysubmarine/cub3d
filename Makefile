@@ -18,7 +18,7 @@ CFILES	= 	$(addprefix exit/, exit.c free.c )\
 			texture.c utils_file.c utils_map.c )\
 			$(addprefix utils/, print.c )\
 			$(addprefix player/, player.c )\
-			$(addprefix render/, hook.c raycasting.c render.c )\
+			$(addprefix render/, hook.c raycasting.c render.c load.c )\
 			cub3d.c
 SRC_DIR = src
 SRC = $(addprefix $(SRC_DIR)/, $(CFILES))
@@ -78,7 +78,7 @@ fclean: clean
 
 re: fclean all
 
-good: all clean
+# good: all clean
 
 test: all
 	@echo "┌──────────────────────────────────────┐"

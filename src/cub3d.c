@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:19 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/12 16:22:31 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/16 17:51:25 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	main(int argc, char **argv)
 	init_game_struct(&g);
 	if (parse_input(argc, argv, &g))
 		return (free_parse(&g.p), 1);
+	init_mlx_struct(&g);
 	printf("x = %f\n", g.player.x);
 	printf("y = %f\n", g.player.y);
 	printf("angle = %f\n", g.player.angle);

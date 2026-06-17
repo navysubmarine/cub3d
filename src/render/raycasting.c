@@ -1,10 +1,10 @@
 #include "cub3d.h"
 
-float get_distance(float r_x, float r_y, float r_angle, t_player *player)
+float	get_distance(float r_x, float r_y, float r_angle, t_player *player)
 {
-	float dx;
-	float dy;
-	float dist;
+	float	dx;
+	float	dy;
+	float	dist;
 
 	dx = player->x - r_x;
 	dy = player->y - r_y;
@@ -13,33 +13,67 @@ float get_distance(float r_x, float r_y, float r_angle, t_player *player)
 	return (dist);
 }
 
-
-
-void draw_wall(int i, float x, float y, float angle, t_game *g)
+void	draw_wall(int i, float x, float y, float angle, t_game *g, int wall_type)
 {
-	float wall_height;
-	int start_y;
-	int end_y;
-	int color;
-	
-	wall_height = (BLOCK_SIZE * g->win_height) / get_distance(x, y, angle, &g->player);
+	float	wall_height;
+	int		start_y;
+	int		end_y;
+	int		color;
+
+	wall_height = (BLOCK_SIZE * g->win_height) / get_distance(x, y, angle,
+			&g->player);
 	start_y = (g->win_height / 2) - (wall_height / 2);
 	end_y = (g->win_height / 2) + (wall_height / 2);
-	color = 0;
-	if ((int)x % BLOCK_SIZE == 0)
-		color = 0x0000FF;
-	// else if ((int)y % BLOCK_SIZE == 0 && (int)x % BLOCK_SIZE)
-	// 	color = 0x00FF00;
-	// else if ((int)x % BLOCK_SIZE != 0 && (int)y % BLOCK_SIZE != 0)
-	// 	color = 0xFF0000;
-	// else if ((int)y % BLOCK_SIZE && (int)x % BLOCK_SIZE == 0)
-		// color = 0xFFFFFF;
-	while(start_y < end_y)
+	color = BLUE;
+	if (wall_type == NO)
+		color = BLUE;
+	else if (wall_type == SO)
+		color = YELLOW;
+	else if (wall_type == WE)
+		color = PINK;
+	else if (wall_type == EA)
+		color = RED;
+	while (start_y < end_y)
 	{
 		put_pixel(i, start_y, color, g);
 		start_y++;
 	}
- }
+}
+
+float	distance_from_nearest_grid_line(float x)
+{
+	float	distance_from_prev;
+	float	distance_from_next;
+
+	distance_from_prev = x - (int)(x / BLOCK_SIZE) * BLOCK_SIZE;
+	distance_from_next = BLOCK_SIZE - distance_from_prev;
+	if (distance_from_prev < distance_from_next)
+		return (distance_from_prev);
+	return (distance_from_next);
+
+}
+
+int	find_which_type_of_wall_was_found(float x, float y, float cos_angle,
+		float sin_angle)
+{
+	float	distance_y;
+	float	distance_x;
+
+	distance_y = distance_from_nearest_grid_line(y);
+	distance_x = distance_from_nearest_grid_line(x);
+	if (distance_y < distance_x)
+	{
+		if (sin_angle > 0)
+			return (SO);
+		return (NO);
+	}
+	else
+	{
+		if (cos_angle > 0)
+			return (EA);
+		return (WE);
+	}
+}
 
 void	ray(int i, float angle, t_player *player, t_game *g)
 {
@@ -47,8 +81,9 @@ void	ray(int i, float angle, t_player *player, t_game *g)
 	float	sin_angle;
 	float	x;
 	float	y;
-	float   ray_size;
+	float	ray_size;
 	float	ray_u;
+	int		wall_type;
 
 	cos_angle = cos(angle);
 	sin_angle = sin(angle);
@@ -62,11 +97,15 @@ void	ray(int i, float angle, t_player *player, t_game *g)
 		y += sin_angle;
 		ray_size += ray_u;
 		if (touch(x, y, g))
-			draw_wall(i, x, y, angle, g);
+		{
+			wall_type = find_which_type_of_wall_was_found(x, y, cos_angle,
+					sin_angle);
+			draw_wall(i, x, y, angle, g, wall_type);
+		}
 	}
 }
 
-void raycasting(t_game *g)
+void	raycasting(t_game *g)
 {
 	float start_angle;
 	int x;

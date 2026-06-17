@@ -6,7 +6,7 @@
 /*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 18:02:04 by bdemouge          #+#    #+#             */
-/*   Updated: 2026/06/15 16:07:48 by bdemouge         ###   ########.fr       */
+/*   Updated: 2026/06/17 15:02:14 by bdemouge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,11 @@
 
 # define TRUE 1
 # define FALSE 0
+
+# define BLUE 0x0000FF
+# define YELLOW 0xFFFF00
+# define PINK 0xFD6C9E
+# define RED 0xD90115
+# define GREEN 0x82C46C
 
 #endif
