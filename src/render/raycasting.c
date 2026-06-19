@@ -1,5 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   raycasting.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/19 15:27:30 by marthoma          #+#    #+#             */
+/*   Updated: 2026/06/19 16:40:42 by marthoma         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
+/*gets the distance from the player to the next hit point*/
 float	get_distance(float r_x, float r_y, float r_angle, t_player *player)
 {
 	float	dx;
@@ -13,31 +26,179 @@ float	get_distance(float r_x, float r_y, float r_angle, t_player *player)
 	return (dist);
 }
 
-void	draw_wall(int i, float x, float y, float angle, t_game *g,
-		t_textureid wall_type)
+/*sets up the dda context, is the ray going left/right,
+	and where are we coming from,
+inside the cell we are in.
+Side_dist_/ is = ray distance until the next vertical/horizontal line
+	-> this is what step_dda
+will compare*/
+void	init_dda_context(t_dda_context *d, t_player *player, float cos_a,
+		float sin_a)
 {
-	float	wall_height;
-	int		start_y;
-	int		end_y;
-	int		color;
+	/*avoids the /zero division, to an extremely tiny number*/
+	if (cos_a == 0)
+		cos_a = 1e-6;
+	if (sin_a == 0)
+		sin_a = 1e-6;
+	d->map_x = (int)(player->x / BLOCK_SIZE);
+	d->map_y = (int)(player->y / BLOCK_SIZE);
+	d->delta_dist_x = BLOCK_SIZE / cos_a;
+	d->delta_dist_y = BLOCK_SIZE / sin_a;
+	/*sets step_ = is towards right/left and side_dist,
+		which is how far past the last line*/
+	if (cos_a < 0)
+	{
+		d->step_x = -1;
+		d->side_dist_x = (player->x - d->map_x * BLOCK_SIZE) / cos_a;
+	}
+	else
+	{
+		d->step_x = 1;
+		d->side_dist_x = ((d->map_x + 1) * BLOCK_SIZE - player->x) / cos_a;
+	}
+	if (sin_a < 0)
+	{
+		d->step_y = -1;
+		d->side_dist_y = (player->y - d->map_y * BLOCK_SIZE) / sin_a;
+	}
+	else
+	{
+		d->step_y = 1;
+		d->side_dist_y = ((d->map_y + 1) * BLOCK_SIZE - player->y) / sin_a;
+	}
+}
 
-	wall_height = (BLOCK_SIZE * g->win_height) / get_distance(x, y, angle,
-			&g->player);
+/*compare side_dist_x and side_dist_y, the smaller one
+is the closest line -> it will be the next thing to be hit
+side = 0 -> vertical line
+side = 1 -> horizontal line*/
+void	step_dda(t_dda_context *d)
+{
+	if (d->side_dist_x < d->side_dist_y)
+	{
+		d->side_dist_x += d->delta_dist_x;
+		d->map_x += d->step_x;
+		d->side = 0;
+	}
+	else
+	{
+		d->side_dist_y += d->delta_dist_y;
+		d->map_y += d->step_y;
+		d->side = 1;
+	}
+}
+
+int	find_wall_type(t_dda_context *d)
+{
+	if (d->side == 0)
+	{
+		if (d->step_x > 0)
+			return (EA);
+		return (WE);
+	}
+	if (d->step_y > 0)
+		return (SO);
+	return (NO);
+}
+
+void	get_hit_point(t_dda_context *d, t_player *player, float cos_a,
+		float sin_a, float *hit_x, float *hit_y)
+{
+	float	dist;
+
+	if (d->side == 0)
+	{
+		dist = d->side_dist_x - d->delta_dist_x;
+		*hit_x = player->x + cos_a * dist;
+		*hit_y = player->y + sin_a * dist;
+	}
+	else
+	{
+		dist = d->side_dist_y - d->delta_dist_y;
+		*hit_x = player->x + cos_a * dist;
+		*hit_y = player->y + sin_a * dist;
+	}
+}
+
+float get_wall_hit_fraction(t_dda_context *d, float hit_x, float hit_y)
+{
+    if (d->side == 0)
+        return ((hit_y - (int)(hit_y / BLOCK_SIZE) * BLOCK_SIZE)
+                / BLOCK_SIZE);
+    else
+        return ((hit_x - (int)(hit_x / BLOCK_SIZE) * BLOCK_SIZE)
+                / BLOCK_SIZE);
+}
+
+t_tx_data	*get_tex_for_wall(t_game *g, t_textureid wall_type)
+{
+	if (wall_type == NO)
+		return (&g->i.n_data);
+	if (wall_type == SO)
+		return (&g->i.s_data);
+	if (wall_type == WE)
+		return (&g->i.w_data);
+	return (&g->i.e_data);
+}
+
+int	get_tex_pixel(t_tx_data *tex, int tex_x, int tex_y)
+{
+	char	*pixel;
+	//printf("tex=%p addr=%p width=%d height=%d bpp=%d line=%d\n",
+		// (void *)tex,
+		// (void *)tex->addr,
+		// tex->width,
+		// tex->height,
+		// tex->bpp,
+		// tex->line_length);
+	if (tex_x < 0)
+		tex_x = 0;
+	if (tex_x >= tex->width)
+		tex_x = tex->width - 1;
+	if (tex_y < 0)
+		tex_y = 0;
+	if (tex_y >= tex->height)
+		tex_y = tex->height - 1;
+	pixel = tex->addr + (tex_y * tex->line_length + tex_x * (tex->bpp / 8));
+	return (*(unsigned int *)pixel);
+}
+
+void	draw_wall(int i, float angle, t_game *g, t_textureid wall_type,
+		float dist, float wall_x)
+{
+	float		wall_height;
+	int			start_y;
+	int			end_y;
+	int			screen_y;
+	int			tex_x;
+	int			tex_y;
+	float		step;
+	float		tex_pos;
+	t_tx_data	*tex;
+
+	(void)angle;
+	wall_height = (BLOCK_SIZE * g->win_height) / dist;
 	start_y = (g->win_height / 2) - (wall_height / 2);
 	end_y = (g->win_height / 2) + (wall_height / 2);
-	color = BLUE;
-	if (wall_type == NO)
-		color = BLUE;
-	else if (wall_type == SO)
-		color = YELLOW;
-	else if (wall_type == WE)
-		color = PINK;
-	else if (wall_type == EA)
-		color = RED;
-	while (start_y < end_y)
+	tex = get_tex_for_wall(g, wall_type);
+	tex_x = (int)(wall_x * tex->width);
+	if (tex_x < 0)
+		tex_x = 0;
+	if (tex_x >= tex->width)
+		tex_x = tex->width - 1;
+	/*for every 1 pixel I move down the screen,
+	how many texture pixels should I move down the texture image.*/
+	step = (float)tex->height / wall_height;
+	tex_pos = (start_y < 0 ? -start_y : 0) * step;
+	screen_y = start_y;
+	if (screen_y < 0)
+		screen_y = 0;
+	while (screen_y < end_y && screen_y < g->win_height)
 	{
-		put_pixel(i, start_y, color, g);
-		start_y++;
+		tex_y = (int)tex_pos;
+		put_pixel(i, screen_y, get_tex_pixel(tex, tex_x, tex_y), g);
+		tex_pos += step;
+		screen_y++;
 	}
 }
 
@@ -53,73 +214,69 @@ void	draw_wall(int i, float x, float y, float angle, t_game *g,
 // 	return (distance_from_next);
 // }
 
-int	find_which_type_of_wall_was_found(float x, float y, float prev_x,
-		float prev_y, float cos_angle, float sin_angle)
-{
-	int	x_before;
-	int x_after;
-	int y_before;
-	int	y_after;
+// int	find_which_type_of_wall_was_found(float x, float y, float prev_x,
+// 		float prev_y, float cos_angle, float sin_angle)
+// {
+// 	int	x_before;
+// 	int x_after;
+// 	int y_before;
+// 	int	y_after;
 
-	x_before = (int)(prev_x / BLOCK_SIZE);
-	x_after = (int)(x / BLOCK_SIZE);
-	y_before = (int)(prev_y / BLOCK_SIZE);
-	y_after = (int)(y / BLOCK_SIZE);
-	if (x_before != x_after)
-	{
-		if (cos_angle > 0)
-			return (EA);
-		return (WE);
-	}
-	else if (y_before != y_after)
-	{
-		if (sin_angle > 0)
-			return (SO);
-		return (NO);
-	}
-	/*TODO: error case*/
-	return (NO);
-}
+// 	x_before = (int)(prev_x / BLOCK_SIZE);
+// 	x_after = (int)(x / BLOCK_SIZE);
+// 	y_before = (int)(prev_y / BLOCK_SIZE);
+// 	y_after = (int)(y / BLOCK_SIZE);
+// 	if (x_before != x_after)
+// 	{
+// 		if (cos_angle > 0)
+// 			return (EA);
+// 		return (WE);
+// 	}
+// 	else if (y_before != y_after)
+// 	{
+// 		if (sin_angle > 0)
+// 			return (SO);
+// 		return (NO);
+// 	}
+// 	/*TODO: error case*/
+// 	return (NO);
+// }
 
 void	ray(int i, float angle, t_player *player, t_game *g)
 {
-	float		cos_angle;
-	float		sin_angle;
-	float		x;
-	float		y;
-	float		prev_x;
-	float		prev_y;
-	t_textureid	wall_type;
+	float			cos_a;
+	float			sin_a;
+	t_dda_context	d;
+	t_textureid		wall_type;
+	float			hit_x;
+	float			hit_y;
+	float			dist;
+	float			wall_x;
 
-	// float	ray_size;
-	// float	ray_u;
-	cos_angle = cos(angle);
-	sin_angle = sin(angle);
-	x = player->x;
-	y = player->y;
-	// ray_u = sqrt(cos_angle * cos_angle + sin_angle * sin_angle);
-	// ray_size = 0;
-	while (!touch(x, y, g))
+	cos_a = cos(angle);
+	sin_a = sin(angle);
+	init_dda_context(&d, player, cos_a, sin_a);
+	while (1)
 	{
-		prev_x = x;
-		prev_y = y;
-		x += cos_angle;
-		y += sin_angle;
-		// ray_size += ray_u;
-		if (touch(x, y, g))
+		step_dda(&d);
+		if (d.map_y < 0 || d.map_x < 0 || !g->map[d.map_y]
+			|| !g->map[d.map_y][d.map_x] || g->map[d.map_y][d.map_x] == '1')
 		{
-			wall_type = find_which_type_of_wall_was_found(x, y, prev_x, prev_y,
-					cos_angle, sin_angle);
-			draw_wall(i, x, y, angle, g, wall_type);
+			wall_type = find_wall_type(&d);
+			get_hit_point(&d, player, cos_a, sin_a, &hit_x, &hit_y);
+			dist = get_distance(hit_x, hit_y, angle, player);
+			wall_x = get_wall_hit_fraction(&d, hit_x, hit_y);
+			draw_wall(i, angle, g, wall_type, dist, wall_x);
+			break ;
 		}
 	}
 }
 
 void	raycasting(t_game *g)
 {
-	float start_angle;
-	int x;
-	t_player *player;
+	float		start_angle;
+	int			x;
+	t_player	*player;
 
 	player = &g->player;
 	start_angle = player->angle - FOV / 2;

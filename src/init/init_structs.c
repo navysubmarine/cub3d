@@ -57,6 +57,7 @@ void	init_mlx_struct(t_game *g)
 	g->win = mlx_new_window(g->mlx, g->win_width, g->win_height, "cub3d");
 	g->img = mlx_new_image(g->mlx, g->win_width, g->win_height);
 	g->addr = mlx_get_data_addr(g->img, &g->bpp, &g->line_length, &g->endian);
+	load_wall_sprites(g);
 }
 
 void	init_game_struct(t_game *g)

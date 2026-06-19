@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 18:01:54 by bdemouge          #+#    #+#             */
-/*   Updated: 2026/06/17 18:01:54 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/19 16:21:24 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,13 +82,40 @@ typedef struct s_parse
 	t_col_info	colors[2];
 }				t_parse;
 
+typedef struct s_tx_data
+{
+	char	*addr;
+	int		bpp;
+	int		line_length;
+	int		endian;
+	int		width;
+	int		height;
+}				t_tx_data;
+
 typedef struct s_img
 {
 	void		*n_wall;
 	void		*s_wall;
 	void		*w_wall;
 	void		*e_wall;
+	t_tx_data	n_data;
+	t_tx_data	s_data;
+	t_tx_data	w_data;
+	t_tx_data	e_data;
 }				t_img;
+
+typedef struct s_dda_context
+{
+	int		map_x;
+	int		map_y;
+	int		step_x;
+	int		step_y;
+	float	side_dist_x;
+	float	side_dist_y;
+	float	delta_dist_x;
+	float	delta_dist_y;
+	int		side;
+}				t_dda_context;
 
 typedef struct s_game
 {
