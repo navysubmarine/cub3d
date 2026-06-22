@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/19 15:27:30 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/22 12:25:23 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/22 14:38:04 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,39 +34,64 @@ Side_dist_/ is = ray distance until the next vertical/horizontal line
 will compare*/
 void	init_dda_context(t_dda_context *d, t_player *player, float angle)
 {
-	cos_a = cos(angle);
-	sin_a = sin(angle);
+	float	abs_cos;
+	float	abs_sin;
+
+	d->cos_a = cos(angle);
+	d->sin_a = sin(angle);
 	/*avoids the /zero division, sets cos_a/sin_a to an extremely tiny number*/
-	if (cos_a == 0)
-		cos_a = 1e-6;
-	if (sin_a == 0)
-		sin_a = 1e-6;
+	if (fabs(d->cos_a) < 1e-6)
+		d->cos_a = (d->cos_a >= 0) ? 1e-6 : -1e-6;
+	if (fabs(d->sin_a) < 1e-6)
+		d->sin_a = (d->sin_a >= 0) ? 1e-6 : -1e-6;
 	d->map_x = (int)(player->x / BLOCK_SIZE);
 	d->map_y = (int)(player->y / BLOCK_SIZE);
-	d->delta_dist_x = BLOCK_SIZE / cos_a;
-	d->delta_dist_y = BLOCK_SIZE / sin_a;
+	d->delta_dist_x = fabsf(BLOCK_SIZE / d->cos_a);
+	d->delta_dist_y = fabsf(BLOCK_SIZE / d->sin_a);
 	/*sets step_ = is towards right/left and side_dist,
 		which is how far past the last line*/
-	if (cos_a < 0)
+	abs_cos = fabsf(d->cos_a);
+	if (d->cos_a < 0)
 	{
 		d->step_x = -1;
-		d->side_dist_x = (player->x - d->map_x * BLOCK_SIZE) / cos_a;
+		d->side_dist_x = (player->x - d->map_x * BLOCK_SIZE) / abs_cos;
 	}
 	else
 	{
 		d->step_x = 1;
-		d->side_dist_x = ((d->map_x + 1) * BLOCK_SIZE - player->x) / cos_a;
+		d->side_dist_x = ((d->map_x + 1) * BLOCK_SIZE - player->x) / abs_cos;
 	}
-	if (sin_a < 0)
+	abs_sin = fabsf(d->sin_a);
+	if (d->sin_a < 0)
 	{
 		d->step_y = -1;
-		d->side_dist_y = (player->y - d->map_y * BLOCK_SIZE) / sin_a;
+		d->side_dist_y = (player->y - d->map_y * BLOCK_SIZE) / abs_sin;
 	}
 	else
 	{
 		d->step_y = 1;
-		d->side_dist_y = ((d->map_y + 1) * BLOCK_SIZE - player->y) / sin_a;
+		d->side_dist_y = ((d->map_y + 1) * BLOCK_SIZE - player->y) / abs_sin;
 	}
+	// if (d->cos_a < 0)
+	// {
+	// 	d->step_x = -1;
+	// 	d->side_dist_x = (player->x - d->map_x * BLOCK_SIZE) / d->cos_a;
+	// }
+	// else
+	// {
+	// 	d->step_x = 1;
+	// 	d->side_dist_x = ((d->map_x + 1) * BLOCK_SIZE - player->x) / d->cos_a;
+	// }
+	// if (d->sin_a < 0)
+	// {
+	// 	d->step_y = -1;
+	// 	d->side_dist_y = (player->y - d->map_y * BLOCK_SIZE) / d->sin_a;
+	// }
+	// else
+	// {
+	// 	d->step_y = 1;
+	// 	d->side_dist_y = ((d->map_y + 1) * BLOCK_SIZE - player->y) / d->sin_a;
+	// }
 }
 
 /*compare side_dist_x and side_dist_y, the smaller one
@@ -121,14 +146,12 @@ void	get_hit_point(t_dda_context *d, t_player *player, float cos_a,
 	}
 }
 
-float get_wall_hit_fraction(t_dda_context *d, float hit_x, float hit_y)
+float	get_wall_hit_fraction(t_dda_context *d, float hit_x, float hit_y)
 {
-    if (d->side == 0)
-        return ((hit_y - (int)(hit_y / BLOCK_SIZE) * BLOCK_SIZE)
-                / BLOCK_SIZE);
-    else
-        return ((hit_x - (int)(hit_x / BLOCK_SIZE) * BLOCK_SIZE)
-                / BLOCK_SIZE);
+	if (d->side == 0)
+		return ((hit_y - (int)(hit_y / BLOCK_SIZE) * BLOCK_SIZE) / BLOCK_SIZE);
+	else
+		return ((hit_x - (int)(hit_x / BLOCK_SIZE) * BLOCK_SIZE) / BLOCK_SIZE);
 }
 
 t_tx_data	*get_tex_for_wall(t_game *g, t_textureid wall_type)
@@ -145,13 +168,14 @@ t_tx_data	*get_tex_for_wall(t_game *g, t_textureid wall_type)
 int	get_tex_pixel(t_tx_data *tex, int tex_x, int tex_y)
 {
 	char	*pixel;
-	//printf("tex=%p addr=%p width=%d height=%d bpp=%d line=%d\n",
-		// (void *)tex,
-		// (void *)tex->addr,
-		// tex->width,
-		// tex->height,
-		// tex->bpp,
-		// tex->line_length);
+
+	// printf("tex=%p addr=%p width=%d height=%d bpp=%d line=%d\n",
+	// (void *)tex,
+	// (void *)tex->addr,
+	// tex->width,
+	// tex->height,
+	// tex->bpp,
+	// tex->line_length);
 	if (tex_x < 0)
 		tex_x = 0;
 	if (tex_x >= tex->width)
@@ -164,8 +188,8 @@ int	get_tex_pixel(t_tx_data *tex, int tex_x, int tex_y)
 	return (*(unsigned int *)pixel);
 }
 
-void	draw_wall(int i, float angle, t_game *g, t_textureid wall_type,
-		float dist, float wall_x)
+void	draw_wall(int i, t_game *g, t_textureid wall_type, float dist,
+		float wall_x)
 {
 	float		wall_height;
 	int			start_y;
@@ -177,7 +201,6 @@ void	draw_wall(int i, float angle, t_game *g, t_textureid wall_type,
 	float		tex_pos;
 	t_tx_data	*tex;
 
-	(void)angle;
 	wall_height = (BLOCK_SIZE * g->win_height) / dist;
 	start_y = (g->win_height / 2) - (wall_height / 2);
 	end_y = (g->win_height / 2) + (wall_height / 2);
@@ -259,7 +282,7 @@ void	ray(int i, float angle, t_player *player, t_game *g)
 			get_hit_point(&d, player, d.cos_a, d.sin_a, &d.hit_x, &d.hit_y);
 			d.dist = get_distance(d.hit_x, d.hit_y, angle, player);
 			d.wall_x = get_wall_hit_fraction(&d, d.hit_x, d.hit_y);
-			draw_wall(i, angle, g, wall_type, d.dist, d.wall_x);
+			draw_wall(i, g, wall_type, d.dist, d.wall_x);
 			break ;
 		}
 	}
