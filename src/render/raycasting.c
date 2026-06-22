@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/19 15:27:30 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/22 14:38:04 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/22 15:12:58 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,26 +72,6 @@ void	init_dda_context(t_dda_context *d, t_player *player, float angle)
 		d->step_y = 1;
 		d->side_dist_y = ((d->map_y + 1) * BLOCK_SIZE - player->y) / abs_sin;
 	}
-	// if (d->cos_a < 0)
-	// {
-	// 	d->step_x = -1;
-	// 	d->side_dist_x = (player->x - d->map_x * BLOCK_SIZE) / d->cos_a;
-	// }
-	// else
-	// {
-	// 	d->step_x = 1;
-	// 	d->side_dist_x = ((d->map_x + 1) * BLOCK_SIZE - player->x) / d->cos_a;
-	// }
-	// if (d->sin_a < 0)
-	// {
-	// 	d->step_y = -1;
-	// 	d->side_dist_y = (player->y - d->map_y * BLOCK_SIZE) / d->sin_a;
-	// }
-	// else
-	// {
-	// 	d->step_y = 1;
-	// 	d->side_dist_y = ((d->map_y + 1) * BLOCK_SIZE - player->y) / d->sin_a;
-	// }
 }
 
 /*compare side_dist_x and side_dist_y, the smaller one
@@ -169,13 +149,6 @@ int	get_tex_pixel(t_tx_data *tex, int tex_x, int tex_y)
 {
 	char	*pixel;
 
-	// printf("tex=%p addr=%p width=%d height=%d bpp=%d line=%d\n",
-	// (void *)tex,
-	// (void *)tex->addr,
-	// tex->width,
-	// tex->height,
-	// tex->bpp,
-	// tex->line_length);
 	if (tex_x < 0)
 		tex_x = 0;
 	if (tex_x >= tex->width)
@@ -192,9 +165,9 @@ void	draw_wall(int i, t_game *g, t_textureid wall_type, float dist,
 		float wall_x)
 {
 	float		wall_height;
-	int			start_y;
-	int			end_y;
-	int			screen_y;
+	int			bottom_y;
+	int			top_y;
+	int			screen_y; //that pixel on the screen
 	int			tex_x;
 	int			tex_y;
 	float		step;
@@ -202,22 +175,34 @@ void	draw_wall(int i, t_game *g, t_textureid wall_type, float dist,
 	t_tx_data	*tex;
 
 	wall_height = (BLOCK_SIZE * g->win_height) / dist;
-	start_y = (g->win_height / 2) - (wall_height / 2);
-	end_y = (g->win_height / 2) + (wall_height / 2);
+	/*to find the center, then remove half the height to find the bottom of the wall */
+	bottom_y = (g->win_height / 2) - (wall_height / 2);
+	/*same but the other way around to find the top*/
+	top_y = (g->win_height / 2) + (wall_height / 2);
 	tex = get_tex_for_wall(g, wall_type);
+	/*wall_x is the percentage of where the ray touched the wall, 
+	we want to find the according
+	column of the texture*/
 	tex_x = (int)(wall_x * tex->width);
+	/*we check we won't try to read out of the texture bounds*/
 	if (tex_x < 0)
 		tex_x = 0;
 	if (tex_x >= tex->width)
 		tex_x = tex->width - 1;
 	/*for every 1 pixel I move down the screen,
-	how many texture pixels should I move down the texture image.*/
-	step = (float)tex->height / wall_height;
-	tex_pos = (start_y < 0 ? -start_y : 0) * step;
-	screen_y = start_y;
+	how many texture pixels should I move down the texture image ?*/
+	step = tex->height / wall_height;
+	/*if the wall is bigger than the screen, it starts at 0 = bottom of the screen
+	+ we have to "skip" a part of the texture*/
+	if (bottom_y < 0)
+		tex_pos = -bottom_y * step;
+	else
+		tex_pos = 0;
+	screen_y = bottom_y;
 	if (screen_y < 0)
 		screen_y = 0;
-	while (screen_y < end_y && screen_y < g->win_height)
+	/* we keep going until end of the screen or the wall*/
+	while (screen_y < top_y && screen_y < g->win_height)
 	{
 		tex_y = (int)tex_pos;
 		put_pixel(i, screen_y, get_tex_pixel(tex, tex_x, tex_y), g);
@@ -225,46 +210,6 @@ void	draw_wall(int i, t_game *g, t_textureid wall_type, float dist,
 		screen_y++;
 	}
 }
-
-// float	distance_from_nearest_grid_line(float x)
-// {
-// 	float	distance_from_prev;
-// 	float	distance_from_next;
-
-// 	distance_from_prev = x - (int)(x / BLOCK_SIZE) * BLOCK_SIZE;
-// 	distance_from_next = BLOCK_SIZE - distance_from_prev;
-// 	if (distance_from_prev < distance_from_next)
-// 		return (distance_from_prev);
-// 	return (distance_from_next);
-// }
-
-// int	find_which_type_of_wall_was_found(float x, float y, float prev_x,
-// 		float prev_y, float cos_angle, float sin_angle)
-// {
-// 	int	x_before;
-// 	int x_after;
-// 	int y_before;
-// 	int	y_after;
-
-// 	x_before = (int)(prev_x / BLOCK_SIZE);
-// 	x_after = (int)(x / BLOCK_SIZE);
-// 	y_before = (int)(prev_y / BLOCK_SIZE);
-// 	y_after = (int)(y / BLOCK_SIZE);
-// 	if (x_before != x_after)
-// 	{
-// 		if (cos_angle > 0)
-// 			return (EA);
-// 		return (WE);
-// 	}
-// 	else if (y_before != y_after)
-// 	{
-// 		if (sin_angle > 0)
-// 			return (SO);
-// 		return (NO);
-// 	}
-// 	/*TODO: error case*/
-// 	return (NO);
-// }
 
 void	ray(int i, float angle, t_player *player, t_game *g)
 {
