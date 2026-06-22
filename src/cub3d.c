@@ -6,7 +6,7 @@
 /*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:19 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/22 14:46:39 by bdemouge         ###   ########.fr       */
+/*   Updated: 2026/06/22 15:40:32 by bdemouge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int	main(int argc, char **argv)
 	if (parse_input(argc, argv, &g))
 		return (free_parse(&g.p), 1);
 	init_mlx_struct(&g);
-	printf("x = %f\n", g.player.posX);
-	printf("y = %f\n", g.player.posX);
+	printf("x = %f\n", g.player.x);
+	printf("y = %f\n", g.player.x);
 	//printf("angle = %f\n", g.player.angle);
 	mlx_hook(g.win, 17, 0, (int (*)())(void *)end, &g);
 	mlx_hook(g.win, 2, 1L << 0, (int (*)())(void *)key_press, &g.player);

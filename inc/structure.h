@@ -6,7 +6,7 @@
 /*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 18:01:54 by bdemouge          #+#    #+#             */
-/*   Updated: 2026/06/22 14:26:20 by bdemouge         ###   ########.fr       */
+/*   Updated: 2026/06/22 15:57:57 by bdemouge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ typedef struct s_map
 
 typedef struct s_player
 {
-	double		posX;
-	double		posY;
+	double		x;
+	double		y;
 	double		dirX;
 	double		dirY;
 	double		planeX;
@@ -95,7 +95,20 @@ typedef struct s_ray
 {
 	double		rayDirX;
 	double		rayDirY;
-
+	double		cameraX;
+	int			mapX;
+	int 		mapY;
+	double		sideDistX;
+	double		sideDistY;
+	double 		deltaDistX;
+	double 		deltaDistY;
+	double		perpWallDist;
+	int 		stepX;
+	int			stepY;
+	double		posX;
+	double 		posY;
+	int			side;
+	int 		hit;
 }				t_ray;
 
 typedef struct s_game
@@ -119,6 +132,7 @@ typedef struct s_game
 	char		**map;
 	t_parse		p;
 	t_player	player;
+	t_ray		ray;
 	t_img		i;
 }				t_game;
 

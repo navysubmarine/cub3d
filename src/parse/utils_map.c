@@ -6,7 +6,7 @@
 /*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 16:27:31 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/22 14:42:04 by bdemouge         ###   ########.fr       */
+/*   Updated: 2026/06/22 15:40:50 by bdemouge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ void	find_player(t_parse *p, char **map)
 
 	i = 0;
 	j = 0;
-	p->player.posX = -1;
-	p->player.posY = -1;
+	p->player.x = -1;
+	p->player.y = -1;
 	while (map[i])
 	{
 		j = 0;
@@ -77,8 +77,8 @@ void	find_player(t_parse *p, char **map)
 		{
 			if (map[i][j] == 'N')
 			{
-				p->player.posX = j;
-				p->player.posY = i;
+				p->player.x = j;
+				p->player.y = i;
 				p->player.dirX = 0;
 				p->player.dirY = 1;
 				p->player.planeX = 0.66;
@@ -87,8 +87,8 @@ void	find_player(t_parse *p, char **map)
 			}
 			if (map[i][j] == 'S')
 			{
-				p->player.posX = j;
-				p->player.posY = i;
+				p->player.x = j;
+				p->player.y = i;
 				p->player.dirX = 0;
 				p->player.dirY = -1;
 				p->player.planeX = -0.66;
@@ -97,8 +97,8 @@ void	find_player(t_parse *p, char **map)
 			}
 			if (map[i][j] == 'E')
 			{
-				p->player.posX = j;
-				p->player.posY = i;
+				p->player.x = j;
+				p->player.y = i;
 				p->player.dirX = 1;
 				p->player.dirY = 0;
 				p->player.planeX = 0;
@@ -107,8 +107,8 @@ void	find_player(t_parse *p, char **map)
 			}
 			if (map[i][j] == 'W')
 			{
-				p->player.posX = j;
-				p->player.posY = i;
+				p->player.x = j;
+				p->player.y = i;
 				p->player.dirX = -1;
 				p->player.dirY = 0;
 				p->player.planeX = 0;
