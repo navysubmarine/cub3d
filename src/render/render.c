@@ -28,7 +28,7 @@ int	draw_loop(void *param)
 
 	g = (t_game *)param;
 	ft_memset(g->addr, 0, g->win_width * g->win_height * g->bpp / 8);
-	move_player(g);
+	//move_player(g);
 	raycasting(g);
 	mlx_put_image_to_window(g->mlx, g->win, g->img, 0, 0);
 	return (0);

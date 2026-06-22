@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:47:36 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/12 16:14:17 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/22 14:26:51 by bdemouge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ int	is_player_on_edge(t_parse *p, char **map)
 	int		x;
 	int		y;
 
-	x = p->player.x;
-	y = p->player.y;
+	x = p->player.posX;
+	y = p->player.posY;
 	if (x == 0 || y == 0 || y == p->map.map_h - 1)
 		return (1);
 	if (map[y][x - 1] == ' ')

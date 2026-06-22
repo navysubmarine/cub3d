@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 14:50:58 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/16 17:51:43 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/22 14:32:18 by bdemouge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,12 @@ void	init_game_info(t_game *g)
 	g->path_we_tx = g->p.textures[WE].path;
 	g->path_ea_tx = g->p.textures[EA].path;
 	g->map = g->p.map.map;
-	g->player.x = g->p.player.x * BLOCK_SIZE + BLOCK_SIZE / 2;
-	g->player.y = g->p.player.y * BLOCK_SIZE + BLOCK_SIZE / 2;
-	g->player.angle = g->p.player.angle;
+	g->player.posX = g->p.player.posX * BLOCK_SIZE + BLOCK_SIZE / 2;
+	g->player.posY = g->p.player.posY * BLOCK_SIZE + BLOCK_SIZE / 2;
+	g->player.dirX = g->p.player.dirX;
+	g->player.dirY = g->p.player.dirY;
+	g->player.planeX = g->p.player.planeX;
+	g->player.planeY = g->p.player.planeY;
 }
 
 int	parse_input(int argc, char **argv, t_game *g)

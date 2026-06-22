@@ -6,7 +6,7 @@
 /*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 18:02:04 by bdemouge          #+#    #+#             */
-/*   Updated: 2026/06/17 15:02:14 by bdemouge         ###   ########.fr       */
+/*   Updated: 2026/06/22 13:55:10 by bdemouge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define RAY_SIZE   1280
 # define SPEED 5
 # define SPEED_ROTATE 0.05
-# define FOV 1.047197551
+# define FOV 1.151917306
 # define NORTH 4.71238898
 # define SOUTH 1.570796327
 # define EAST 0

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structure.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 18:01:54 by bdemouge          #+#    #+#             */
-/*   Updated: 2026/06/16 12:11:44 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/22 14:26:20 by bdemouge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,12 @@ typedef struct s_map
 
 typedef struct s_player
 {
-	float		x;
-	float		y;
-	float		angle;
-
+	double		posX;
+	double		posY;
+	double		dirX;
+	double		dirY;
+	double		planeX;
+	double		planeY;
 	bool		forward;
 	bool		backward;
 	bool		right;
@@ -88,6 +90,13 @@ typedef struct s_img
 	void		*w_wall;
 	void		*e_wall;
 }				t_img;
+
+typedef struct s_ray
+{
+	double		rayDirX;
+	double		rayDirY;
+
+}				t_ray;
 
 typedef struct s_game
 {
