@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 18:01:54 by bdemouge          #+#    #+#             */
-/*   Updated: 2026/06/19 16:21:24 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/22 12:23:13 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,15 +106,21 @@ typedef struct s_img
 
 typedef struct s_dda_context
 {
+	float	cos_a;
+	float	sin_a;
 	int		map_x;
 	int		map_y;
 	int		step_x;
 	int		step_y;
+	float	hit_x;
+	float	hit_y;
+	float	dist;
 	float	side_dist_x;
 	float	side_dist_y;
 	float	delta_dist_x;
 	float	delta_dist_y;
 	int		side;
+	float	wall_x;
 }				t_dda_context;
 
 typedef struct s_game

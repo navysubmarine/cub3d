@@ -6,16 +6,18 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/15 15:03:06 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/19 16:35:22 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/22 11:49:45 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	load_tex_data(void *img, t_tx_data *data)
+void	load_tex_data(void *img, t_tx_data *data, int width, int height)
 {
-	data->width = BLOCK_SIZE;
-	data->height = BLOCK_SIZE;
+	(void)width;
+	(void)height;
+	data->width = width;
+	data->height = height;
 	data->addr = mlx_get_data_addr(img, &data->bpp, &data->line_length,
 			&data->endian);
 }
@@ -52,8 +54,8 @@ void	load_wall_sprites(t_game *g)
 		ft_putstr_fd("Error: Western wall sprite could not be loaded\n", 2);
 		exit_game(g, 1);
 	}
-	load_tex_data(g->i.n_wall, &g->i.n_data);
-	load_tex_data(g->i.s_wall, &g->i.s_data);
-	load_tex_data(g->i.e_wall, &g->i.e_data);
-	load_tex_data(g->i.w_wall, &g->i.w_data);
+	load_tex_data(g->i.n_wall, &g->i.n_data, w, h);
+	load_tex_data(g->i.s_wall, &g->i.s_data, w, h);
+	load_tex_data(g->i.e_wall, &g->i.e_data, w, h);
+	load_tex_data(g->i.w_wall, &g->i.w_data, w, h);
 }

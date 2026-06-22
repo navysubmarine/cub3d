@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/19 15:27:30 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/19 16:40:42 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/22 12:25:23 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,11 @@ inside the cell we are in.
 Side_dist_/ is = ray distance until the next vertical/horizontal line
 	-> this is what step_dda
 will compare*/
-void	init_dda_context(t_dda_context *d, t_player *player, float cos_a,
-		float sin_a)
+void	init_dda_context(t_dda_context *d, t_player *player, float angle)
 {
-	/*avoids the /zero division, to an extremely tiny number*/
+	cos_a = cos(angle);
+	sin_a = sin(angle);
+	/*avoids the /zero division, sets cos_a/sin_a to an extremely tiny number*/
 	if (cos_a == 0)
 		cos_a = 1e-6;
 	if (sin_a == 0)
@@ -93,12 +94,12 @@ int	find_wall_type(t_dda_context *d)
 	if (d->side == 0)
 	{
 		if (d->step_x > 0)
-			return (EA);
-		return (WE);
+			return (WE);
+		return (EA);
 	}
 	if (d->step_y > 0)
-		return (SO);
-	return (NO);
+		return (NO);
+	return (SO);
 }
 
 void	get_hit_point(t_dda_context *d, t_player *player, float cos_a,
@@ -244,18 +245,10 @@ void	draw_wall(int i, float angle, t_game *g, t_textureid wall_type,
 
 void	ray(int i, float angle, t_player *player, t_game *g)
 {
-	float			cos_a;
-	float			sin_a;
 	t_dda_context	d;
 	t_textureid		wall_type;
-	float			hit_x;
-	float			hit_y;
-	float			dist;
-	float			wall_x;
 
-	cos_a = cos(angle);
-	sin_a = sin(angle);
-	init_dda_context(&d, player, cos_a, sin_a);
+	init_dda_context(&d, player, angle);
 	while (1)
 	{
 		step_dda(&d);
@@ -263,10 +256,10 @@ void	ray(int i, float angle, t_player *player, t_game *g)
 			|| !g->map[d.map_y][d.map_x] || g->map[d.map_y][d.map_x] == '1')
 		{
 			wall_type = find_wall_type(&d);
-			get_hit_point(&d, player, cos_a, sin_a, &hit_x, &hit_y);
-			dist = get_distance(hit_x, hit_y, angle, player);
-			wall_x = get_wall_hit_fraction(&d, hit_x, hit_y);
-			draw_wall(i, angle, g, wall_type, dist, wall_x);
+			get_hit_point(&d, player, d.cos_a, d.sin_a, &d.hit_x, &d.hit_y);
+			d.dist = get_distance(d.hit_x, d.hit_y, angle, player);
+			d.wall_x = get_wall_hit_fraction(&d, d.hit_x, d.hit_y);
+			draw_wall(i, angle, g, wall_type, d.dist, d.wall_x);
 			break ;
 		}
 	}

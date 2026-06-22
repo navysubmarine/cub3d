@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:38 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/19 16:38:13 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/22 11:50:01 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,5 @@ void	draw_wall(int i, float angle, t_game *g, t_textureid wall_type,
 void	init_dda_context(t_dda_context *d, t_player *player, float cos_a,
 			float sin_a);
 void	load_wall_sprites(t_game *g);
-void	load_tex_data(void *img, t_tx_data *data);
+void	load_tex_data(void *img, t_tx_data *data, int width, int height);
 #endif

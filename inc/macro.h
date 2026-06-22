@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 18:02:04 by bdemouge          #+#    #+#             */
-/*   Updated: 2026/06/15 18:46:49 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/22 11:48:10 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # define ESC 65307
 
 # define PI 3.141592653589793
-# define BLOCK_SIZE 64
+# define BLOCK_SIZE 500
 # define RAY_SIZE   1280
 # define SPEED 5
 # define SPEED_ROTATE 0.05
