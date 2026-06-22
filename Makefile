@@ -4,11 +4,11 @@ NAME = cub3d
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -MMD -MP -g3 $(addprefix -I,$(INCDIR))
 LFLAGS = -lX11 -lXext -lm
-SFLAGS = -fsanitize=address
+# SFLAGS = -fsanitize=address
 
-fsan: CFLAGS += $(SFLAGS)
-fsan: LFLAGS += $(SFLAGS)
-fsan: re
+# fsan: CFLAGS += $(SFLAGS)
+# fsan: LFLAGS += $(SFLAGS)
+# fsan: re
 
 # Sources
 CFILES	= 	$(addprefix exit/, exit.c free.c )\

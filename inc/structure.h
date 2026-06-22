@@ -6,7 +6,7 @@
 /*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 18:01:54 by bdemouge          #+#    #+#             */
-/*   Updated: 2026/06/22 15:57:57 by bdemouge         ###   ########.fr       */
+/*   Updated: 2026/06/22 17:27:00 by bdemouge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ typedef struct s_ray
 	double 		posY;
 	int			side;
 	int 		hit;
+	int 		wall_height;
 }				t_ray;
 
 typedef struct s_game
