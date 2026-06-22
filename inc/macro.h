@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 18:02:04 by bdemouge          #+#    #+#             */
-/*   Updated: 2026/06/22 11:48:10 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/22 14:47:02 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define PI 3.141592653589793
 # define BLOCK_SIZE 500
 # define RAY_SIZE   1280
-# define SPEED 5
+# define SPEED 50
 # define SPEED_ROTATE 0.05
 # define FOV 1.047197551
 # define NORTH 4.71238898
