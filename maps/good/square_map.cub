@@ -1,13 +1,13 @@
-    WE                            textures/west
-NO      textures/north
+    WE                            textures/matrix/west.xpm
+NO      textures/matrix/north.xpm
 
 
 
-SO textures/south
+SO textures/matrix/south.xpm
 
 F   69, 222, 199
 
-EA textures/east
+EA textures/matrix/east.xpm
 
 
 

@@ -1,10 +1,10 @@
 
 F 220,100,0
-NO textures/north
+NO textures/matrix/north.xpm
 
 
-SO textures/south
-WE textures/west
+SO textures/matrix/south.xpm
+WE textures/matrix/west.xpm
 
 
 
