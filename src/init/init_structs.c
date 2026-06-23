@@ -54,6 +54,8 @@ void	init_mlx_struct(t_game *g)
 {
 	g->mlx = mlx_init();
 	mlx_get_screen_size(g->mlx, &g->win_width, &g->win_height);
+	g->win_height *= 0.9;
+	g->win_width *= 0.9;
 	g->win = mlx_new_window(g->mlx, g->win_width, g->win_height, "cub3d");
 	g->img = mlx_new_image(g->mlx, g->win_width, g->win_height);
 	g->addr = mlx_get_data_addr(g->img, &g->bpp, &g->line_length, &g->endian);

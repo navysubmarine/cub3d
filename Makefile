@@ -13,6 +13,7 @@ fsan: re
 # Sources
 CFILES	= 	$(addprefix exit/, exit.c free.c )\
 			$(addprefix init/, init_structs.c )\
+			$(addprefix minimap/, minimap.c)\
 			$(addprefix parse/, check_map.c colors.c \
 			map_copy.c map.c parse.c store.c \
 			texture.c utils_file.c utils_map.c )\

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prototype.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:38 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/23 15:39:23 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/23 17:12:30 by bdemouge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void		raycasting(t_game *g);
 int			draw_loop(void *param);
 bool		touch(float x, float y, t_game *g);
 void		put_pixel(int x, int y, int color, t_game *g);
-void    	fill_background_colors(t_game *g);
+void		fill_background_colors(t_game *g);
 void		draw_wall_column(int i, t_game *g, t_textureid wall_type,
 				t_dda_context *d);
 void		init_dda_context(t_dda_context *d, t_player *player, float angle);
@@ -92,4 +92,6 @@ float		get_magnitude(float x);
 void		check_if_nb_is_zero(float *x);
 t_tx_data	*get_correct_tex(t_game *g, t_textureid wall_type);
 int			get_tex_pixel(t_tx_data *tex, int tex_x, int tex_y);
+/*minimap*/
+void	draw_map(t_game *g);
 #endif

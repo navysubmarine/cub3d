@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:19 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/23 15:39:34 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/23 17:13:17 by bdemouge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	draw_loop(void *param)
 	//ft_memset(g->addr, 0, g->win_width * g->win_height * g->bpp / 8);
 	move_player(g);
 	raycasting(g);
+	draw_map(g);
 	mlx_put_image_to_window(g->mlx, g->win, g->img, 0, 0);
 	return (0);
 }

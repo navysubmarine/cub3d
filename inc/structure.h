@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structure.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 18:01:54 by bdemouge          #+#    #+#             */
-/*   Updated: 2026/06/23 14:47:06 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/23 18:12:57 by bdemouge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,17 @@ typedef struct s_render_context
 	int			screen_y;// that pixel on the screen
 }				t_render_context;
 
+typedef struct s_minimap
+{
+	int width;
+	int height;
+	int startX;
+	int startY;
+	int centerX;
+	int centerY;
+	int blockSize;
+}	t_minimap;
+
 typedef struct s_game
 {
 	void		*mlx;
@@ -157,6 +168,7 @@ typedef struct s_game
 	t_parse		p;
 	t_player	player;
 	t_img		i;
+	t_minimap minimap;
 }				t_game;
 
 #endif

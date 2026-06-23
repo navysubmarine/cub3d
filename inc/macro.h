@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   macro.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 18:02:04 by bdemouge          #+#    #+#             */
-/*   Updated: 2026/06/22 14:47:02 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/23 18:21:14 by bdemouge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,8 @@
 # define PINK 0xFD6C9E
 # define RED 0xD90115
 # define GREEN 0x82C46C
+
+# define MINIMAP_WIDTH 17
+# define MINIMAP_HEIGHT 11
 
 #endif
