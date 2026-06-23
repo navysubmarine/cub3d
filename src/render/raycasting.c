@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/19 15:27:30 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/23 12:12:54 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/23 12:22:29 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	ray(int i, float angle, t_player *player, t_game *g)
 			get_hit_point(&d, player);
 			d.dist = get_distance(d.hit_x, d.hit_y, angle, player);
 			d.wall_x = get_wall_hit_fraction(&d, d.hit_x, d.hit_y);
-			draw_wall(i, g, wall_type, d.dist, d.wall_x);
+			draw_wall(i, g, wall_type, &d);
 			break ;
 		}
 	}

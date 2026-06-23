@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 18:01:54 by bdemouge          #+#    #+#             */
-/*   Updated: 2026/06/23 11:18:55 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/23 12:24:57 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,18 @@ typedef struct s_dda_context
 	int		side;
 	float	wall_x;
 }				t_dda_context;
+
+typedef struct s_render_context
+{
+	float		wall_height;
+	int			bottom_y;
+	int			top_y;
+	int			tex_x;
+	int			tex_y;
+	float		step;
+	float		tex_pos;
+	int			screen_y;// that pixel on the screen
+}				t_render_context;
 
 typedef struct s_game
 {
