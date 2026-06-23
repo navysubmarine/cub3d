@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prototype.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:38 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/16 17:52:15 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/23 14:26:42 by bdemouge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int		key_press(int keycode, void *ply);
 int		key_release(int keycode, void *ply);
 void	raycasting(t_game *g);
 int		draw_loop(void *param);
-bool	touch(float x, float y, t_game *g);
+bool	touch(double x, double y, t_game *g);
 void	put_pixel(int x, int y, int color, t_game *g);
 
 #endif

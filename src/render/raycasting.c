@@ -5,8 +5,8 @@ void	draw_line(int x, int wall_height, int color, t_game *g)
 	int start;
 	int end;
 
-	start = -wall_height / 2 + g->win_height / 2;
-	end = wall_height / 2 + g->win_height / 2;
+	start = g->win_height / 2 - wall_height / 2;
+	end = g->win_height / 2 + wall_height / 2;
 	while (start < end)
 	{
 		put_pixel(x, start, color, g);
@@ -30,8 +30,12 @@ void	raycasting(t_game *g)
 		r->cameraX = 2 * x / (double)g->win_width - 1;
 		r->rayDirX = p->dirX + p->planeX * r->cameraX;
 		r->rayDirY = p->dirY + p->planeY * r->cameraX;
-		r->mapX = (p->x - BLOCK_SIZE / 2) / BLOCK_SIZE;
-		r->mapY = (p->y - BLOCK_SIZE / 2) / BLOCK_SIZE;
+		r->mapX = (int)(p->x / BLOCK_SIZE);
+		r->mapY = (int)(p->y / BLOCK_SIZE);
+		if (r->rayDirX == 0)
+			r->rayDirX = 1e-9;
+		if (r->rayDirY == 0)
+			r->rayDirY = 1e-9;
 		r->deltaDistX = sqrt(1 + (r->rayDirY * r->rayDirY) / (r->rayDirX * r->rayDirX));
 		r->deltaDistY = sqrt(1 + (r->rayDirX * r->rayDirX) / (r->rayDirY * r->rayDirY));
 		if (r->rayDirX < 0)
@@ -70,15 +74,13 @@ void	raycasting(t_game *g)
 				r->side = 1;
 			}
 			if (g->map[r->mapY][r->mapX] == '1')
-			{
 				r->hit = 1;
-			}
 		}
 		if (r->side == 0)
 			r->perpWallDist = r->sideDistX - r->deltaDistX;
 		else
 			r->perpWallDist = r->sideDistY - r->deltaDistY;
-		r->wall_height = (g->win_height / r->perpWallDist);
-		draw_line(x, r->wall_height, 0xFF, g);
+		r->wall_height = (g->win_height * BLOCK_SIZE) / r->perpWallDist;
+		draw_line(x, r->wall_height, 0x0000FF, g);
 	}
 }

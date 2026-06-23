@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-bool	touch(float x, float y, t_game *g)
+bool	touch(double x, double y, t_game *g)
 {
 	int	real_x;
 	int	real_y;
@@ -28,7 +28,7 @@ int	draw_loop(void *param)
 
 	g = (t_game *)param;
 	ft_memset(g->addr, 0, g->win_width * g->win_height * g->bpp / 8);
-	//move_player(g);
+	move_player(g);
 	raycasting(g);
 	mlx_put_image_to_window(g->mlx, g->win, g->img, 0, 0);
 	return (0);
