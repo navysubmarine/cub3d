@@ -6,23 +6,11 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 12:07:49 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/23 12:36:26 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/23 14:11:29 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-bool	touch(float x, float y, t_game *g)
-{
-	int	real_x;
-	int	real_y;
-
-	real_x = x / BLOCK_SIZE;
-	real_y = y / BLOCK_SIZE;
-	if (g->map[real_y][real_x] == '1')
-		return (true);
-	return (false);
-}
 
 void	put_pixel(int x, int y, int color, t_game *g)
 {
@@ -83,28 +71,30 @@ void	get_tex_column(t_render_context *r, t_tx_data *tex, t_dda_context *d)
 		r->tex_x = 0;
 	if (r->tex_x >= tex->width)
 		r->tex_x = tex->width - 1;
+	/*for every 1 pixel I move down the screen,
+	how many texture pixels should I move down the texture image ?*/
+	r->step = tex->height / r->wall_height;
+	/*if the wall is bigger than the screen,
+		it starts at 0 = bottom of the screen
+	+ we have to "skip" a part of the texture*/
+	if (r->bottom_y < 0)
+		r->tex_pos = -r->bottom_y * r->step;
+	else
+		r->tex_pos = 0;
+	r->screen_y = r->bottom_y;
+	if (r->screen_y < 0)
+		r->screen_y = 0;
 }
 
-void	draw_wall(int i, t_game *g, t_textureid wall_type, t_dda_context *d)
+void	draw_wall_column(int i, t_game *g, t_textureid wall_type, t_dda_context *d)
 {
 	t_render_context	r;
 	t_tx_data			*tex;
 
 	calculate_wall_size(g, d, &r);
 	tex = get_correct_tex(g, wall_type);
-	/*for every 1 pixel I move down the screen,
-	how many texture pixels should I move down the texture image ?*/
-	r.step = tex->height / r.wall_height;
-	/*if the wall is bigger than the screen,
-		it starts at 0 = bottom of the screen
-	+ we have to "skip" a part of the texture*/
-	if (r.bottom_y < 0)
-		r.tex_pos = -r.bottom_y * r.step;
-	else
-		r.tex_pos = 0;
-	r.screen_y = r.bottom_y;
-	if (r.screen_y < 0)
-		r.screen_y = 0;
+	get_tex_column(&r, tex, d);
+
 	/* we keep going until end of the screen or the wall*/
 	while (r.screen_y < r.top_y && r.screen_y < g->win_height)
 	{

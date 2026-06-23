@@ -11,6 +11,18 @@
 // 	player->left = false;
 // }
 
+bool	touch(float x, float y, t_game *g)
+{
+	int	real_x;
+	int	real_y;
+
+	real_x = x / BLOCK_SIZE;
+	real_y = y / BLOCK_SIZE;
+	if (g->map[real_y][real_x] == '1')
+		return (true);
+	return (false);
+}
+
 static void	rotate_player(t_player *player)
 {
 	if (player->left_rotate)
@@ -19,8 +31,8 @@ static void	rotate_player(t_player *player)
 		player->angle += SPEED_ROTATE;
 	if (player->angle > 2 * PI)
 		player->angle = 0;
-	if(player->angle < 0)
-		player->angle = 2  * PI;
+	if (player->angle < 0)
+		player->angle = 2 * PI;
 }
 
 static void	move_forward_backward(float cos_angle, float sin_angle,
@@ -42,8 +54,8 @@ static void	move_forward_backward(float cos_angle, float sin_angle,
 	}
 }
 
-static void move_right_left(float cos_angle, float sin_angle,
-		t_player *player, t_game *g)
+static void	move_right_left(float cos_angle, float sin_angle, t_player *player,
+		t_game *g)
 {
 	if (player->left == true)
 	{
