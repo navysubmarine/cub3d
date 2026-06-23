@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:38 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/23 11:09:01 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/23 12:02:51 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,9 @@ void	draw_wall(int i, t_game *g, t_textureid wall_type, float dist,
 void	init_dda_context(t_dda_context *d, t_player *player, float angle);
 void	load_wall_sprites(t_game *g);
 void	load_tex_data(void *img, t_tx_data *data, int width, int height);
+float	get_wall_hit_fraction(t_dda_context *d, float hit_x, float hit_y);
+void	get_hit_point(t_dda_context *d, t_player *player, float cos_a,
+			float sin_a, float *hit_x, float *hit_y);
+int		find_wall_type(t_dda_context *d);
+float	get_magnitude(float x);
 #endif
