@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:38 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/22 14:06:46 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/23 11:09:01 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	init_mlx_struct(t_game *g);
 char	*ft_strdup_padded(const char *s, int padded_line_len);
 void	print_map(char **map, char *name);
 int		count_lines(int fd);
+float	get_magnitude(float x);
 /*PLAYER*/
 void	move_player(t_game *g);
 /*RENDER*/

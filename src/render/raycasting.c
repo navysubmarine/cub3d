@@ -6,11 +6,18 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/19 15:27:30 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/22 15:12:58 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/23 11:42:22 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+float	get_magnitude(float x)
+{
+	if (x < 0)
+		return (-x);
+	return (x);
+}
 
 /*gets the distance from the player to the next hit point*/
 float	get_distance(float r_x, float r_y, float r_angle, t_player *player)
@@ -26,6 +33,47 @@ float	get_distance(float r_x, float r_y, float r_angle, t_player *player)
 	return (dist);
 }
 
+/*avoids the /0 division and sets the cos/sin into very very tiny number*/
+void	check_if_nb_is_zero(float *x)
+{
+	if (get_magnitude(*x) < 0.000001)
+	{
+		if (*x >= 0)
+			*x = 0.000001;
+		else
+			*x = -0.000001;
+	}
+}
+
+void	set_step_direction(float cos_sin, int *step)
+{
+	if (cos_sin < 0)
+		*step = -1;
+	else
+		*step = 1;
+}
+
+/*sets step_ = is towards right/left and side_dist,
+which is how far past the last line*/
+void	get_distance_from_next_grid_line(t_dda_context *d, t_player *player)
+{
+	float	absolute_cos;
+	float	absolute_sin;
+
+	absolute_cos = get_magnitude(d->cos_a);
+	if (d->cos_a < 0)
+		d->side_dist_x = (player->x - d->map_x * BLOCK_SIZE) / absolute_cos;
+	else
+		d->side_dist_x = ((d->map_x + 1) * BLOCK_SIZE - player->x)
+			/ absolute_cos;
+	absolute_sin = get_magnitude(d->sin_a);
+	if (d->sin_a < 0)
+		d->side_dist_y = (player->y - d->map_y * BLOCK_SIZE) / absolute_sin;
+	else
+		d->side_dist_y = ((d->map_y + 1) * BLOCK_SIZE - player->y)
+			/ absolute_sin;
+}
+
 /*sets up the dda context, is the ray going left/right,
 	and where are we coming from,
 inside the cell we are in.
@@ -34,44 +82,17 @@ Side_dist_/ is = ray distance until the next vertical/horizontal line
 will compare*/
 void	init_dda_context(t_dda_context *d, t_player *player, float angle)
 {
-	float	abs_cos;
-	float	abs_sin;
-
 	d->cos_a = cos(angle);
 	d->sin_a = sin(angle);
-	/*avoids the /zero division, sets cos_a/sin_a to an extremely tiny number*/
-	if (fabs(d->cos_a) < 1e-6)
-		d->cos_a = (d->cos_a >= 0) ? 1e-6 : -1e-6;
-	if (fabs(d->sin_a) < 1e-6)
-		d->sin_a = (d->sin_a >= 0) ? 1e-6 : -1e-6;
+	check_if_nb_is_zero(&d->cos_a);
+	check_if_nb_is_zero(&d->sin_a);
+	set_step_direction(d->cos_a, &d->step_x);
+	set_step_direction(d->sin_a, &d->step_y);
 	d->map_x = (int)(player->x / BLOCK_SIZE);
 	d->map_y = (int)(player->y / BLOCK_SIZE);
-	d->delta_dist_x = fabsf(BLOCK_SIZE / d->cos_a);
-	d->delta_dist_y = fabsf(BLOCK_SIZE / d->sin_a);
-	/*sets step_ = is towards right/left and side_dist,
-		which is how far past the last line*/
-	abs_cos = fabsf(d->cos_a);
-	if (d->cos_a < 0)
-	{
-		d->step_x = -1;
-		d->side_dist_x = (player->x - d->map_x * BLOCK_SIZE) / abs_cos;
-	}
-	else
-	{
-		d->step_x = 1;
-		d->side_dist_x = ((d->map_x + 1) * BLOCK_SIZE - player->x) / abs_cos;
-	}
-	abs_sin = fabsf(d->sin_a);
-	if (d->sin_a < 0)
-	{
-		d->step_y = -1;
-		d->side_dist_y = (player->y - d->map_y * BLOCK_SIZE) / abs_sin;
-	}
-	else
-	{
-		d->step_y = 1;
-		d->side_dist_y = ((d->map_y + 1) * BLOCK_SIZE - player->y) / abs_sin;
-	}
+	d->delta_dist_x = get_magnitude(BLOCK_SIZE / d->cos_a);
+	d->delta_dist_y = get_magnitude(BLOCK_SIZE / d->sin_a);
+	get_distance_from_next_grid_line(d, player);
 }
 
 /*compare side_dist_x and side_dist_y, the smaller one
@@ -167,20 +188,21 @@ void	draw_wall(int i, t_game *g, t_textureid wall_type, float dist,
 	float		wall_height;
 	int			bottom_y;
 	int			top_y;
-	int			screen_y; //that pixel on the screen
 	int			tex_x;
 	int			tex_y;
 	float		step;
 	float		tex_pos;
 	t_tx_data	*tex;
 
+	int screen_y; // that pixel on the screen
 	wall_height = (BLOCK_SIZE * g->win_height) / dist;
-	/*to find the center, then remove half the height to find the bottom of the wall */
+	/*to find the center,
+		then remove half the height to find the bottom of the wall */
 	bottom_y = (g->win_height / 2) - (wall_height / 2);
 	/*same but the other way around to find the top*/
 	top_y = (g->win_height / 2) + (wall_height / 2);
 	tex = get_tex_for_wall(g, wall_type);
-	/*wall_x is the percentage of where the ray touched the wall, 
+	/*wall_x is the percentage of where the ray touched the wall,
 	we want to find the according
 	column of the texture*/
 	tex_x = (int)(wall_x * tex->width);
@@ -192,7 +214,8 @@ void	draw_wall(int i, t_game *g, t_textureid wall_type, float dist,
 	/*for every 1 pixel I move down the screen,
 	how many texture pixels should I move down the texture image ?*/
 	step = tex->height / wall_height;
-	/*if the wall is bigger than the screen, it starts at 0 = bottom of the screen
+	/*if the wall is bigger than the screen,
+		it starts at 0 = bottom of the screen
 	+ we have to "skip" a part of the texture*/
 	if (bottom_y < 0)
 		tex_pos = -bottom_y * step;

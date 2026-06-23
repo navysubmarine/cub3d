@@ -1,0 +1,14 @@
+{
+    "C_Cpp.intelliSenseEngine": "default",
+    "C_Cpp.preferredPathSeparator": "/",
+    "C_Cpp.default.cppStandard": "c99",
+    "C_Cpp.default.cStandard": "c99",
+    "editor.definitionLinkOpensInPeek": false,
+    "editor.gotoLocation.multipleDefinitions": "goto",
+    "editor.gotoLocation.multipleDeclarations": "goto",
+    "editor.gotoLocation.multipleImplementations": "goto",
+    "editor.peekWidgetDefaultFocus": "editor",
+    "[c]": {
+        "editor.defaultFormatter": "keyhr.42-c-format"
+    }
+}
