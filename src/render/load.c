@@ -6,11 +6,32 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/15 15:03:06 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/22 11:49:45 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/23 15:39:53 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	fill_background_colors(t_game *g)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < g->win_height)
+	{
+		x = 0;
+		while (x < g->win_width)
+		{
+			if (y < g->win_height / 2)
+				put_pixel(x, y, g->ceiling, g);
+			else
+				put_pixel(x, y, g->floor, g);
+			x++;
+		}
+		y++;
+	}
+}
 
 void	load_tex_data(void *img, t_tx_data *data, int width, int height)
 {

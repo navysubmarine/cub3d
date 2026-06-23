@@ -4,7 +4,7 @@ WE ./textures/matrix/west.xpm
 EA ./textures/matrix/east.xpm
 
 F 0,255,80
-C 0,230,60
+C 0,0,0
 
 1111111111111111111111111111111
 1N00000100001000001000000000001

@@ -18,7 +18,8 @@ CFILES	= 	$(addprefix exit/, exit.c free.c )\
 			texture.c utils_file.c utils_map.c )\
 			$(addprefix utils/, print.c )\
 			$(addprefix player/, player.c )\
-			$(addprefix render/, hook.c raycasting.c render.c load.c dda_utils.c init_dda.c )\
+			$(addprefix render/, hook.c raycasting.c \
+			render.c load.c dda_utils.c init_dda.c )\
 			cub3d.c
 SRC_DIR = src
 SRC = $(addprefix $(SRC_DIR)/, $(CFILES))
