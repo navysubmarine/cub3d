@@ -6,11 +6,23 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:19 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/19 16:39:31 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/23 12:16:39 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int	draw_loop(void *param)
+{
+	t_game	*g;
+
+	g = (t_game *)param;
+	ft_memset(g->addr, 0, g->win_width * g->win_height * g->bpp / 8);
+	move_player(g);
+	raycasting(g);
+	mlx_put_image_to_window(g->mlx, g->win, g->img, 0, 0);
+	return (0);
+}
 
 int	main(int argc, char **argv)
 {
