@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 18:01:54 by bdemouge          #+#    #+#             */
-/*   Updated: 2026/06/23 14:47:06 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/24 14:52:16 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 # define STRUCTURE_H
 
 /*===== ENUM =====*/
-typedef enum			e_textureid
+typedef enum e_textureid
 {
 	NO = 0,
 	SO = 1,
 	WE = 2,
 	EA = 3,
 	ERROR = 4
-}			t_textureid;
+}				t_textureid;
 
 typedef struct s_tx_info
 {
-	char *id; // SO, NO, EA, WE a supprimer
+	char		*id;
 	char		*word;
 	char		*path;
 	int			is_set;
@@ -84,12 +84,12 @@ typedef struct s_parse
 
 typedef struct s_tx_data
 {
-	char	*addr;
-	int		bpp;
-	int		line_length;
-	int		endian;
-	int		width;
-	int		height;
+	char		*addr;
+	int			bpp;
+	int			line_length;
+	int			endian;
+	int			width;
+	int			height;
 }				t_tx_data;
 
 typedef struct s_img
@@ -106,21 +106,21 @@ typedef struct s_img
 
 typedef struct s_dda_context
 {
-	float	cos_a;
-	float	sin_a;
-	int		map_x;
-	int		map_y;
-	int		step_x;
-	int		step_y;
-	float	hit_x;
-	float	hit_y;
-	float	side_dist_x;
-	float	side_dist_y;
-	float	delta_dist_x;
-	float	delta_dist_y;
-	float	dist;
-	int		side;
-	float	wall_x;
+	float		cos_a;
+	float		sin_a;
+	int			map_x;
+	int			map_y;
+	int			step_x;
+	int			step_y;
+	float		hit_x;
+	float		hit_y;
+	float		side_dist_x;
+	float		side_dist_y;
+	float		delta_dist_x;
+	float		delta_dist_y;
+	float		dist;
+	int			side;
+	float		wall_x;
 }				t_dda_context;
 
 typedef struct s_render_context
@@ -132,7 +132,7 @@ typedef struct s_render_context
 	int			tex_y;
 	float		step;
 	float		tex_pos;
-	int			screen_y;// that pixel on the screen
+	int			screen_y;
 }				t_render_context;
 
 typedef struct s_game

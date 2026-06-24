@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/15 15:03:06 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/24 14:43:51 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/24 16:27:47 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,19 +58,31 @@ void	load_wall_sprites(t_game *g)
 	h = BLOCK_SIZE;
 	g->i.n_wall = mlx_xpm_file_to_image(g->mlx, g->path_no_tx, &w, &h);
 	if (!g->i.n_wall)
-		return (ft_putstr_fd("Error\n", 2),
-			ft_putstr_fd("Northern sprite not loaded\n", 2), exit_game(g, 1));
+	{
+		ft_putstr_fd("Error\n", 2);
+		ft_putstr_fd("Southern sprite not loaded\n", 2);
+		exit_game(g, 1);
+	}
 	g->i.s_wall = mlx_xpm_file_to_image(g->mlx, g->path_so_tx, &w, &h);
 	if (!g->i.s_wall)
-		return (ft_putstr_fd("Error\n", 2),
-			ft_putstr_fd("Southern sprite not loaded\n", 2), exit_game(g, 1));
+	{
+		ft_putstr_fd("Error\n", 2);
+		ft_putstr_fd("Southern sprite not loaded\n", 2);
+		exit_game(g, 1);
+	}
 	g->i.e_wall = mlx_xpm_file_to_image(g->mlx, g->path_ea_tx, &w, &h);
 	if (!g->i.e_wall)
-		return (ft_putstr_fd("Error\n", 2),
-			ft_putstr_fd("Eastern sprite not loaded\n", 2), exit_game(g, 1));
+	{
+		ft_putstr_fd("Error\n", 2);
+		ft_putstr_fd("Southern sprite not loaded\n", 2);
+		exit_game(g, 1);
+	}
 	g->i.w_wall = mlx_xpm_file_to_image(g->mlx, g->path_we_tx, &w, &h);
 	if (!g->i.w_wall)
-		return (ft_putstr_fd("Error\n", 2),
-			ft_putstr_fd("Western sprite not loaded\n", 2), exit_game(g, 1));
+	{
+		ft_putstr_fd("Error\n", 2);
+		ft_putstr_fd("Southern sprite not loaded\n", 2);
+		exit_game(g, 1);
+	}
 	load_textures(g);
 }

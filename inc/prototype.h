@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:38 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/24 14:41:16 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/24 16:26:08 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,4 +92,5 @@ float		get_magnitude(float x);
 void		check_if_nb_is_zero(float *x);
 t_tx_data	*get_correct_tex(t_game *g, t_textureid wall_type);
 int			get_tex_pixel(t_tx_data *tex, int tex_x, int tex_y);
+void		calculate_wall_size(t_game *g, t_dda_context *d, t_render_context *r);
 #endif
