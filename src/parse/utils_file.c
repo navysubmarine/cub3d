@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 15:19:04 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/24 14:00:09 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/24 17:32:43 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	assign_field_once(char **struct_path, char *line)
 {
 	if (*struct_path)
 	{
-		ft_putstr_fd("Error. Duplicate identifyer\n", 2);
+		ft_putstr_fd("Error\nDuplicate identifyer\n", 2);
 		return (1);
 	}
 	*struct_path = ft_strdup(line);

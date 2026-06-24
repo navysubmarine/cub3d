@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:47:36 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/12 16:14:17 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/24 17:29:45 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,13 @@ int	handle_player_pos(t_parse *p, char **map)
 {
 	if (is_there_one_player(map))
 	{
-		printf("Error. There is not exactly one player\n");
+		printf("Error\nThere is not exactly one player\n");
 		return (1);
 	}
 	find_player(p, map);
 	if (is_player_on_edge(p, map))
 	{
-		printf("Error. The player is on the edge\n");
+		printf("Error\nThe player is on the edge\n");
 		return (1);
 	}
 	return (0);
@@ -83,13 +83,13 @@ int	is_map_playable(t_parse *p)
 	p->map.copy = map_copy(p->map.map);
 	if (!p->map.copy)
 	{
-		ft_putstr_fd("Error. Map couldn't be copied\n", 2);
+		ft_putstr_fd("Error\nMap couldn't be copied\n", 2);
 		return (1);
 	}
 	p->map.padded_copy = map_padded_copy(p->map.map, p);
 	if (!p->map.padded_copy)
 	{
-		ft_putstr_fd("Error. Padded map couldn't be copied\n", 2);
+		ft_putstr_fd("Error\nPadded map couldn't be copied\n", 2);
 		return (1);
 	}
 	if (handle_player_pos(p, p->map.copy))
@@ -98,8 +98,6 @@ int	is_map_playable(t_parse *p)
 	are_there_still_spaces(&p->map);
 	if (p->map.valid == FALSE)
 		return (1);
-	else
-		printf("Congrats !! Your map has no holes\n");
 	return (0);
 }
 

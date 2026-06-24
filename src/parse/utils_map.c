@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 16:27:31 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/15 16:07:25 by bdemouge         ###   ########.fr       */
+/*   Updated: 2026/06/24 17:32:51 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	calculate_map_len(char **lines, int i, t_parse *p)
 	p->map.map_h = j;
 	if (p->map.map_h <= 0)
 	{
-		ft_putstr_fd("Error. Map doesn't exist\n", 2);
+		ft_putstr_fd("Error\nMap doesn't exist\n", 2);
 		return (1);
 	}
 	return (0);
@@ -49,7 +49,7 @@ int	init_map(char **lines, t_parse *p, int i)
 	p->map.map = ft_calloc(p->map.map_h + 1, sizeof (char *));
 	if (!p->map.map)
 	{
-		ft_putstr_fd("Error. Malloc map failed\n", 2);
+		ft_putstr_fd("Error\nMalloc map failed\n", 2);
 		return (1);
 	}
 	p->map.valid = TRUE;

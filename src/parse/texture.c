@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 16:01:22 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/24 14:19:53 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/24 17:32:39 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,12 @@ int	test_tx_path(char *tx_type, char *path)
 	safe_free(trimmed);
 	if (fd < 0)
 	{
-		printf("Error. %s texture has invalid pathname\n", tx_type);
+		printf("Error\n%s texture has invalid pathname\n", tx_type);
 		return (1);
 	}
 	if (read(fd, buf, 1) < 0)
 	{
-		printf("Error. %s texture is a directory, not a file\n", tx_type);
+		printf("Error\n%s texture is a directory, not a file\n", tx_type);
 		close (fd);
 		return (1);
 	}

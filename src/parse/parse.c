@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 14:50:58 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/24 14:23:32 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/24 17:32:30 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,13 @@ int	parse_input(int argc, char **argv, t_game *g)
 {
 	if (argc != 2 || !ft_strchr_cub(argv[1]))
 	{
-		ft_putstr_fd("Error. Correct input format : ./cub3d <filename>.cub\n",
+		ft_putstr_fd("Error\nCorrect input format : ./cub3d <filename>.cub\n",
 			2);
 		return (1);
 	}
 	if (handle_file(&g->p, argv[1]))
 	{
-		ft_putstr_fd("Error. invalid file\n", 2);
+		ft_putstr_fd("Error\ninvalid file\n", 2);
 		return (1);
 	}
 	if (handle_file_content(&g->p))
@@ -91,7 +91,7 @@ int	handle_line(t_parse_context *c, t_parse *p)
 		return (validate_color_line(p->content[c->i++], p));
 	if (map_detector(p->content[c->i]) == TRUE)
 		return (handle_map(&c->i, &c->i_map, p, p->content));
-	return (printf("Error. Unrecognized line %d\n", c->i), 1);
+	return (printf("Error\nUnrecognized line %d\n", c->i), 1);
 }
 
 int	handle_file_content(t_parse *p)
@@ -112,16 +112,16 @@ int	handle_file_content(t_parse *p)
 int	validate_header_set(t_parse *p)
 {
 	if (!p->textures[NO].is_set)
-		return (ft_putstr_fd("Error. Missing north texture\n", 2), 1);
+		return (ft_putstr_fd("Error\nMissing north texture\n", 2), 1);
 	if (!p->textures[SO].is_set)
-		return (ft_putstr_fd("Error. Missing south texture\n", 2), 1);
+		return (ft_putstr_fd("Error\nMissing south texture\n", 2), 1);
 	if (!p->textures[WE].is_set)
-		return (ft_putstr_fd("Error. Missing west texture\n", 2), 1);
+		return (ft_putstr_fd("Error\nMissing west texture\n", 2), 1);
 	if (!p->textures[EA].is_set)
-		return (ft_putstr_fd("Error. Missing east texture\n", 2), 1);
+		return (ft_putstr_fd("Error\nMissing east texture\n", 2), 1);
 	if (p->colors[0].is_set == FALSE)
-		return (ft_putstr_fd("Error. Missing floor color\n", 2), 1);
+		return (ft_putstr_fd("Error\nMissing floor color\n", 2), 1);
 	if (p->colors[1].is_set == FALSE)
-		return (ft_putstr_fd("Error. Missing ceiling color\n", 2), 1);
+		return (ft_putstr_fd("Error\nMissing ceiling color\n", 2), 1);
 	return (0);
 }
