@@ -6,7 +6,7 @@
 /*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 16:11:00 by bdemouge          #+#    #+#             */
-/*   Updated: 2026/06/24 16:03:11 by bdemouge         ###   ########.fr       */
+/*   Updated: 2026/06/24 17:44:22 by bdemouge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static void draw_background(t_minimap *minimap, t_game *g)
         x = 0;
         while (x < minimap->width)
         {
-            put_pixel(minimap->startX + x, minimap->startY + y, 0x999999, g);
+            put_pixel(minimap->startX + x, minimap->startY + y, 0x888888, g);
             x++;   
         }
         y++;
@@ -94,7 +94,7 @@ void	draw_line(float start_x, float start_y, float angle, t_game *g)
     y = 0;
 	while (line_len < 10)
 	{
-		put_pixel(start_x + x, start_y + y, 0xFF0000, g);
+		put_pixel(start_x + x, start_y + y, 0xFFFFFF, g);
 		x += cos_angle;
 		y += sin_angle;
         line_len++;
@@ -107,17 +107,18 @@ static void draw_player(t_minimap *minimap, t_game *g)
     int y;
 
     x = 0;
-    while (x < 5)
+    while (x < 3)
     {
         y = 0;
-        while (y < 5)
+        while (y < 3)
         {
-            put_pixel(minimap->centerX - 2 + x, minimap->centerY - 2 + y, 0xFF0000, g);
+            put_pixel(minimap->centerX - 2 + x, minimap->centerY - 2 + y, 0xFFFFFF, g);
             y++;
         }
         x++;
     }
-    draw_line(minimap->centerX, minimap->centerY, g->player.angle, g);
+    draw_line(minimap->centerX, minimap->centerY, g->player.angle - FOV / 2, g);
+    draw_line(minimap->centerX, minimap->centerY, g->player.angle + FOV / 2, g);
 }
 
 static void draw_wall(t_minimap *minimap, t_game *g)

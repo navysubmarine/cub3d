@@ -29,8 +29,6 @@ static void	move_forward_backward(float cos_angle, float sin_angle,
 {
 	float new_x;
 	float new_y;
-	int		new_mapX;
-	int new_mapY;
 
 	new_x = player->x;
 	new_y = player->y;
@@ -44,12 +42,10 @@ static void	move_forward_backward(float cos_angle, float sin_angle,
 		new_x -= cos_angle * SPEED;
 		new_y -= sin_angle * SPEED;
 	}
-	new_mapX = (int)new_x / BLOCK_SIZE;
-	new_mapY = (int)new_y / BLOCK_SIZE;
-	if (new_mapY >= 0 && g->map[new_mapY])
-		player->y = new_y;
-	if (new_mapX >= 0 && g->map[(int)player->y / BLOCK_SIZE] && g->map[(int)player->y / BLOCK_SIZE][new_mapX])
+	if (!touch(new_x, player->y, g))
 		player->x = new_x;
+	if (!touch(player->x, new_y, g))
+		player->y = new_y;
 }
 
 static void	move_right_left(float cos_angle, float sin_angle, t_player *player,
@@ -57,8 +53,6 @@ static void	move_right_left(float cos_angle, float sin_angle, t_player *player,
 {
 	float new_x;
 	float new_y;
-	int		new_mapX;
-	int new_mapY;
 
 	new_x = player->x;
 	new_y = player->y;
@@ -72,12 +66,10 @@ static void	move_right_left(float cos_angle, float sin_angle, t_player *player,
 		new_x -= sin_angle * SPEED;
 		new_y += cos_angle * SPEED;
 	}
-	new_mapX = (int)new_x / BLOCK_SIZE;
-	new_mapY = (int)new_y / BLOCK_SIZE;
-	if (new_mapY >= 0 && g->map[new_mapY])
-		player->y = new_y;
-	if (new_mapX >= 0 && g->map[(int)player->y / BLOCK_SIZE] && g->map[(int)player->y / BLOCK_SIZE][new_mapX])
+    if (!touch(new_x, player->y, g))
 		player->x = new_x;
+	if (!touch(player->x, new_y, g))
+		player->y = new_y;
 }
 
 void	move_player(t_game *g)

@@ -22,6 +22,7 @@ CFILES	= 	$(addprefix exit/, exit.c free.c )\
 			$(addprefix render/, hook.c raycasting.c \
 			render.c load.c dda_utils.c init_dda.c )\
 			cub3d.c
+
 SRC_DIR = src
 SRC = $(addprefix $(SRC_DIR)/, $(CFILES))
 

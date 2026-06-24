@@ -6,7 +6,7 @@
 /*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:19 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/23 17:13:17 by bdemouge         ###   ########.fr       */
+/*   Updated: 2026/06/24 17:32:35 by bdemouge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ int	main(int argc, char **argv)
 	if (parse_input(argc, argv, &g))
 		return (free_parse(&g.p), 1);
 	init_mlx_struct(&g);
-	// printf("x = %f\n", g.player.x);
-	// printf("y = %f\n", g.player.y);
+	printf("x = %f\n", g.player.x);
+	printf("y = %f\n", g.player.y);
 	// printf("angle = %f\n", g.player.angle);
 	// printf("Floor = %d\n", g.floor);
 	// printf("Ceiling = %d\n", g.ceiling);
