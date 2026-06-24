@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 15:35:33 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/12 16:18:31 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/24 14:47:24 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,4 +92,5 @@ void	print_game(t_game *g)
 	//printf("--- parse ---\n");
 	//print_parse(g);
 	printf("=====================\n");
+	printf("kakou");
 }
