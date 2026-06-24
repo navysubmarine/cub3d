@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   hook.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/24 14:28:32 by marthoma          #+#    #+#             */
+/*   Updated: 2026/06/24 14:28:39 by marthoma         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 int	key_press(int keycode, void *ply)
 {
-    t_player *player;
+	t_player	*player;
 
-    player = (t_player *)ply;
+	player = (t_player *)ply;
 	if (keycode == W)
 		player->forward = true;
 	if (keycode == S)
@@ -19,14 +31,14 @@ int	key_press(int keycode, void *ply)
 		player->right_rotate = true;
 	if (keycode == ESC)
 		player->exit = true;
-    return (0);
+	return (0);
 }
 
 int	key_release(int keycode, void *ply)
 {
-    t_player *player;
+	t_player	*player;
 
-    player = (t_player *)ply;
+	player = (t_player *)ply;
 	if (keycode == W)
 		player->forward = false;
 	if (keycode == S)
@@ -41,5 +53,5 @@ int	key_release(int keycode, void *ply)
 		player->right_rotate = false;
 	if (keycode == ESC)
 		player->exit = false;
-    return (0);
+	return (0);
 }

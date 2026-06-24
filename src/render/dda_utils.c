@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 11:42:43 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/23 12:14:03 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/24 14:43:16 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,14 @@ void	get_hit_point(t_dda_context *d, t_player *player)
 float	get_wall_hit_fraction(t_dda_context *d, float hit_x, float hit_y)
 {
 	if (d->side == 0)
-		return ((hit_y - (int)(hit_y / BLOCK_SIZE) * BLOCK_SIZE) / BLOCK_SIZE);
+		return ((hit_y - (int)(hit_y / BLOCK_SIZE)*BLOCK_SIZE) / BLOCK_SIZE);
 	else
-		return ((hit_x - (int)(hit_x / BLOCK_SIZE) * BLOCK_SIZE) / BLOCK_SIZE);
+		return ((hit_x - (int)(hit_x / BLOCK_SIZE)*BLOCK_SIZE) / BLOCK_SIZE);
+}
+
+void	calculate_wall_size(t_game *g, t_dda_context *d, t_render_context *r)
+{
+	r->wall_height = (BLOCK_SIZE * g->win_height) / d->dist;
+	r->bottom_y = (g->win_height / 2) - (r->wall_height / 2);
+	r->top_y = (g->win_height / 2) + (r->wall_height / 2);
 }

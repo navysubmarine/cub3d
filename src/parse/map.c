@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/11 14:58:17 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/12 11:43:59 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/24 14:22:55 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,4 +107,3 @@ int	handle_map(int *i, int *i_map, t_parse *p, char **lines)
 	}
 	return (0);
 }
-

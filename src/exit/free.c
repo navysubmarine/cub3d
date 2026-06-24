@@ -6,13 +6,13 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/12 12:10:38 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/12 16:01:18 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/24 14:24:48 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void safe_free(void *ptr)
+void	safe_free(void *ptr)
 {
 	if (ptr)
 	{

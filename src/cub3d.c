@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:19 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/23 15:39:34 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/24 14:22:34 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	draw_loop(void *param)
 
 	g = (t_game *)param;
 	fill_background_colors(g);
-	//ft_memset(g->addr, 0, g->win_width * g->win_height * g->bpp / 8);
 	move_player(g);
 	raycasting(g);
 	mlx_put_image_to_window(g->mlx, g->win, g->img, 0, 0);
@@ -33,11 +32,6 @@ int	main(int argc, char **argv)
 	if (parse_input(argc, argv, &g))
 		return (free_parse(&g.p), 1);
 	init_mlx_struct(&g);
-	// printf("x = %f\n", g.player.x);
-	// printf("y = %f\n", g.player.y);
-	// printf("angle = %f\n", g.player.angle);
-	// printf("Floor = %d\n", g.floor);
-	// printf("Ceiling = %d\n", g.ceiling);
 	mlx_hook(g.win, 17, 0, (int (*)())(void *)end, &g);
 	mlx_hook(g.win, 2, 1L << 0, (int (*)())(void *)key_press, &g.player);
 	mlx_hook(g.win, 3, 1L << 1, (int (*)())(void *)key_release, &g.player);

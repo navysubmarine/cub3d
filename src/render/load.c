@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/15 15:03:06 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/23 15:39:53 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/24 14:43:51 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,20 @@ void	fill_background_colors(t_game *g)
 	}
 }
 
-void	load_tex_data(void *img, t_tx_data *data, int width, int height)
+void	load_tex_data(void *img, t_tx_data *data)
 {
-	(void)width;
-	(void)height;
-	data->width = width;
-	data->height = height;
+	data->width = BLOCK_SIZE;
+	data->height = BLOCK_SIZE;
 	data->addr = mlx_get_data_addr(img, &data->bpp, &data->line_length,
 			&data->endian);
+}
+
+static void	load_textures(t_game *g)
+{
+	load_tex_data(g->i.n_wall, &g->i.n_data);
+	load_tex_data(g->i.s_wall, &g->i.s_data);
+	load_tex_data(g->i.e_wall, &g->i.e_data);
+	load_tex_data(g->i.w_wall, &g->i.w_data);
 }
 
 void	load_wall_sprites(t_game *g)
@@ -48,35 +54,23 @@ void	load_wall_sprites(t_game *g)
 	int	w;
 	int	h;
 
-	printf("load_wall_sprites called\n");
 	w = BLOCK_SIZE;
 	h = BLOCK_SIZE;
 	g->i.n_wall = mlx_xpm_file_to_image(g->mlx, g->path_no_tx, &w, &h);
 	if (!g->i.n_wall)
-	{
-		ft_putstr_fd("Error: Northern wall sprite could not be loaded\n", 2);
-		exit_game(g, 1);
-	}
+		return (ft_putstr_fd("Error\n", 2),
+			ft_putstr_fd("Northern sprite not loaded\n", 2), exit_game(g, 1));
 	g->i.s_wall = mlx_xpm_file_to_image(g->mlx, g->path_so_tx, &w, &h);
 	if (!g->i.s_wall)
-	{
-		ft_putstr_fd("Error: Southern wall sprite could not be loaded\n", 2);
-		exit_game(g, 1);
-	}
+		return (ft_putstr_fd("Error\n", 2),
+			ft_putstr_fd("Southern sprite not loaded\n", 2), exit_game(g, 1));
 	g->i.e_wall = mlx_xpm_file_to_image(g->mlx, g->path_ea_tx, &w, &h);
 	if (!g->i.e_wall)
-	{
-		ft_putstr_fd("Error: Eastern wall sprite could not be loaded\n", 2);
-		exit_game(g, 1);
-	}
+		return (ft_putstr_fd("Error\n", 2),
+			ft_putstr_fd("Eastern sprite not loaded\n", 2), exit_game(g, 1));
 	g->i.w_wall = mlx_xpm_file_to_image(g->mlx, g->path_we_tx, &w, &h);
 	if (!g->i.w_wall)
-	{
-		ft_putstr_fd("Error: Western wall sprite could not be loaded\n", 2);
-		exit_game(g, 1);
-	}
-	load_tex_data(g->i.n_wall, &g->i.n_data, w, h);
-	load_tex_data(g->i.s_wall, &g->i.s_data, w, h);
-	load_tex_data(g->i.e_wall, &g->i.e_data, w, h);
-	load_tex_data(g->i.w_wall, &g->i.w_data, w, h);
+		return (ft_putstr_fd("Error\n", 2),
+			ft_putstr_fd("Western sprite not loaded\n", 2), exit_game(g, 1));
+	load_textures(g);
 }

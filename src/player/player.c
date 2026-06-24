@@ -1,15 +1,16 @@
-#include "cub3d.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   player.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/24 14:28:12 by marthoma          #+#    #+#             */
+/*   Updated: 2026/06/24 14:28:17 by marthoma         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-// void	init_player(float x, float y, float angle, t_player *player)
-// {
-// 	player->x = x;
-// 	player->y = y;
-// 	player->angle = angle;
-// 	player->backward = false;
-// 	player->forward = false;
-// 	player->right = false;
-// 	player->left = false;
-// }
+#include "cub3d.h"
 
 bool	touch(float x, float y, t_game *g)
 {

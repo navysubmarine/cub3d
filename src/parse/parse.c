@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 14:50:58 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/24 14:18:26 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/24 14:23:32 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,11 @@ int	parse_input(int argc, char **argv, t_game *g)
 	}
 	if (handle_file_content(&g->p))
 		return (1);
-	//print_parse(g);
 	if (validate_header_set(&g->p))
 		return (1);
 	if (is_map_playable(&g->p))
 		return (1);
 	init_game_info(g);
-	//print_game(g);
 	return (0);
 }
 

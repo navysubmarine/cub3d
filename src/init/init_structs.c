@@ -1,22 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_game_struct.c                                     :+:      :+:    :+:   */
+/*   init_structs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/09 14:19:14 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/11 15:09:49 by marthoma         ###   ########.fr       */
+/*   Created: 2026/06/24 14:27:21 by marthoma          #+#    #+#             */
+/*   Updated: 2026/06/24 14:27:40 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-// static void	init_file_info_struct(t_parse *p)
-// {
-// 	p->file.floor_set = FALSE;
-// 	p->file.ceiling_set = FALSE;
-// }
 
 static void	init_tx_info_struct(t_parse *p)
 {
@@ -46,7 +40,6 @@ void	init_parsing_struct(t_parse *p)
 	ft_memset(&p->map, 0, sizeof(t_map));
 	init_tx_info_struct(p);
 	init_col_info_struct(p);
-	//init_file_info_struct(p);
 	p->map.is_map_set = FALSE;
 }
 

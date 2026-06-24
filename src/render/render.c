@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 12:07:49 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/23 14:11:29 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/24 14:43:23 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,34 +49,14 @@ int	get_tex_pixel(t_tx_data *tex, int tex_x, int tex_y)
 	return (*(unsigned int *)pixel);
 }
 
-void	calculate_wall_size(t_game *g, t_dda_context *d, t_render_context *r)
-{
-	/*to find the wall height*/
-	r->wall_height = (BLOCK_SIZE * g->win_height) / d->dist;
-	/*to find the center,
-		then remove half the height to find the bottom of the wall */
-	r->bottom_y = (g->win_height / 2) - (r->wall_height / 2);
-	/*same but the other way around to find the top*/
-	r->top_y = (g->win_height / 2) + (r->wall_height / 2);
-}
-
 void	get_tex_column(t_render_context *r, t_tx_data *tex, t_dda_context *d)
 {
-	/*wall_x is the percentage of where the ray touched the wall,
-	we want to find the according
-	column of the texture*/
 	r->tex_x = (int)(d->wall_x * tex->width);
-	/*we check we won't try to read out of the texture bounds*/
 	if (r->tex_x < 0)
 		r->tex_x = 0;
 	if (r->tex_x >= tex->width)
 		r->tex_x = tex->width - 1;
-	/*for every 1 pixel I move down the screen,
-	how many texture pixels should I move down the texture image ?*/
 	r->step = tex->height / r->wall_height;
-	/*if the wall is bigger than the screen,
-		it starts at 0 = bottom of the screen
-	+ we have to "skip" a part of the texture*/
 	if (r->bottom_y < 0)
 		r->tex_pos = -r->bottom_y * r->step;
 	else
@@ -86,7 +66,8 @@ void	get_tex_column(t_render_context *r, t_tx_data *tex, t_dda_context *d)
 		r->screen_y = 0;
 }
 
-void	draw_wall_column(int i, t_game *g, t_textureid wall_type, t_dda_context *d)
+void	draw_wall_column(int i, t_game *g, t_textureid wall_type,
+	t_dda_context *d)
 {
 	t_render_context	r;
 	t_tx_data			*tex;
@@ -94,8 +75,6 @@ void	draw_wall_column(int i, t_game *g, t_textureid wall_type, t_dda_context *d)
 	calculate_wall_size(g, d, &r);
 	tex = get_correct_tex(g, wall_type);
 	get_tex_column(&r, tex, d);
-
-	/* we keep going until end of the screen or the wall*/
 	while (r.screen_y < r.top_y && r.screen_y < g->win_height)
 	{
 		r.tex_y = (int)r.tex_pos;
