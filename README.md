@@ -34,18 +34,89 @@ robust against malformed input.
 
 **Bonus features implemented:**
 - Wall collisions, preventing the player from walking through walls
-- A real-time minimap showing the player's position and orientation in the
-  maze
+- A real-time minimap showing the player's position and orientation in the maze
 
 # *⋆˚✰ ݁˖⭑. Instructions *⋆˚✰ ݁˖⭑.
 
+### Dependencies
+
+- A C compiler (`cc`)
+- MiniLibX (and its own dependencies: an X11 server, Xext and Xrender)
+- `make`
+
+### Compilation
+
+```bash
+make        # builds the mandatory part
+make bonus  # builds the mandatory part with bonus features included
+```
+
+Other available rules:
+
+```bash
+make clean   # remove object files
+make fclean  # remove object files and the binary
+make re      # fclean + all
+make test    # tester with all available maps
+```
+
+### Running
+
+```bash
+./cub3D path/to/file.cub
+```
+
+The scene file must have the `.cub` extension and follow the format
+described in the [Scene file format](#file-format) section below.
+
+### Controls
+
+| Key                | Action                       |
+|---------------------|-------------------------------|
+| `W` / `A` / `S` / `D` | Move forward / left / back / right |
+| `←` / `→`           | Look left / right             |
+| `ESC`               | Quit cleanly                  |
+| Window close button | Quit cleanly                  |
+
+### File format
+
+A `.cub` file describes four wall textures, a floor color, a ceiling color,
+and a map, e.g.:
+
+```
+NO ./textures/north.xpm
+SO ./textures/south.xpm
+WE ./textures/west.xpm
+EA ./textures/east.xpm
+
+F 220,100,0
+C 225,30,0
+
+111111
+100101
+101001
+1100N1
+111111
+```
+
+- `0` is an empty/walkable tile, `1` is a wall, and one of `N`, `S`, `E`,
+  `W` marks the player's starting position and facing direction.
+- The map must be fully enclosed by walls.
+- Elements other than the map can appear in any order and can be separated
+  by any number of blank lines or spaces/tabs.
+- The map must always be the last element in the file.
+
+Any malformed scene file is rejected with `Error\n` followed by a
+descriptive message, and the program exits cleanly without leaking memory.
 
 # *⋆˚✰ ݁˖⭑. Resources  *⋆˚✰ ݁˖⭑.
 
 Youtube : [Make your own Raycaster](https://www.youtube.com/watch?v=gYRrGTC7GtA&list=PLCXqoZAc8-tyDSaO8jnabOEFhdTQfx77_&index=1).
 Medium : [3D Ray-casting Game with Cub3D by Abdilah CH](https://devabdilah.medium.com/3d-ray-casting-game-with-cub3d-7a116376056a).
+Lodev : [Lode's Computer Graphics Tutorial – Raycasting](https://lodev.org/cgtutor/raycasting.html).
+[42's MiniLibX documentation](https://github.com/42Paris/minilibx-linux).
 
 # *⋆˚✰ ݁˖⭑. Use of AI  *⋆˚✰ ݁˖⭑.
 
-AI (Claude by Anthropic) was used during this project for the following task:
+AI (Claude) was used primarily as a **debugging aid** during development, not as a code generator for core logic. It was also used to generate a batch of additional `.cub` test maps (valid and invalid) to test the parser against edge cases described in the subjec (duplicate identifiers, unclosed maps, out-of-range colors, jagged map rows, tabs as separators, etc.), and for this readme.
 
