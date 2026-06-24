@@ -6,7 +6,7 @@
 /*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 18:01:54 by bdemouge          #+#    #+#             */
-/*   Updated: 2026/06/23 18:12:57 by bdemouge         ###   ########.fr       */
+/*   Updated: 2026/06/24 14:40:05 by bdemouge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,12 +137,16 @@ typedef struct s_render_context
 
 typedef struct s_minimap
 {
+	double posX;
+	double posY;
 	int width;
 	int height;
 	int startX;
 	int startY;
 	int centerX;
 	int centerY;
+	int radiusX;
+	int radiusY;
 	int blockSize;
 }	t_minimap;
 

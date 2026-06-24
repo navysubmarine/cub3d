@@ -6,7 +6,7 @@
 /*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 18:02:04 by bdemouge          #+#    #+#             */
-/*   Updated: 2026/06/23 18:21:14 by bdemouge         ###   ########.fr       */
+/*   Updated: 2026/06/24 15:19:17 by bdemouge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define BLOCK_SIZE 500
 # define RAY_SIZE   1280
 # define SPEED 50
-# define SPEED_ROTATE 0.05
+# define SPEED_ROTATE 0.07
 # define FOV 1.047197551
 # define NORTH 4.71238898
 # define SOUTH 1.570796327

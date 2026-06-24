@@ -62,8 +62,22 @@ void	init_mlx_struct(t_game *g)
 	load_wall_sprites(g);
 }
 
+static void init_minimap(t_minimap *minimap, t_game *g)
+{
+    minimap->blockSize = g->win_height / 4 / MINIMAP_HEIGHT;
+    minimap->height = minimap->blockSize * MINIMAP_HEIGHT;
+    minimap->width = minimap->blockSize * MINIMAP_WIDTH;
+    minimap->startX = 20;
+    minimap->startY = g->win_height - minimap->height - 20;
+    minimap->radiusX = minimap->width / 2;
+    minimap->radiusY = minimap->height / 2;
+    minimap->centerX = minimap->startX + minimap->radiusX;
+    minimap->centerY = minimap->startY + minimap->radiusY;
+}
+
 void	init_game_struct(t_game *g)
 {
 	ft_memset(g, 0, sizeof(t_game));
 	init_parsing_struct(&g->p);
+	init_minimap(&g->minimap, g);
 }
