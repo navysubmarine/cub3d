@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/15 15:03:06 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/24 16:27:47 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/24 18:21:23 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,40 +49,29 @@ static void	load_textures(t_game *g)
 	load_tex_data(g->i.w_wall, &g->i.w_data);
 }
 
+static void	load_one_sprite(t_game *g, void **dst, char *path, char *err)
+{
+	int	dim;
+
+	dim = BLOCK_SIZE;
+	*dst = mlx_xpm_file_to_image(g->mlx, path, &dim, &dim);
+	if (!*dst)
+	{
+		ft_putstr_fd("Error\n", 2);
+		ft_putstr_fd(err, 2);
+		exit_game(g, 1);
+	}
+}
+
 void	load_wall_sprites(t_game *g)
 {
-	int	w;
-	int	h;
-
-	w = BLOCK_SIZE;
-	h = BLOCK_SIZE;
-	g->i.n_wall = mlx_xpm_file_to_image(g->mlx, g->path_no_tx, &w, &h);
-	if (!g->i.n_wall)
-	{
-		ft_putstr_fd("Error\n", 2);
-		ft_putstr_fd("Southern sprite not loaded\n", 2);
-		exit_game(g, 1);
-	}
-	g->i.s_wall = mlx_xpm_file_to_image(g->mlx, g->path_so_tx, &w, &h);
-	if (!g->i.s_wall)
-	{
-		ft_putstr_fd("Error\n", 2);
-		ft_putstr_fd("Southern sprite not loaded\n", 2);
-		exit_game(g, 1);
-	}
-	g->i.e_wall = mlx_xpm_file_to_image(g->mlx, g->path_ea_tx, &w, &h);
-	if (!g->i.e_wall)
-	{
-		ft_putstr_fd("Error\n", 2);
-		ft_putstr_fd("Southern sprite not loaded\n", 2);
-		exit_game(g, 1);
-	}
-	g->i.w_wall = mlx_xpm_file_to_image(g->mlx, g->path_we_tx, &w, &h);
-	if (!g->i.w_wall)
-	{
-		ft_putstr_fd("Error\n", 2);
-		ft_putstr_fd("Southern sprite not loaded\n", 2);
-		exit_game(g, 1);
-	}
+	load_one_sprite(g, &g->i.n_wall, g->path_no_tx,
+		"Northern sprite not loaded\n");
+	load_one_sprite(g, &g->i.s_wall, g->path_so_tx,
+		"Southern sprite not loaded\n");
+	load_one_sprite(g, &g->i.e_wall, g->path_ea_tx,
+		"Eastern sprite not loaded\n");
+	load_one_sprite(g, &g->i.w_wall, g->path_we_tx,
+		"Western sprite not loaded\n");
 	load_textures(g);
 }

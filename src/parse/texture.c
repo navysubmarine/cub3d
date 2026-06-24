@@ -6,13 +6,13 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 16:01:22 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/24 17:32:39 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/24 17:57:03 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	validate_texture_line(char	*line, t_parse *p)
+int	validate_texture_line(char *line, t_parse *p)
 {
 	int		i;
 	int		j;
@@ -25,16 +25,13 @@ int	validate_texture_line(char	*line, t_parse *p)
 		i++;
 	while (j < 4)
 	{
-		if (ft_strncmp(line + i, p->textures[j].id, 2) == 0
-			&& line[2 + i] != '\0')
+		if (ft_strncmp(line + i, p->textures[j].id, 2) == 0 && line[2
+				+ i] != '\0')
 		{
 			content = find_content(line + i, p->textures[j].id);
 			trimmed = ft_strtrim(content, " \t");
-			if (!trimmed)
-				return (1);
-			if (test_tx_path(p->textures[j].word, trimmed))
-				return (safe_free(trimmed), 1);
-			if (assign_field_once(&p->textures[j].path, trimmed))
+			if (!trimmed || test_tx_path(p->textures[j].word, trimmed)
+				|| assign_field_once(&p->textures[j].path, trimmed))
 				return (safe_free(trimmed), 1);
 			p->textures[j].is_set = TRUE;
 			return (0);
@@ -82,9 +79,9 @@ int	test_tx_path(char *tx_type, char *path)
 	if (read(fd, buf, 1) < 0)
 	{
 		printf("Error\n%s texture is a directory, not a file\n", tx_type);
-		close (fd);
+		close(fd);
 		return (1);
 	}
-	close (fd);
+	close(fd);
 	return (0);
 }

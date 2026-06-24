@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:38 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/24 16:26:08 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/24 18:04:19 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 /*INIT STRUCTS*/
 void		init_game_struct(t_game *g);
 void		init_context_struct(t_parse_context *data, t_parse *p);
+void		init_parsing_struct(t_parse *p);
 /****PARSING****/
 int			parse_input(int argc, char **argv, t_game *g);
 int			ft_strchr_cub(const char *s);
@@ -53,6 +54,7 @@ int			test_rgb_format(char *content);
 int			test_rgb_color(char *id, char *content);
 int			store_rgb(int *values, char *content);
 int			col_detector(char *line);
+int			rgb_to_int(int r, int g, int b);
 /*EXIT*/
 int			end(t_game *g);
 int			exit_game(t_game *g, int status);

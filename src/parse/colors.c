@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 16:05:05 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/24 17:31:49 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/24 17:48:43 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,7 @@ int	test_rgb_color(char	*id, char *content)
 		tab = NULL;
 		return (1);
 	}
-	free_content(tab);
-	tab = NULL;
-	return (0);
+	return (free_content(tab), tab = NULL, 0);
 }
 
 int	store_rgb(int *values, char *content)

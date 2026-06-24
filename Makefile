@@ -1,4 +1,4 @@
-NAME = cub3d
+NAME = cub3D
 
 # Compilation
 CC = cc
@@ -12,10 +12,11 @@ fsan: re
 
 # Sources
 CFILES	= 	$(addprefix exit/, exit.c free.c )\
-			$(addprefix init/, init_structs.c )\
+			$(addprefix init/, init_p_structs.c \
+			init_r_structs.c )\
 			$(addprefix parse/, check_map.c colors.c \
 			map_copy.c map.c parse.c store.c \
-			texture.c utils_file.c utils_map.c )\
+			texture.c utils_file.c utils_map.c utils_line.c )\
 			$(addprefix utils/, print.c )\
 			$(addprefix player/, player.c )\
 			$(addprefix render/, hook.c raycasting.c \

@@ -6,25 +6,11 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 16:27:31 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/24 17:32:51 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/24 17:40:26 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	print_map(char **map, char *name)
-{
-	int	i;
-
-	i = 0;
-	printf("%s\n", name);
-	printf("_________________\n");
-	while (map[i])
-	{
-		printf("%s\n", map[i]);
-		i++;
-	}
-}
 
 int	calculate_map_len(char **lines, int i, t_parse *p)
 {
@@ -46,7 +32,7 @@ int	init_map(char **lines, t_parse *p, int i)
 {
 	if (calculate_map_len(lines, i, p))
 		return (1);
-	p->map.map = ft_calloc(p->map.map_h + 1, sizeof (char *));
+	p->map.map = ft_calloc(p->map.map_h + 1, sizeof(char *));
 	if (!p->map.map)
 	{
 		ft_putstr_fd("Error\nMalloc map failed\n", 2);
@@ -59,6 +45,18 @@ int	init_map(char **lines, t_parse *p, int i)
 void	store_map_line(t_parse *p, char *line, int i)
 {
 	p->map.map[i] = ft_strdup(line);
+}
+
+static void	assign_angle(t_parse *p, char c)
+{
+	if (c == 'N')
+		p->player.angle = NORTH;
+	else if (c == 'S')
+		p->player.angle = SOUTH;
+	else if (c == 'W')
+		p->player.angle = WEST;
+	else
+		p->player.angle = EAST;
 }
 
 void	find_player(t_parse *p, char **map)
@@ -75,32 +73,12 @@ void	find_player(t_parse *p, char **map)
 		j = 0;
 		while (map[i][j])
 		{
-			if (map[i][j] == 'N')
+			if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'E'
+				|| map[i][j] == 'W')
 			{
 				p->player.x = j;
 				p->player.y = i;
-				p->player.angle = NORTH;
-				return ;
-			}
-			if (map[i][j] == 'S')
-			{
-				p->player.x = j;
-				p->player.y = i;
-				p->player.angle = SOUTH;
-				return ;
-			}
-			if (map[i][j] == 'E')
-			{
-				p->player.x = j;
-				p->player.y = i;
-				p->player.angle = EAST;
-				return ;
-			}
-			if (map[i][j] == 'W')
-			{
-				p->player.x = j;
-				p->player.y = i;
-				p->player.angle = WEST;
+				assign_angle(p, map[i][j]);
 				return ;
 			}
 			j++;
