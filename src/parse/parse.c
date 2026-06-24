@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 14:50:58 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/16 17:51:43 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/24 14:18:26 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	handle_line(t_parse_context *c, t_parse *p)
 		return (validate_color_line(p->content[c->i++], p));
 	if (map_detector(p->content[c->i]) == TRUE)
 		return (handle_map(&c->i, &c->i_map, p, p->content));
-	return (ft_putstr_fd("Error. Unrecognized line\n", 2), 1);
+	return (printf("Error. Unrecognized line %d\n", c->i), 1);
 }
 
 int	handle_file_content(t_parse *p)

@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 16:01:22 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/24 13:57:55 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/24 14:19:53 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,13 @@ int	tx_detector(char *line)
 	i = 0;
 	while (line[i] == ' ' || line[i] == '\t')
 		i++;
-	if (ft_strncmp(line + i, "NO ", 3) == 0)
+	if (ft_strncmp(line + i, "NO", 2) == 0)
 		return (TRUE);
-	else if (ft_strncmp(line + i, "SO ", 3) == 0)
+	else if (ft_strncmp(line + i, "SO", 2) == 0)
 		return (TRUE);
-	else if (ft_strncmp(line + i, "WE ", 3) == 0)
+	else if (ft_strncmp(line + i, "WE", 2) == 0)
 		return (TRUE);
-	else if (ft_strncmp(line + i, "EA ", 3) == 0)
+	else if (ft_strncmp(line + i, "EA", 2) == 0)
 		return (TRUE);
 	else
 		return (FALSE);

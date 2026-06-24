@@ -1,0 +1,13 @@
+NO textures/matrix/north.xpm
+SO textures/matrix/south.xpm
+WE textures/matrix/west.xpm
+EA textures/matrix/east.xpm
+
+F 20,20,20
+C 200,200,200
+
+1111111
+111N111
+11000011
+1110111
+1111111

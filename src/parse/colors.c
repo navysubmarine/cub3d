@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 16:05:05 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/12 15:19:24 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/24 14:20:13 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,9 +127,9 @@ int	col_detector(char *line)
 	i = 0;
 	while (line[i] == ' ' || line[i] == '\t')
 		i++;
-	if (ft_strncmp(line + i, "F ", 2) == 0)
+	if (ft_strncmp(line + i, "F", 1) == 0)
 		return (TRUE);
-	else if (ft_strncmp(line + i, "C ", 2) == 0)
+	else if (ft_strncmp(line + i, "C", 1) == 0)
 		return (TRUE);
 	else
 		return (FALSE);
