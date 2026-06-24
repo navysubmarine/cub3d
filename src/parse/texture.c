@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 16:01:22 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/12 15:20:01 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/24 13:57:55 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	validate_texture_line(char	*line, t_parse *p)
 	int		i;
 	int		j;
 	char	*content;
+	char	*trimmed;
 
 	j = 0;
 	i = 0;
@@ -28,10 +29,13 @@ int	validate_texture_line(char	*line, t_parse *p)
 			&& line[2 + i] != '\0')
 		{
 			content = find_content(line + i, p->textures[j].id);
-			if (test_tx_path(p->textures[j].word, content))
+			trimmed = ft_strtrim(content, " \t");
+			if (!trimmed)
 				return (1);
-			if (assign_field_once(&p->textures[j].path, content))
-				return (1);
+			if (test_tx_path(p->textures[j].word, trimmed))
+				return (safe_free(trimmed), 1);
+			if (assign_field_once(&p->textures[j].path, trimmed))
+				return (safe_free(trimmed), 1);
 			p->textures[j].is_set = TRUE;
 			return (0);
 		}

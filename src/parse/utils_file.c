@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 15:19:04 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/12 15:20:06 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/24 14:00:09 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ int	assign_field_once(char **struct_path, char *line)
 	}
 	*struct_path = ft_strdup(line);
 	if (*struct_path == NULL)
-		return (1);
+		return (safe_free(line), 1);
+	safe_free(line);
 	return (0);
 }
 
