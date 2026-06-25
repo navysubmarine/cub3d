@@ -111,6 +111,8 @@ descriptive message, and the program exits cleanly without leaking memory.
 
 # *⋆˚✰ ݁˖⭑. Resources  *⋆˚✰ ݁˖⭑.
 
+The forest texture background was made by Eder Muniz : https://edermunizz.itch.io/ - we added some characters on top of them.
+
 Youtube : [Make your own Raycaster](https://www.youtube.com/watch?v=gYRrGTC7GtA&list=PLCXqoZAc8-tyDSaO8jnabOEFhdTQfx77_&index=1).
 Medium : [3D Ray-casting Game with Cub3D by Abdilah CH](https://devabdilah.medium.com/3d-ray-casting-game-with-cub3d-7a116376056a).
 Lodev : [Lode's Computer Graphics Tutorial – Raycasting](https://lodev.org/cgtutor/raycasting.html).
