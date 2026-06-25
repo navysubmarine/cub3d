@@ -6,16 +6,16 @@
 /*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 18:02:04 by bdemouge          #+#    #+#             */
-/*   Updated: 2026/06/25 17:42:07 by bdemouge         ###   ########.fr       */
+/*   Updated: 2026/06/25 17:55:53 by bdemouge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MACRO_H
 # define MACRO_H
 
-#ifndef BONUS
-# define BONUS 0
-#endif
+# ifndef BONUS
+#  define BONUS 0
+# endif
 
 # define W 119
 # define A 97
@@ -27,7 +27,7 @@
 
 # define PI 3.141592653589793
 # define BLOCK_SIZE 500
-# define RAY_SIZE   1280
+# define RAY_SIZE 1280
 # define SPEED 50
 # define SPEED_ROTATE 0.07
 # define FOV 1.047197551

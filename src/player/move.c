@@ -6,7 +6,7 @@
 /*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/24 14:28:12 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/25 17:40:04 by bdemouge         ###   ########.fr       */
+/*   Updated: 2026/06/25 17:53:28 by bdemouge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ static void	move_forward_backward(float cos_angle, float sin_angle,
 {
 	float	new_x;
 	float	new_y;
-	int		new_mapX;
-	int		new_mapY;
+	int		new_mapx;
+	int		new_mapy;
 
 	new_x = player->x;
 	new_y = player->y;
@@ -44,12 +44,12 @@ static void	move_forward_backward(float cos_angle, float sin_angle,
 		new_x -= cos_angle * SPEED;
 		new_y -= sin_angle * SPEED;
 	}
-	new_mapX = (int)new_x / BLOCK_SIZE;
-	new_mapY = (int)new_y / BLOCK_SIZE;
-	if (new_mapY > 0 && g->map[new_mapY])
+	new_mapx = (int)new_x / BLOCK_SIZE;
+	new_mapy = (int)new_y / BLOCK_SIZE;
+	if (new_mapy > 0 && g->map[new_mapy])
 		player->y = new_y;
-	if (new_mapX > 0 && g->map[(int)player->y / BLOCK_SIZE]
-		&& g->map[(int)player->y / BLOCK_SIZE][new_mapX])
+	if (new_mapx > 0 && g->map[(int)player->y / BLOCK_SIZE]
+		&& g->map[(int)player->y / BLOCK_SIZE][new_mapx])
 		player->x = new_x;
 }
 
@@ -58,8 +58,8 @@ static void	move_right_left(float cos_angle, float sin_angle, t_player *player,
 {
 	float	new_x;
 	float	new_y;
-	int		new_mapX;
-	int		new_mapY;
+	int		new_mapx;
+	int		new_mapy;
 
 	new_x = player->x;
 	new_y = player->y;
@@ -73,12 +73,12 @@ static void	move_right_left(float cos_angle, float sin_angle, t_player *player,
 		new_x -= sin_angle * SPEED;
 		new_y += cos_angle * SPEED;
 	}
-	new_mapX = (int)new_x / BLOCK_SIZE;
-	new_mapY = (int)new_y / BLOCK_SIZE;
-	if (new_mapY > 0 && g->map[new_mapY])
+	new_mapx = (int)new_x / BLOCK_SIZE;
+	new_mapy = (int)new_y / BLOCK_SIZE;
+	if (new_mapy > 0 && g->map[new_mapy])
 		player->y = new_y;
-	if (new_mapX > 0 && g->map[(int)player->y / BLOCK_SIZE]
-		&& g->map[(int)player->y / BLOCK_SIZE][new_mapX])
+	if (new_mapx > 0 && g->map[(int)player->y / BLOCK_SIZE]
+		&& g->map[(int)player->y / BLOCK_SIZE][new_mapx])
 		player->x = new_x;
 }
 
