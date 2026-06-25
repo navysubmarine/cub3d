@@ -6,7 +6,7 @@
 /*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/24 14:27:21 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/25 17:19:05 by bdemouge         ###   ########.fr       */
+/*   Updated: 2026/06/25 17:30:58 by bdemouge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	init_mlx_struct(t_game *g)
 	load_wall_sprites(g);
 }
 
-static void	init_minimap(t_minimap *minimap, t_game *g)
+void	init_minimap(t_minimap *minimap, t_game *g)
 {
 	minimap->blocksize = g->win_height / 4 / MINIMAP_HEIGHT;
 	minimap->height = minimap->blocksize * MINIMAP_HEIGHT;
@@ -41,5 +41,4 @@ void	init_game_struct(t_game *g)
 {
 	ft_memset(g, 0, sizeof(t_game));
 	init_parsing_struct(&g->p);
-	init_minimap(&g->minimap, g);
 }

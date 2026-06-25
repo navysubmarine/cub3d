@@ -6,7 +6,7 @@
 /*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:38 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/25 17:18:00 by bdemouge         ###   ########.fr       */
+/*   Updated: 2026/06/25 17:40:38 by bdemouge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int			count_lines(int fd);
 float		get_magnitude(float x);
 /*PLAYER*/
 void		move_player(t_game *g);
+void		move_player_collision(t_game *g);
 /*RENDER*/
 int			key_press(int keycode, void *ply);
 int			key_release(int keycode, void *ply);
@@ -105,6 +106,6 @@ void		draw_background(t_minimap *minimap, t_game *g);
 void		draw_line(float start_x, float start_y, float angle, t_game *g);
 void		draw_square(int x, int y, int color, t_game *g);
 bool		is_in_minimap(int x, int y, t_minimap *minimap);
-//void		init_minimap2(t_minimap *minimap, t_player *player, t_game *g);
+void		init_minimap(t_minimap *minimap, t_game *g);
 
 #endif

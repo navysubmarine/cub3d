@@ -1,77 +1,87 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minimap_utils.c                                    :+:      :+:    :+:   */
+/*   minimap_utils2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/25 16:33:39 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/25 17:20:22 by bdemouge         ###   ########.fr       */
+/*   Created: 2026/06/23 16:11:00 by bdemouge          #+#    #+#             */
+/*   Updated: 2026/06/25 17:35:21 by bdemouge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	draw_player(t_minimap *minimap, t_game *g)
+bool	is_in_minimap(int x, int y, t_minimap *minimap)
+{
+	if (x < minimap->start_x)
+		return (false);
+	if (x > minimap->start_x + minimap->width)
+		return (false);
+	if (y < minimap->start_y)
+		return (false);
+	if (y > minimap->start_y + minimap->height)
+		return (false);
+	return (true);
+}
+
+void	draw_square(int x, int y, int color, t_game *g)
+{
+	int			i;
+	int			j;
+	t_minimap	*minimap;
+
+	minimap = &g->minimap;
+	i = 0;
+	while (i < minimap->blocksize - 1)
+	{
+		j = 0;
+		while (j < minimap->blocksize - 1)
+		{
+			if (is_in_minimap(x + j, y + i, minimap))
+				put_pixel(x + j, y + i, color, g);
+			j++;
+		}
+		i++;
+	}
+}
+
+void	draw_background(t_minimap *minimap, t_game *g)
 {
 	int	x;
 	int	y;
 
+	y = 0;
+	while (y < minimap->height)
+	{
+		x = 0;
+		while (x < minimap->width)
+		{
+			put_pixel(minimap->start_x + x, minimap->start_y + y, 0x888888, g);
+			x++;
+		}
+		y++;
+	}
+}
+
+void	draw_line(float start_x, float start_y, float angle, t_game *g)
+{
+	float	cos_angle;
+	float	sin_angle;
+	float	x;
+	float	y;
+	int		line_len;
+
+	cos_angle = cos(angle);
+	sin_angle = sin(angle);
+	line_len = 0;
 	x = 0;
-	while (x < 3)
+	y = 0;
+	while (line_len < 10)
 	{
-		y = 0;
-		while (y < 3)
-		{
-			put_pixel(minimap->center_x - 2 + x, minimap->center_y - 2 + y,
-				0xFFFFFF, g);
-			y++;
-		}
-		x++;
+		put_pixel(start_x + x, start_y + y, 0xFFFFFF, g);
+		x += cos_angle;
+		y += sin_angle;
+		line_len++;
 	}
-	draw_line(minimap->center_x, minimap->center_y, g->player.angle - FOV / 2,
-		g);
-	draw_line(minimap->center_x, minimap->center_y, g->player.angle + FOV / 2,
-		g);
-}
-
-void	draw_wall(t_minimap *minimap, t_game *g)
-{
-	int	j;
-	int	i;
-	int	screen_x;
-	int	screen_y;
-
-	j = 0;
-	while (g->map[j])
-	{
-		i = 0;
-		while (i < (int)ft_strlen(g->map[j]))
-		{
-			if (g->map[j][i] == '1')
-			{
-				screen_x = minimap->center_x + (i - minimap->pos_x)
-					* minimap->blocksize;
-				screen_y = minimap->center_y + (j - minimap->pos_y)
-					* minimap->blocksize;
-				draw_square(screen_x, screen_y, 0x222222, g);
-			}
-			i++;
-		}
-		j++;
-	}
-}
-
-void	draw_map(t_game *g)
-{
-	t_minimap	*minimap;
-
-	minimap = &g->minimap;
-	minimap->pos_x = (g->player.x / BLOCK_SIZE);
-	minimap->pos_y = (g->player.y / BLOCK_SIZE);
-	//init_minimap2(&g->minimap, &g->player, g);
-	printf("pos_x = %lf, pos_y = % lf\n", minimap->pos_x, minimap->pos_y);
-	draw_background(minimap, g);
-	draw_wall(minimap, g);
-	draw_player(minimap, g);
 }

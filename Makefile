@@ -6,11 +6,6 @@ CFLAGS = -Wall -Wextra -Werror -MMD -MP -g3 $(addprefix -I,$(INCDIR))
 LFLAGS = -lX11 -lXext -lm
 SFLAGS = -fsanitize=address
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> refs/remotes/origin/main
 # Sources
 CFILES	= 	$(addprefix exit/, exit.c free.c )\
 			$(addprefix init/, init_p_structs.c \
@@ -19,7 +14,7 @@ CFILES	= 	$(addprefix exit/, exit.c free.c )\
 			$(addprefix parse/, check_map.c colors.c \
 			map_copy.c map.c parse.c store.c \
 			texture.c utils_file.c utils_map.c utils_line.c )\
-			$(addprefix player/, player.c )\
+			$(addprefix player/, move.c move_collision.c )\
 			$(addprefix render/, hook.c raycasting.c \
 			render.c load.c dda_utils.c init_dda.c )\
 			cub3d.c
@@ -39,6 +34,9 @@ BUILDDIR = .build
 OBJ = $(SRC:%.c=$(BUILDDIR)/%.o)
 DEP = $(OBJ:.o=.d)
 
+# BONUS
+BONUS = 0
+
 # LIBRAIRIES
 # Minilibx
 MLX = $(MLX_DIR)/libmlx_Linux.a
@@ -55,7 +53,7 @@ MAPS_BAD  = $(wildcard maps/bad/*.cub)
 
 $(BUILDDIR)/%.o: %.c
 	@mkdir -p $(@D)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -DBONUS=$(BONUS) -c $< -o $@
 
 all: $(NAME)
 
@@ -64,7 +62,10 @@ fsan: LFLAGS += $(SFLAGS)
 fsan: re
 
 $(NAME): $(LIBFT) $(MLX) $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(MLX) $(LFLAGS) -o $(NAME)
+	$(CC) $(CFLAGS) -DBONUS=$(BONUS) $(OBJ) $(LIBFT) $(MLX) $(LFLAGS) -o $(NAME)
+
+bonus:
+	$(MAKE) all BONUS=1
 
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
@@ -116,7 +117,7 @@ test: all
 
 -include $(DEP)
 
-.PHONY: clean fclean re good test
+.PHONY: bonus clean fclean re good test
 
 # CC      = cc
 # CFLAGS  = -Wall -Wextra -Werror -g3 -I$(MLX_DIR)

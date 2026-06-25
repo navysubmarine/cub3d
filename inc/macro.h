@@ -6,12 +6,16 @@
 /*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 18:02:04 by bdemouge          #+#    #+#             */
-/*   Updated: 2026/06/24 15:19:17 by bdemouge         ###   ########.fr       */
+/*   Updated: 2026/06/25 17:42:07 by bdemouge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MACRO_H
 # define MACRO_H
+
+#ifndef BONUS
+# define BONUS 0
+#endif
 
 # define W 119
 # define A 97

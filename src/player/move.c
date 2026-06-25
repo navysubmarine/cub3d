@@ -1,28 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player.c                                           :+:      :+:    :+:   */
+/*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/24 14:28:12 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/25 17:21:41 by bdemouge         ###   ########.fr       */
+/*   Updated: 2026/06/25 17:40:04 by bdemouge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-bool	touch(float x, float y, t_game *g)
-{
-	int	real_x;
-	int	real_y;
-
-	real_x = x / BLOCK_SIZE;
-	real_y = y / BLOCK_SIZE;
-	if (g->map[real_y][real_x] == '1')
-		return (true);
-	return (false);
-}
 
 static void	rotate_player(t_player *player)
 {

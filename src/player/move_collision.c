@@ -72,7 +72,7 @@ static void	move_right_left(float cos_angle, float sin_angle, t_player *player,
 		player->y = new_y;
 }
 
-void	move_player(t_game *g)
+void	move_player_collision(t_game *g)
 {
 	float		cos_angle;
 	float		sin_angle;
