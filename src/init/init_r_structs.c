@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_r_structs.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/24 14:27:21 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/25 17:30:58 by bdemouge         ###   ########.fr       */
+/*   Updated: 2026/06/25 17:49:17 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 void	init_mlx_struct(t_game *g)
 {
 	g->mlx = mlx_init();
+	if (!g->mlx)
+		exit_game(g, 1);
 	mlx_get_screen_size(g->mlx, &g->win_width, &g->win_height);
 	g->win_height *= 0.9;
 	g->win_width *= 0.9;
@@ -41,4 +43,5 @@ void	init_game_struct(t_game *g)
 {
 	ft_memset(g, 0, sizeof(t_game));
 	init_parsing_struct(&g->p);
+	g->p.g = g;
 }
