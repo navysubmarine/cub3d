@@ -85,6 +85,8 @@ re: fclean all
 
 good: all clean
 
+-include $(DEP)
+
 .PHONY: bonus clean fclean re good test
 
 # CC      = cc
