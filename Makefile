@@ -6,6 +6,11 @@ CFLAGS = -Wall -Wextra -Werror -MMD -MP -g3 $(addprefix -I,$(INCDIR))
 LFLAGS = -lX11 -lXext -lm
 SFLAGS = -fsanitize=address
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> refs/remotes/origin/main
 # Sources
 CFILES	= 	$(addprefix exit/, exit.c free.c )\
 			$(addprefix init/, init_p_structs.c \
