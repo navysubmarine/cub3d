@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   move_collision.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/25 17:53:46 by marthoma          #+#    #+#             */
+/*   Updated: 2026/06/25 17:53:55 by marthoma         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 bool	touch(float x, float y, t_game *g)
@@ -27,8 +39,8 @@ static void	rotate_player(t_player *player)
 static void	move_forward_backward(float cos_angle, float sin_angle,
 		t_player *player, t_game *g)
 {
-	float new_x;
-	float new_y;
+	float	new_x;
+	float	new_y;
 
 	new_x = player->x;
 	new_y = player->y;
@@ -36,7 +48,7 @@ static void	move_forward_backward(float cos_angle, float sin_angle,
 	{
 		new_x += cos_angle * SPEED;
 		new_y += sin_angle * SPEED;
- 	}
+	}
 	if (player->backward == true)
 	{
 		new_x -= cos_angle * SPEED;
@@ -51,8 +63,8 @@ static void	move_forward_backward(float cos_angle, float sin_angle,
 static void	move_right_left(float cos_angle, float sin_angle, t_player *player,
 		t_game *g)
 {
-	float new_x;
-	float new_y;
+	float	new_x;
+	float	new_y;
 
 	new_x = player->x;
 	new_y = player->y;
@@ -66,7 +78,7 @@ static void	move_right_left(float cos_angle, float sin_angle, t_player *player,
 		new_x -= sin_angle * SPEED;
 		new_y += cos_angle * SPEED;
 	}
-    if (!touch(new_x, player->y, g))
+	if (!touch(new_x, player->y, g))
 		player->x = new_x;
 	if (!touch(player->x, new_y, g))
 		player->y = new_y;
