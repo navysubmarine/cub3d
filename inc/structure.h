@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 18:01:54 by bdemouge          #+#    #+#             */
-/*   Updated: 2026/06/25 17:39:20 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/25 19:11:58 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,8 +127,8 @@ typedef struct s_dda_context
 typedef struct s_render_context
 {
 	float			wall_height;
-	int				bottom_y;
-	int				top_y;
+	float			bottom_y;
+	float			top_y;
 	int				tex_x;
 	int				tex_y;
 	float			step;
