@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:19 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/24 14:22:34 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/25 16:24:07 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	draw_loop(void *param)
 	fill_background_colors(g);
 	move_player(g);
 	raycasting(g);
+	draw_map(g);
 	mlx_put_image_to_window(g->mlx, g->win, g->img, 0, 0);
 	return (0);
 }

@@ -14,6 +14,7 @@ fsan: re
 CFILES	= 	$(addprefix exit/, exit.c free.c )\
 			$(addprefix init/, init_p_structs.c \
 			init_r_structs.c )\
+			$(addprefix minimap/, minimap.c)\
 			$(addprefix parse/, check_map.c colors.c \
 			map_copy.c map.c parse.c store.c \
 			texture.c utils_file.c utils_map.c utils_line.c )\
@@ -22,6 +23,7 @@ CFILES	= 	$(addprefix exit/, exit.c free.c )\
 			$(addprefix render/, hook.c raycasting.c \
 			render.c load.c dda_utils.c init_dda.c )\
 			cub3d.c
+
 SRC_DIR = src
 SRC = $(addprefix $(SRC_DIR)/, $(CFILES))
 

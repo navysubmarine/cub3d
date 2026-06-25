@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   macro.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 18:02:04 by bdemouge          #+#    #+#             */
-/*   Updated: 2026/06/22 14:47:02 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/24 15:19:17 by bdemouge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define BLOCK_SIZE 500
 # define RAY_SIZE   1280
 # define SPEED 50
-# define SPEED_ROTATE 0.05
+# define SPEED_ROTATE 0.07
 # define FOV 1.047197551
 # define NORTH 4.71238898
 # define SOUTH 1.570796327
@@ -40,5 +40,8 @@
 # define PINK 0xFD6C9E
 # define RED 0xD90115
 # define GREEN 0x82C46C
+
+# define MINIMAP_WIDTH 17
+# define MINIMAP_HEIGHT 11
 
 #endif
