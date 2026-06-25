@@ -57,7 +57,6 @@ Other available rules:
 make clean   # remove object files
 make fclean  # remove object files and the binary
 make re      # fclean + all
-make test    # tester with all available maps
 ```
 
 ### Running

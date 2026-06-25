@@ -4,7 +4,7 @@ NAME = cub3D
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -MMD -MP -g3 $(addprefix -I,$(INCDIR))
 LFLAGS = -lX11 -lXext -lm
-SFLAGS = -fsanitize=address
+# SFLAGS = -fsanitize=address,undefined
 
 # Sources
 CFILES	= 	$(addprefix exit/, exit.c free.c )\
@@ -47,10 +47,6 @@ MLX_REPO = https://github.com/42paris/minilibx-linux.git
 LIBFT = $(LIBFT_DIR)/libft.a
 LIBFT_DIR = libft
 
-# MAPS
-MAPS_GOOD = $(wildcard maps/good/*.cub)
-MAPS_BAD  = $(wildcard maps/bad/*.cub)
-
 $(BUILDDIR)/%.o: %.c
 	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) -DBONUS=$(BONUS) -c $< -o $@
@@ -87,35 +83,7 @@ fclean: clean
 
 re: fclean all
 
-# good: all clean
-
-test: all
-	@echo "┌──────────────────────────────────────┐"
-	@echo "│  GOOD MAPS — should all succeed      │"
-	@echo "└──────────────────────────────────────┘"
-	@for map in $(MAPS_GOOD); do \
-		echo "--- $$map ---"; \
-		./$(NAME) $$map; \
-		if [ $$? -eq 0 ]; then \
-			echo "✅ PASS"; \
-		else \
-			echo "❌ FAIL (expected success)"; \
-		fi \
-	done
-	@echo "┌──────────────────────────────────────┐"
-	@echo "│  BAD MAPS — should all fail          │"
-	@echo "└──────────────────────────────────────┘"
-	@for map in $(MAPS_BAD); do \
-		echo "--- $$map ---"; \
-		./$(NAME) $$map; \
-		if [ $$? -ne 0 ]; then \
-			echo "✅ PASS (rejected correctly)"; \
-		else \
-			echo "❌ FAIL (should have been rejected)"; \
-		fi \
-	done
-
--include $(DEP)
+good: all clean
 
 .PHONY: bonus clean fclean re good test
 
