@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/24 14:28:12 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/25 16:25:24 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/25 17:21:41 by bdemouge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ static void	move_forward_backward(float cos_angle, float sin_angle,
 	}
 	new_mapX = (int)new_x / BLOCK_SIZE;
 	new_mapY = (int)new_y / BLOCK_SIZE;
-	if (new_mapY >= 0 && g->map[new_mapY])
+	if (new_mapY > 0 && g->map[new_mapY])
 		player->y = new_y;
-	if (new_mapX >= 0 && g->map[(int)player->y / BLOCK_SIZE]
+	if (new_mapX > 0 && g->map[(int)player->y / BLOCK_SIZE]
 		&& g->map[(int)player->y / BLOCK_SIZE][new_mapX])
 		player->x = new_x;
 }
@@ -87,9 +87,9 @@ static void	move_right_left(float cos_angle, float sin_angle, t_player *player,
 	}
 	new_mapX = (int)new_x / BLOCK_SIZE;
 	new_mapY = (int)new_y / BLOCK_SIZE;
-	if (new_mapY >= 0 && g->map[new_mapY])
+	if (new_mapY > 0 && g->map[new_mapY])
 		player->y = new_y;
-	if (new_mapX >= 0 && g->map[(int)player->y / BLOCK_SIZE]
+	if (new_mapX > 0 && g->map[(int)player->y / BLOCK_SIZE]
 		&& g->map[(int)player->y / BLOCK_SIZE][new_mapX])
 		player->x = new_x;
 }

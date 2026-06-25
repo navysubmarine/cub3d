@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 16:11:00 by bdemouge          #+#    #+#             */
-/*   Updated: 2026/06/25 16:44:20 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/25 17:17:53 by bdemouge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,20 +46,20 @@ void	draw_square(int x, int y, int color, t_game *g)
 	}
 }
 
-void	init_minimap2(t_minimap *minimap, t_player *player, t_game *g)
-{
-	minimap->blocksize = g->win_height / 4 / MINIMAP_HEIGHT;
-	minimap->height = minimap->blocksize * MINIMAP_HEIGHT;
-	minimap->width = minimap->blocksize * MINIMAP_WIDTH;
-	minimap->start_x = 20;
-	minimap->start_y = g->win_height - minimap->height - 20;
-	minimap->radius_x = minimap->width / 2;
-	minimap->radius_y = minimap->height / 2;
-	minimap->center_x = minimap->start_x + minimap->radius_x;
-	minimap->center_y = minimap->start_y + minimap->radius_y;
-	minimap->pos_x = (player->x / BLOCK_SIZE);
-	minimap->pos_y = (player->y / BLOCK_SIZE);
-}
+// void	init_minimap2(t_minimap *minimap, t_player *player, t_game *g)
+// {
+// 	minimap->blocksize = g->win_height / 4 / MINIMAP_HEIGHT;
+// 	minimap->height = minimap->blocksize * MINIMAP_HEIGHT;
+// 	minimap->width = minimap->blocksize * MINIMAP_WIDTH;
+// 	minimap->start_x = 20;
+// 	minimap->start_y = g->win_height - minimap->height - 20;
+// 	minimap->radius_x = minimap->width / 2;
+// 	minimap->radius_y = minimap->height / 2;
+// 	minimap->center_x = minimap->start_x + minimap->radius_x;
+// 	minimap->center_y = minimap->start_y + minimap->radius_y;
+// 	minimap->pos_x = (player->x / BLOCK_SIZE);
+// 	minimap->pos_y = (player->y / BLOCK_SIZE);
+// }
 
 void	draw_background(t_minimap *minimap, t_game *g)
 {

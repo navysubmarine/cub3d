@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/25 16:33:39 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/25 16:47:29 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/25 17:20:22 by bdemouge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ void	draw_map(t_game *g)
 	minimap = &g->minimap;
 	minimap->pos_x = (g->player.x / BLOCK_SIZE);
 	minimap->pos_y = (g->player.y / BLOCK_SIZE);
-	init_minimap2(&g->minimap, &g->player, g);
+	//init_minimap2(&g->minimap, &g->player, g);
+	printf("pos_x = %lf, pos_y = % lf\n", minimap->pos_x, minimap->pos_y);
 	draw_background(minimap, g);
 	draw_wall(minimap, g);
 	draw_player(minimap, g);

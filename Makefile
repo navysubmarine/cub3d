@@ -6,10 +6,6 @@ CFLAGS = -Wall -Wextra -Werror -MMD -MP -g3 $(addprefix -I,$(INCDIR))
 LFLAGS = -lX11 -lXext -lm
 SFLAGS = -fsanitize=address
 
-fsan: CFLAGS += $(SFLAGS)
-fsan: LFLAGS += $(SFLAGS)
-fsan: re
-
 # Sources
 CFILES	= 	$(addprefix exit/, exit.c free.c )\
 			$(addprefix init/, init_p_structs.c \
@@ -18,7 +14,6 @@ CFILES	= 	$(addprefix exit/, exit.c free.c )\
 			$(addprefix parse/, check_map.c colors.c \
 			map_copy.c map.c parse.c store.c \
 			texture.c utils_file.c utils_map.c utils_line.c )\
-			$(addprefix utils/, print.c )\
 			$(addprefix player/, player.c )\
 			$(addprefix render/, hook.c raycasting.c \
 			render.c load.c dda_utils.c init_dda.c )\
@@ -58,6 +53,10 @@ $(BUILDDIR)/%.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 all: $(NAME)
+
+fsan: CFLAGS += $(SFLAGS)
+fsan: LFLAGS += $(SFLAGS)
+fsan: re
 
 $(NAME): $(LIBFT) $(MLX) $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(MLX) $(LFLAGS) -o $(NAME)

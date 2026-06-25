@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prototype.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:38 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/25 16:44:50 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/25 17:18:00 by bdemouge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,6 @@ void		draw_background(t_minimap *minimap, t_game *g);
 void		draw_line(float start_x, float start_y, float angle, t_game *g);
 void		draw_square(int x, int y, int color, t_game *g);
 bool		is_in_minimap(int x, int y, t_minimap *minimap);
-void		init_minimap2(t_minimap *minimap, t_player *player, t_game *g);
+//void		init_minimap2(t_minimap *minimap, t_player *player, t_game *g);
 
 #endif

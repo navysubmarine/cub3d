@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_r_structs.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/24 14:27:21 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/25 16:47:59 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/25 17:19:05 by bdemouge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,22 +24,22 @@ void	init_mlx_struct(t_game *g)
 	load_wall_sprites(g);
 }
 
-// static void	init_minimap(t_minimap *minimap, t_game *g)
-// {
-// 	minimap->blocksize = g->win_height / 4 / MINIMAP_HEIGHT;
-// 	minimap->height = minimap->blocksize * MINIMAP_HEIGHT;
-// 	minimap->width = minimap->blocksize * MINIMAP_WIDTH;
-// 	minimap->start_x = 20;
-// 	minimap->start_y = g->win_height - minimap->height - 20;
-// 	minimap->radius_x = minimap->width / 2;
-// 	minimap->radius_y = minimap->height / 2;
-// 	minimap->center_x = minimap->start_x + minimap->radius_x;
-// 	minimap->center_y = minimap->start_y + minimap->radius_y;
-// }
+static void	init_minimap(t_minimap *minimap, t_game *g)
+{
+	minimap->blocksize = g->win_height / 4 / MINIMAP_HEIGHT;
+	minimap->height = minimap->blocksize * MINIMAP_HEIGHT;
+	minimap->width = minimap->blocksize * MINIMAP_WIDTH;
+	minimap->start_x = 20;
+	minimap->start_y = g->win_height - minimap->height - 20;
+	minimap->radius_x = minimap->width / 2;
+	minimap->radius_y = minimap->height / 2;
+	minimap->center_x = minimap->start_x + minimap->radius_x;
+	minimap->center_y = minimap->start_y + minimap->radius_y;
+}
 
 void	init_game_struct(t_game *g)
 {
 	ft_memset(g, 0, sizeof(t_game));
 	init_parsing_struct(&g->p);
-	//init_minimap(&g->minimap, g);
+	init_minimap(&g->minimap, g);
 }
