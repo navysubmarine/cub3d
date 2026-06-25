@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 18:01:54 by bdemouge          #+#    #+#             */
-/*   Updated: 2026/06/25 16:22:44 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/25 16:28:44 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,17 +137,17 @@ typedef struct s_render_context
 
 typedef struct s_minimap
 {
-	double posX;
-	double posY;
-	int width;
-	int height;
-	int startX;
-	int startY;
-	int centerX;
-	int centerY;
-	int radiusX;
-	int radiusY;
-	int blockSize;
+	double		pos_x;
+	double		pos_y;
+	int			width;
+	int			height;
+	int			start_x;
+	int			start_y;
+	int			center_x;
+	int			center_y;
+	int			radius_x;
+	int			radius_y;
+	int			blocksize;
 }	t_minimap;
 
 typedef struct s_game
@@ -172,7 +172,7 @@ typedef struct s_game
 	t_parse		p;
 	t_player	player;
 	t_img		i;
-	t_minimap minimap;
+	t_minimap	minimap;
 }				t_game;
 
 #endif

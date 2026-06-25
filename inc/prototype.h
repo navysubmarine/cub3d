@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:38 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/25 16:22:34 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/25 16:44:50 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,16 @@ float		get_magnitude(float x);
 void		check_if_nb_is_zero(float *x);
 t_tx_data	*get_correct_tex(t_game *g, t_textureid wall_type);
 int			get_tex_pixel(t_tx_data *tex, int tex_x, int tex_y);
-void		calculate_wall_size(t_game *g, t_dda_context *d, t_render_context *r);
+void		calculate_wall_size(t_game *g, t_dda_context *d,
+				t_render_context *r);
 /*minimap*/
 void		draw_map(t_game *g);
+void		draw_wall(t_minimap *minimap, t_game *g);
+void		draw_player(t_minimap *minimap, t_game *g);
+void		draw_background(t_minimap *minimap, t_game *g);
+void		draw_line(float start_x, float start_y, float angle, t_game *g);
+void		draw_square(int x, int y, int color, t_game *g);
+bool		is_in_minimap(int x, int y, t_minimap *minimap);
+void		init_minimap2(t_minimap *minimap, t_player *player, t_game *g);
 
 #endif
