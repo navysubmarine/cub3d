@@ -6,9 +6,7 @@ CFLAGS = -Wall -Wextra -Werror -MMD -MP -g3 $(addprefix -I,$(INCDIR))
 LFLAGS = -lX11 -lXext -lm
 SFLAGS = -fsanitize=address
 
-fsan: CFLAGS += $(SFLAGS)
-fsan: LFLAGS += $(SFLAGS)
-fsan: re
+
 
 # Sources
 CFILES	= 	$(addprefix exit/, exit.c free.c )\
@@ -58,6 +56,10 @@ $(BUILDDIR)/%.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 all: $(NAME)
+
+fsan: CFLAGS += $(SFLAGS)
+fsan: LFLAGS += $(SFLAGS)
+fsan: re
 
 $(NAME): $(LIBFT) $(MLX) $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(MLX) $(LFLAGS) -o $(NAME)
