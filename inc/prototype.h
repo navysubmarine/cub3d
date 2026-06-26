@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prototype.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:38 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/25 17:40:38 by bdemouge         ###   ########.fr       */
+/*   Updated: 2026/06/26 16:30:52 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,17 +59,11 @@ int			rgb_to_int(int r, int g, int b);
 int			end(t_game *g);
 int			exit_game(t_game *g, int status);
 void		free_content(char **content);
-void		free_all(t_game *g);
 void		safe_free(void *ptr);
 void		free_parse(t_parse *p);
-/*PRINT*/
-void		print_parse(t_game *g);
-void		print_map(char **map, char *name);
-void		print_game(t_game *g);
 /*UTILS*/
 void		init_mlx_struct(t_game *g);
 char		*ft_strdup_padded(const char *s, int padded_line_len);
-void		print_map(char **map, char *name);
 int			count_lines(int fd);
 float		get_magnitude(float x);
 /*PLAYER*/
