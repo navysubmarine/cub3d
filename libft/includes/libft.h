@@ -6,7 +6,7 @@
 /*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 15:43:42 by bdemouge          #+#    #+#             */
-/*   Updated: 2026/06/11 14:24:27 by bdemouge         ###   ########.fr       */
+/*   Updated: 2026/06/26 15:01:06 by bdemouge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <stddef.h>
 # include "ft_printf.h"
-# include "get_next_line_bonus.h"
+# include "get_next_line.h"
 
 /* FONCTIONS CTYPE */
 int		ft_isalpha(int c);

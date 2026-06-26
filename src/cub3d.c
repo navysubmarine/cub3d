@@ -6,7 +6,7 @@
 /*   By: bdemouge <bdemouge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:19 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/25 18:56:33 by bdemouge         ###   ########.fr       */
+/*   Updated: 2026/06/26 14:46:11 by bdemouge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	main(int argc, char **argv)
 
 	init_game_struct(&g);
 	if (parse_input(argc, argv, &g))
-		return (free_parse(&g.p), 1);
+		exit_game(&g, 1);
 	init_mlx_struct(&g);
 	init_minimap(&g.minimap, &g);
 	mlx_hook(g.win, 17, 0, (int (*)())(void *)end, &g);
@@ -43,6 +43,5 @@ int	main(int argc, char **argv)
 	mlx_hook(g.win, 3, 1L << 1, (int (*)())(void *)key_release, &g.player);
 	mlx_loop_hook(g.mlx, (int (*)())(void *)draw_loop, &g);
 	mlx_loop(g.mlx);
-	free_parse(&g.p);
 	return (0);
 }
