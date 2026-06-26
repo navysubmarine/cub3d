@@ -149,7 +149,7 @@ good: all clean
 # 	@echo "└──────────────────────────────────────┘"
 # 	@for map in $(MAPS_GOOD); do \
 # 		echo "--- $$map ---"; \
-# 		./$(NAME) $$map; \
+# 		valgrind ./$(NAME) $$map; \
 # 		if [ $$? -eq 0 ]; then \
 # 			echo "✅ PASS"; \
 # 		else \
@@ -161,7 +161,7 @@ good: all clean
 # 	@echo "└──────────────────────────────────────┘"
 # 	@for map in $(MAPS_BAD); do \
 # 		echo "--- $$map ---"; \
-# 		./$(NAME) $$map; \
+# 		valgrind ./$(NAME) $$map; \
 # 		if [ $$? -ne 0 ]; then \
 # 			echo "✅ PASS (rejected correctly)"; \
 # 		else \
