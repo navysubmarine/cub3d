@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 12:10:44 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/23 12:14:12 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/26 18:12:11 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,13 @@
 /*avoids the /0 division and sets the cos/sin into very very tiny number*/
 void	check_if_nb_is_zero(float *x)
 {
-	if (get_magnitude(*x) < 0.000001)
+	if (fabs(*x) < 0.000001)
 	{
 		if (*x >= 0)
 			*x = 0.000001;
 		else
 			*x = -0.000001;
 	}
-}
-
-float	get_magnitude(float x)
-{
-	if (x < 0)
-		return (-x);
-	return (x);
 }
 
 void	get_step_direction(float cos_sin, int *step)
@@ -46,13 +39,13 @@ void	get_distance_from_next_grid_line(t_dda_context *d, t_player *player)
 	float	absolute_cos;
 	float	absolute_sin;
 
-	absolute_cos = get_magnitude(d->cos_a);
+	absolute_cos = fabs(d->cos_a);
 	if (d->cos_a < 0)
 		d->side_dist_x = (player->x - d->map_x * BLOCK_SIZE) / absolute_cos;
 	else
 		d->side_dist_x = ((d->map_x + 1) * BLOCK_SIZE - player->x)
 			/ absolute_cos;
-	absolute_sin = get_magnitude(d->sin_a);
+	absolute_sin = fabs(d->sin_a);
 	if (d->sin_a < 0)
 		d->side_dist_y = (player->y - d->map_y * BLOCK_SIZE) / absolute_sin;
 	else
@@ -76,7 +69,7 @@ void	init_dda_context(t_dda_context *d, t_player *player, float angle)
 	get_step_direction(d->sin_a, &d->step_y);
 	d->map_x = (int)(player->x / BLOCK_SIZE);
 	d->map_y = (int)(player->y / BLOCK_SIZE);
-	d->delta_dist_x = get_magnitude(BLOCK_SIZE / d->cos_a);
-	d->delta_dist_y = get_magnitude(BLOCK_SIZE / d->sin_a);
+	d->delta_dist_x = fabs(BLOCK_SIZE / d->cos_a);
+	d->delta_dist_y = fabs(BLOCK_SIZE / d->sin_a);
 	get_distance_from_next_grid_line(d, player);
 }

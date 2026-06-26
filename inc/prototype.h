@@ -6,7 +6,7 @@
 /*   By: marthoma <marthoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 11:46:38 by marthoma          #+#    #+#             */
-/*   Updated: 2026/06/26 16:30:52 by marthoma         ###   ########.fr       */
+/*   Updated: 2026/06/26 18:15:51 by marthoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ void		free_parse(t_parse *p);
 void		init_mlx_struct(t_game *g);
 char		*ft_strdup_padded(const char *s, int padded_line_len);
 int			count_lines(int fd);
-float		get_magnitude(float x);
 /*PLAYER*/
 void		move_player(t_game *g);
 void		move_player_collision(t_game *g);
@@ -86,7 +85,6 @@ void		load_tex_data(void *img, t_tx_data *data);
 float		get_wall_hit_fraction(t_dda_context *d, float hit_x, float hit_y);
 void		get_hit_point(t_dda_context *d, t_player *player);
 int			find_wall_type(t_dda_context *d);
-float		get_magnitude(float x);
 void		check_if_nb_is_zero(float *x);
 t_tx_data	*get_correct_tex(t_game *g, t_textureid wall_type);
 int			get_tex_pixel(t_tx_data *tex, int tex_x, int tex_y);
